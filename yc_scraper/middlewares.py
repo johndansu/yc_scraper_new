@@ -92,24 +92,27 @@ class SeleniumMiddleware:
         return middleware
 
     def process_request(self, request, spider):
-        # Only process requests to ycombinator.com
-        if 'ycombinator.com' in request.url and self.driver:
-            spider.logger.info(f'Processing {request.url} with Selenium')
+        # Only use Selenium for the companies listing page (which has infinite scroll)
+        # Skip Selenium for individual company pages - they're mostly static HTML
+        is_listing_page = '/companies?' in request.url or request.url.endswith('/companies')
+        
+        if is_listing_page and 'ycombinator.com' in request.url and self.driver:
+            spider.logger.info(f'Processing listing page {request.url} with Selenium')
             try:
                 self.driver.get(request.url)
                 
                 # Wait for content to load
-                time.sleep(3)
+                time.sleep(1)
                 
                 # Scroll to load more content (infinite scroll)
                 last_height = self.driver.execute_script("return document.body.scrollHeight")
                 scroll_attempts = 0
-                max_scrolls = 15  # Limit scroll attempts
+                max_scrolls = 10  # Reduced scroll attempts
                 
                 while scroll_attempts < max_scrolls:
                     # Scroll down
                     self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(2)  # Wait for new content to load
+                    time.sleep(0.5)  # Reduced wait time
                     
                     # Calculate new scroll height
                     new_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -125,6 +128,8 @@ class SeleniumMiddleware:
                 spider.logger.error(f'Error processing request with Selenium: {e}')
                 return None
         
+        # For individual company pages, let Scrapy handle them normally (no Selenium)
+        # This is much faster since company detail pages are mostly static HTML
         return None
 
     def spider_closed(self, spider):

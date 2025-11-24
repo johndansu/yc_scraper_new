@@ -74,71 +74,139 @@ class YcCompaniesSpider(scrapy.Spider):
             if company_name:
                 item['company_name'] = company_name.strip().replace(' | Y Combinator', '').strip()
         
-        # Extract company website
-        # Look for external links that are not YC links
-        all_links = response.css('a[href^="http"]::attr(href)').getall()
-        company_website = ''
-        for link in all_links:
-            if 'ycombinator.com' not in link and 'linkedin.com' not in link and 'twitter.com' not in link and 'x.com' not in link:
-                company_website = link
-                break
+        # Extract company website - look for the actual company website link
+        # Exclude YC, social media, and other common non-company links
+        excluded_domains = [
+            'ycombinator.com', 'linkedin.com', 'twitter.com', 'x.com', 
+            'startupschool.org', 'bookface-static.ycombinator.com',
+            'bookface-images.s3', 'facebook.com', 'instagram.com',
+            'youtube.com', 'google.com', 'maps.googleapis.com'
+        ]
         
-        if not company_website:
-            # Try specific selectors
-            company_website = (
-                response.css('a[href^="http"]:not([href*="ycombinator"]):not([href*="linkedin"]):not([href*="twitter"]):not([href*="x.com"])::attr(href)').get() or
-                response.css('[data-website]::attr(data-website)').get() or
-                response.css('.website a::attr(href), a.website::attr(href)').get()
-            )
+        company_website = ''
+        
+        # Try to find website link near company name/section
+        # Look for links that are clearly the company's main website
+        website_selectors = [
+            'a[href^="http"]:not([href*="ycombinator"]):not([href*="linkedin"]):not([href*="twitter"]):not([href*="x.com"]):not([href*="startupschool"]):not([href*="bookface"]):not([href*="facebook"]):not([href*="instagram"]):not([href*="youtube"]):not([href*="maps"])::attr(href)',
+            '[data-website]::attr(data-website)',
+            '.website a::attr(href)',
+            'a.website::attr(href)',
+            'a[href*="http"]:not([href*="ycombinator"]):not([href*="linkedin"]):not([href*="twitter"]):not([href*="x.com"]):not([href*="startupschool"]):not([href*="bookface"])::attr(href)'
+        ]
+        
+        for selector in website_selectors:
+            links = response.css(selector).getall()
+            for link in links:
+                if link and link.startswith('http'):
+                    # Check if it's not in excluded domains
+                    is_excluded = any(domain in link.lower() for domain in excluded_domains)
+                    if not is_excluded:
+                        company_website = link
+                        break
+            if company_website:
+                break
         
         item['company_website'] = company_website.strip() if company_website else ''
         
-        # Extract founder information
+        # Extract founder information - improved extraction
         founders_names = []
         founders_linkedin = []
         founders_twitter = []
         
-        # Try to find founder sections - YC typically has founder info in specific sections
-        founder_sections = response.css('[class*="founder"], [class*="Founder"], [data-founder], .founders, .founder')
+        # Find "Active Founders" section using XPath
+        founder_sections_xpath = response.xpath('//section[.//text()[contains(., "Active Founders") or contains(., "Founder")]]')
+        if not founder_sections_xpath:
+            # Fallback: try CSS selectors
+            founder_sections = response.css('[class*="founder"], [class*="Founder"], [data-founder], .founders, .founder')
+        else:
+            # Convert XPath results to SelectorList for processing
+            founder_sections = founder_sections_xpath
         
-        for founder_section in founder_sections:
-            # Extract founder name
-            founder_name = (
-                founder_section.css('h3::text, h4::text, h5::text').get() or
-                founder_section.css('[class*="name"]::text, [class*="Name"]::text').get() or
-                founder_section.css('strong::text, b::text').get()
-            )
-            if founder_name and founder_name.strip():
-                founders_names.append(founder_name.strip())
+        found_founders = False
+        
+        # Process founder sections
+        for founder_section in founder_sections[:5]:  # Limit to first 5
+            # Extract founder name - try multiple approaches
+            name_candidates = []
+            
+            # Try headings first
+            headings = founder_section.css('h1::text, h2::text, h3::text, h4::text, h5::text').getall()
+            for heading in headings:
+                if heading and heading.strip():
+                    name_candidates.append(heading.strip())
+            
+            # Try text in divs with name-like classes
+            name_texts = founder_section.css('div[class*="name"]::text, div[class*="Name"]::text, span[class*="name"]::text').getall()
+            for text in name_texts:
+                if text and text.strip() and len(text.strip()) > 2:
+                    name_candidates.append(text.strip())
+            
+            # If we have name candidates, clean and add them
+            for name_text in name_candidates:
+                name_clean = name_text.strip()
+                # Remove "Founder", "Co-founder", etc. if it's in the text
+                name_clean = re.sub(r'\b(Co-?)?Founder\b', '', name_clean, flags=re.IGNORECASE).strip()
+                # Remove extra whitespace and separators
+                name_clean = re.sub(r'[|\-–—]', '', name_clean).strip()
+                
+                # Only add if it looks like a name
+                if len(name_clean) > 2 and name_clean:
+                    # Check if it's not a URL, social media handle, or common text
+                    if not any(x in name_clean.lower() for x in ['http', '.com', '@', 'linkedin', 'twitter', '|', 'active founder', 'founders']):
+                        if name_clean not in founders_names:
+                            founders_names.append(name_clean)
             
             # Extract LinkedIn
-            linkedin = founder_section.css('a[href*="linkedin.com/in/"]::attr(href)').get()
-            if linkedin:
-                founders_linkedin.append(linkedin)
+            linkedin_links = founder_section.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
+            for linkedin in linkedin_links:
+                if linkedin and linkedin not in founders_linkedin:
+                    founders_linkedin.append(linkedin)
             
-            # Extract Twitter
-            twitter = founder_section.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
-            if twitter:
-                founders_twitter.append(twitter)
+            # Extract Twitter - but exclude @ycombinator
+            twitter_links = founder_section.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').getall()
+            for twitter in twitter_links:
+                if twitter and 'ycombinator' not in twitter.lower():
+                    if twitter not in founders_twitter:
+                        founders_twitter.append(twitter)
+            
+            if founders_names or founders_linkedin:
+                found_founders = True
         
-        # If no founder sections found, try to extract from anywhere on page
-        if not founders_names:
-            # Look for LinkedIn profiles - often founder profiles
+        # If we didn't find founders in sections, try alternative approach
+        if not found_founders:
+            # Look for LinkedIn profiles and extract names from nearby elements
             linkedin_links = response.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
-            if linkedin_links:
-                founders_linkedin = list(set(linkedin_links))
-                # Try to get names from near LinkedIn links
-                for link in linkedin_links[:3]:  # Limit to first 3
-                    # Find parent element and extract name
-                    parent = response.css(f'a[href="{link}"]').xpath('..')
-                    name = parent.css('::text').get()
-                    if name and name.strip():
-                        founders_names.append(name.strip())
-        
-        # Extract Twitter links
-        if not founders_twitter:
+            for linkedin_url in linkedin_links[:5]:  # Limit to 5
+                if linkedin_url and linkedin_url not in founders_linkedin:
+                    founders_linkedin.append(linkedin_url)
+                    
+                    # Try to find name near this LinkedIn link using XPath
+                    # Find the link element and then look for text in parent/ancestor
+                    xpath_query = f'//a[@href="{linkedin_url}"]/ancestor::*[position()<=3]//text()[normalize-space()][not(ancestor::a)]'
+                    nearby_texts = response.xpath(xpath_query).getall()
+                    
+                    for text in nearby_texts[:5]:  # Check first few text elements
+                        if text:
+                            text_clean = text.strip()
+                            # Check if it looks like a name (has reasonable length and no URLs)
+                            if (len(text_clean) > 2 and len(text_clean) < 50 and 
+                                not any(x in text_clean.lower() for x in ['http', '.com', '@', 'linkedin', 'twitter', 'founder', '|', 'view', 'profile']) and
+                                text_clean not in founders_names):
+                                # Check if it has at least one word (likely a name)
+                                if len(text_clean.split()) >= 1:
+                                    founders_names.append(text_clean)
+                                    break
+            
+            # Extract Twitter links (excluding @ycombinator)
             twitter_links = response.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').getall()
-            founders_twitter = list(set(twitter_links))
+            for twitter_url in twitter_links:
+                if twitter_url and 'ycombinator' not in twitter_url.lower():
+                    if twitter_url not in founders_twitter:
+                        founders_twitter.append(twitter_url)
+        
+        # Final cleanup - remove @ycombinator from Twitter if somehow included
+        founders_twitter = [t for t in founders_twitter if 'ycombinator' not in t.lower()]
         
         # Set item fields
         item['founders_name'] = ', '.join(set(founders_names)) if founders_names else ''

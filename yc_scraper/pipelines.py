@@ -105,15 +105,29 @@ class ExcelExportPipeline:
             raise
     
     def _format_website(self, url):
-        """Format website URL to short format: www.example.com"""
+        """Format website URL to short format: www.example.com, exclude unwanted domains"""
         if not url:
             return ''
+        
+        # Exclude unwanted domains
+        excluded_domains = [
+            'startupschool.org', 'startupschool.com', 'ycombinator.com',
+            'bookface-static.ycombinator.com', 'bookface-images.s3'
+        ]
+        
+        # Check if URL contains excluded domains
+        url_lower = url.lower()
+        if any(excluded in url_lower for excluded in excluded_domains):
+            return ''  # Return empty if it's an excluded domain
         
         try:
             # Extract domain from URL
             match = re.search(r'https?://(?:www\.)?([^/?#\s]+)', url)
             if match:
                 domain = match.group(1)
+                # Check again for excluded domains in the extracted domain
+                if any(excluded in domain.lower() for excluded in excluded_domains):
+                    return ''
                 # Add www. prefix if not present
                 if not domain.startswith('www.'):
                     domain = 'www.' + domain
@@ -121,8 +135,10 @@ class ExcelExportPipeline:
         except:
             pass
         
-        # If already looks like a domain, add www. if missing
+        # If already looks like a domain, check and format
         if url and not url.startswith('http') and '.' in url:
+            if any(excluded in url.lower() for excluded in excluded_domains):
+                return ''
             if not url.startswith('www.'):
                 return 'www.' + url
             return url
@@ -177,7 +193,7 @@ class ExcelExportPipeline:
         return url
     
     def _format_twitter(self, twitter_text):
-        """Format Twitter URLs to short format: @username"""
+        """Format Twitter URLs to short format: @username, filter out @ycombinator"""
         if not twitter_text:
             return ''
         
@@ -185,9 +201,15 @@ class ExcelExportPipeline:
         if ',' in twitter_text:
             urls = [u.strip() for u in twitter_text.split(',')]
             formatted = [self._format_single_twitter(url) for url in urls if url]
-            return ', '.join([f for f in formatted if f])
+            # Filter out @ycombinator
+            filtered = [f for f in formatted if f and 'ycombinator' not in f.lower()]
+            return ', '.join(filtered) if filtered else ''
         
-        return self._format_single_twitter(twitter_text)
+        result = self._format_single_twitter(twitter_text)
+        # Filter out @ycombinator
+        if result and 'ycombinator' in result.lower():
+            return ''
+        return result
     
     def _format_single_twitter(self, url):
         """Format a single Twitter URL"""

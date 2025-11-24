@@ -109,101 +109,129 @@ class YcCompaniesSpider(scrapy.Spider):
         
         item['company_website'] = company_website.strip() if company_website else ''
         
-        # Extract founder information - improved extraction
+        # Extract founder information - Names are bold/larger text above "Founder"
         founders_names = []
         founders_linkedin = []
         founders_twitter = []
         
-        # Find "Active Founders" section using XPath
-        founder_sections_xpath = response.xpath('//section[.//text()[contains(., "Active Founders") or contains(., "Founder")]]')
-        if not founder_sections_xpath:
-            # Fallback: try CSS selectors
-            founder_sections = response.css('[class*="founder"], [class*="Founder"], [data-founder], .founders, .founder')
+        # Find the "Active Founders" section
+        active_founders_section = response.xpath('//section[.//text()[contains(., "Active Founders")]] | //div[.//text()[contains(., "Active Founders")]]')
+        
+        if not active_founders_section:
+            # Fallback: look for any section with founder content
+            active_founders_section = response.xpath('//section | //div').css('[class*="founder"]')
+        
+        if active_founders_section:
+            founders_section = active_founders_section[0]
         else:
-            # Convert XPath results to SelectorList for processing
-            founder_sections = founder_sections_xpath
+            founders_section = response
         
-        found_founders = False
+        # Strategy: Find text nodes that exactly say "Founder" (not "Founders") 
+        # and get the heading/text element that appears immediately before it
+        # The name is the bold/larger heading above "Founder"
         
-        # Process founder sections
-        for founder_section in founder_sections[:5]:  # Limit to first 5
-            # Extract founder name - try multiple approaches
-            name_candidates = []
+        # Find all text nodes containing exactly "Founder"
+        founder_text_nodes = founders_section.xpath('.//text()[normalize-space()="Founder"]')
+        
+        processed_containers = set()
+        
+        for founder_text in founder_text_nodes[:10]:  # Limit to 10
+            # Get the element containing "Founder" text
+            founder_elem = founder_text.xpath('./parent::*')
             
-            # Try headings first
-            headings = founder_section.css('h1::text, h2::text, h3::text, h4::text, h5::text').getall()
-            for heading in headings:
-                if heading and heading.strip():
-                    name_candidates.append(heading.strip())
+            if not founder_elem:
+                continue
             
-            # Try text in divs with name-like classes
-            name_texts = founder_section.css('div[class*="name"]::text, div[class*="Name"]::text, span[class*="name"]::text').getall()
-            for text in name_texts:
-                if text and text.strip() and len(text.strip()) > 2:
-                    name_candidates.append(text.strip())
+            # Get the container/block this founder belongs to
+            container = founder_elem[0].xpath('./ancestor::div[position()<=5][1] | ./ancestor::section[position()<=3][1]')
             
-            # If we have name candidates, clean and add them
-            for name_text in name_candidates:
-                name_clean = name_text.strip()
-                # Remove "Founder", "Co-founder", etc. if it's in the text
+            if not container:
+                continue
+            
+            container_id = str(container[0].extract())[:100]  # Create ID to avoid duplicates
+            if container_id in processed_containers:
+                continue
+            processed_containers.add(container_id)
+            
+            container_elem = container[0]
+            
+            # Look for the name - it should be a heading BEFORE the "Founder" element
+            # Try multiple methods to find the name heading
+            
+            # Method 1: Look for preceding sibling headings
+            name = founder_elem[0].xpath('./preceding-sibling::h1[1]/text() | ./preceding-sibling::h2[1]/text() | ./preceding-sibling::h3[1]/text() | ./preceding-sibling::h4[1]/text() | ./preceding-sibling::h5[1]/text()').get()
+            
+            # Method 2: Look for headings in the container before "Founder" element
+            if not name:
+                # Get all headings in container, find the one before "Founder"
+                all_headings = container_elem.xpath('.//h1 | .//h2 | .//h3 | .//h4 | .//h5')
+                founder_pos = None
+                for idx, heading in enumerate(all_headings):
+                    # Check if "Founder" comes after this heading
+                    if founder_elem[0].xpath('count(./preceding::*)') > heading.xpath('count(./preceding::*)'):
+                        founder_pos = idx
+                        break
+                if founder_pos and founder_pos > 0:
+                    name = all_headings[founder_pos - 1].xpath('./text()').get()
+            
+            # Method 3: Get first heading in the container (usually the name)
+            if not name:
+                name = container_elem.xpath('.//h1[1]/text() | .//h2[1]/text() | .//h3[1]/text() | .//h4[1]/text() | .//h5[1]/text()').get()
+            
+            # Method 4: Look for bold/strong text before "Founder"
+            if not name:
+                name = founder_elem[0].xpath('./preceding-sibling::strong[1]/text() | ./preceding-sibling::b[1]/text() | ./preceding::strong[1]/text() | ./preceding::b[1]/text()').get()
+            
+            if name:
+                name_clean = name.strip()
+                # Clean up - remove "Founder" if somehow included
                 name_clean = re.sub(r'\b(Co-?)?Founder\b', '', name_clean, flags=re.IGNORECASE).strip()
-                # Remove extra whitespace and separators
-                name_clean = re.sub(r'[|\-–—]', '', name_clean).strip()
                 
-                # Only add if it looks like a name
-                if len(name_clean) > 2 and name_clean:
-                    # Check if it's not a URL, social media handle, or common text
-                    if not any(x in name_clean.lower() for x in ['http', '.com', '@', 'linkedin', 'twitter', '|', 'active founder', 'founders']):
-                        if name_clean not in founders_names:
-                            founders_names.append(name_clean)
+                # Validation - must look like a name
+                if (name_clean and 
+                    2 <= len(name_clean) <= 50 and
+                    name_clean.lower() not in ['active', 'founders', 'founder'] and
+                    'http' not in name_clean.lower() and
+                    not name_clean.endswith('.') and
+                    not any(word in name_clean.lower() for word in ['based', 'located', 'company']) and
+                    name_clean not in founders_names):
+                    founders_names.append(name_clean)
             
-            # Extract LinkedIn
-            linkedin_links = founder_section.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
-            for linkedin in linkedin_links:
-                if linkedin and linkedin not in founders_linkedin:
-                    founders_linkedin.append(linkedin)
+            # Get LinkedIn and Twitter from this container
+            linkedin = container_elem.css('a[href*="linkedin.com/in/"]::attr(href)').get()
+            if linkedin and linkedin not in founders_linkedin:
+                founders_linkedin.append(linkedin)
             
-            # Extract Twitter - but exclude @ycombinator
-            twitter_links = founder_section.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').getall()
-            for twitter in twitter_links:
-                if twitter and 'ycombinator' not in twitter.lower():
-                    if twitter not in founders_twitter:
-                        founders_twitter.append(twitter)
-            
-            if founders_names or founders_linkedin:
-                found_founders = True
+            twitter = container_elem.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
+            if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
+                founders_twitter.append(twitter)
         
-        # If we didn't find founders in sections, try alternative approach
-        if not found_founders:
-            # Look for LinkedIn profiles and extract names from nearby elements
-            linkedin_links = response.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
-            for linkedin_url in linkedin_links[:5]:  # Limit to 5
+        # Alternative approach: Find each LinkedIn link and get the heading before "Founder" text in same container
+        if not founders_names:
+            linkedin_links = founders_section.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
+            for linkedin_url in linkedin_links[:10]:
                 if linkedin_url and linkedin_url not in founders_linkedin:
                     founders_linkedin.append(linkedin_url)
                     
-                    # Try to find name near this LinkedIn link using XPath
-                    # Find the link element and then look for text in parent/ancestor
-                    xpath_query = f'//a[@href="{linkedin_url}"]/ancestor::*[position()<=3]//text()[normalize-space()][not(ancestor::a)]'
-                    nearby_texts = response.xpath(xpath_query).getall()
-                    
-                    for text in nearby_texts[:5]:  # Check first few text elements
-                        if text:
-                            text_clean = text.strip()
-                            # Check if it looks like a name (has reasonable length and no URLs)
-                            if (len(text_clean) > 2 and len(text_clean) < 50 and 
-                                not any(x in text_clean.lower() for x in ['http', '.com', '@', 'linkedin', 'twitter', 'founder', '|', 'view', 'profile']) and
-                                text_clean not in founders_names):
-                                # Check if it has at least one word (likely a name)
-                                if len(text_clean.split()) >= 1:
-                                    founders_names.append(text_clean)
-                                    break
-            
-            # Extract Twitter links (excluding @ycombinator)
-            twitter_links = response.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').getall()
-            for twitter_url in twitter_links:
-                if twitter_url and 'ycombinator' not in twitter_url.lower():
-                    if twitter_url not in founders_twitter:
-                        founders_twitter.append(twitter_url)
+                    # Find the LinkedIn link element
+                    link_elem = founders_section.xpath(f'.//a[@href="{linkedin_url}"]')
+                    if link_elem:
+                        # Get parent container
+                        container = link_elem[0].xpath('./ancestor::div[position()<=4][1] | ./ancestor::section[position()<=3][1]')
+                        if container:
+                            # Look for heading in this container
+                            name = container[0].xpath('.//h3[1]/text() | .//h4[1]/text() | .//h2[1]/text() | .//h1[1]/text()').get()
+                            if name and name.strip():
+                                name_clean = name.strip()
+                                if (2 <= len(name_clean) <= 50 and
+                                    'founder' not in name_clean.lower() and
+                                    'active' not in name_clean.lower() and
+                                    name_clean not in founders_names):
+                                    founders_names.append(name_clean)
+                            
+                            twitter = container[0].css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
+                            if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
+                                founders_twitter.append(twitter)
         
         # Final cleanup - remove @ycombinator from Twitter if somehow included
         founders_twitter = [t for t in founders_twitter if 'ycombinator' not in t.lower()]

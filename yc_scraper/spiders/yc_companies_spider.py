@@ -1,6 +1,8 @@
 import scrapy
 from yc_scraper.items import YcCompanyItem
 import re
+import os
+from datetime import datetime
 
 
 class YcCompaniesSpider(scrapy.Spider):
@@ -10,6 +12,106 @@ class YcCompaniesSpider(scrapy.Spider):
     start_urls = [
         'https://www.ycombinator.com/companies?batch=Fall%202024&batch=Winter%202024&batch=Summer%202024&batch=Winter%202025&batch=Spring%202025&batch=Summer%202025&batch=Fall%202025&batch=Winter%202026'
     ]
+    
+    def __init__(self, *args, **kwargs):
+        super(YcCompaniesSpider, self).__init__(*args, **kwargs)
+        self._init_debug_log()
+    
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        spider = super(YcCompaniesSpider, cls).from_crawler(crawler, *args, **kwargs)
+        spider._init_debug_log()
+        return spider
+    
+    def _init_debug_log(self):
+        """Initialize the debug log file"""
+        if hasattr(self, 'debug_log') and self.debug_log:
+            return  # Already initialized
+        
+        debug_file = 'founder_debug_log.txt'
+        debug_path = os.path.abspath(debug_file)
+        
+        try:
+            self.debug_log = open(debug_file, 'w', encoding='utf-8')
+            self.debug_log.write(f"=== FOUNDER EXTRACTION DEBUG LOG ===\n")
+            self.debug_log.write(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            self.debug_log.write(f"Debug log location: {debug_path}\n\n")
+            self.debug_log.flush()
+            print(f"\n{'='*60}")
+            print(f"DEBUG LOG FILE CREATED!")
+            print(f"Location: {debug_path}")
+            print(f"{'='*60}\n")
+        except Exception as e:
+            print(f"ERROR: Could not create debug log file: {e}")
+            import io
+            self.debug_log = io.StringIO()
+    
+    def closed(self, reason):
+        """Called when spider closes"""
+        if hasattr(self, 'debug_log') and self.debug_log:
+            try:
+                self.debug_log.write(f"\n=== END OF LOG ===\n")
+                self.debug_log.write(f"Ended: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                self.debug_log.close()
+            except:
+                pass
+
+    def _is_valid_name(self, text, existing_names):
+        """Validate if extracted text is a plausible founder name"""
+        if not text or not isinstance(text, str):
+            return False
+        text = text.strip()
+        if len(text) < 2 or len(text) > 80:
+            return False
+        
+        # Exclude common non-name words
+        exclude_words = ['founder', 'founders', 'active founders', 'co-founder', 'co-founders',
+                        'linkedin', 'twitter', 'http', 'https', 'www', 'ycombinator',
+                        'based', 'located', 'company', 'website', 'email', 'contact',
+                        'click', 'here', 'more', 'read', 'view', 'profile',
+                        'tl;dr', 'our ask', 'our story', 'why we', 'problem', 'solution',
+                        'the knowledge', 'we are working']
+        text_lower = text.lower()
+        if any(word in text_lower for word in exclude_words):
+            return False
+        if 'http' in text_lower or text_lower.startswith('www.') or '@' in text:
+            return False
+        if text in existing_names:
+            return False
+        
+        words = text.split()
+        word_count = len(words)
+        # Allow single word names if they're at least 4 chars (some people have single names)
+        if word_count < 1 or word_count > 5:
+            return False
+        if word_count == 1 and len(words[0]) < 3:
+            return False
+        
+        # Must have at least one capital letter (proper name)
+        has_capital = any(any(c.isupper() for c in word) for word in words)
+        if not has_capital:
+            return False
+        
+        # First word should start with capital
+        if words and not words[0][0].isupper():
+            return False
+        
+        # Filter out names that are clearly IDs or usernames (all lowercase with numbers)
+        if word_count == 1 and words[0].islower() and any(c.isdigit() for c in words[0]):
+            # Single lowercase word with numbers is likely a username, not a name
+            if len([c for c in words[0] if c.isdigit()]) >= 2:
+                return False
+        
+        # Exclude common words that aren't names
+        common_words = ['the', 'and', 'or', 'but', 'for', 'with', 'from', 'about']
+        if all(word.lower() in common_words for word in words):
+            return False
+        
+        # Must contain at least one letter
+        if not any(c.isalpha() for c in text):
+            return False
+        
+        return True
 
     def parse(self, response):
         """Parse the Y Combinator companies page"""
@@ -31,7 +133,17 @@ class YcCompaniesSpider(scrapy.Spider):
         
         self.logger.info(f'Found {len(all_companies)} potential company links')
         
+        # Debug log
+        try:
+            if hasattr(self, 'debug_log') and self.debug_log:
+                self.debug_log.write(f"\nPARSING MAIN PAGE: {response.url}\n")
+                self.debug_log.write(f"Found {len(all_companies)} potential company links\n")
+                self.debug_log.flush()
+        except:
+            pass
+        
         processed_urls = set()
+        company_count = 0
         
         for element in all_companies:
             # Get company detail page URL
@@ -55,6 +167,15 @@ class YcCompaniesSpider(scrapy.Spider):
                     item['company_name'] = company_name.strip()
                 
                 # Follow link to get full details
+                company_count += 1
+                try:
+                    if hasattr(self, 'debug_log') and self.debug_log:
+                        self.debug_log.write(f"  Requesting company #{company_count}: {full_url}\n")
+                        if company_count <= 5:  # Only flush first 5
+                            self.debug_log.flush()
+                except:
+                    pass
+                
                 yield scrapy.Request(
                     full_url,
                     callback=self.parse_company_detail,
@@ -65,6 +186,10 @@ class YcCompaniesSpider(scrapy.Spider):
         """Parse individual company detail page for more information"""
         item = response.meta.get('item', YcCompanyItem())
         
+        # Initialize debug log if not already done
+        if not hasattr(self, 'debug_log') or self.debug_log is None:
+            self._init_debug_log()
+        
         # Extract company name if not already set
         if not item.get('company_name'):
             company_name = (
@@ -73,6 +198,17 @@ class YcCompaniesSpider(scrapy.Spider):
             )
             if company_name:
                 item['company_name'] = company_name.strip().replace(' | Y Combinator', '').strip()
+        
+        company_name = item.get('company_name', 'Unknown')
+        
+        # Write to debug log
+        try:
+            self.debug_log.write(f"\n{'='*80}\n")
+            self.debug_log.write(f"COMPANY: {company_name}\n")
+            self.debug_log.write(f"URL: {response.url}\n")
+            self.debug_log.flush()
+        except:
+            pass
         
         # Extract company website - look for the actual company website link
         # Exclude YC, social media, and other common non-company links
@@ -109,137 +245,248 @@ class YcCompaniesSpider(scrapy.Spider):
         
         item['company_website'] = company_website.strip() if company_website else ''
         
-        # Extract founder information - Names are bold/larger text above "Founder"
+        # Extract founder information - PRIMARY METHOD: Extract from LinkedIn URL slugs
         founders_names = []
         founders_linkedin = []
         founders_twitter = []
         
-        # Find the "Active Founders" section
-        active_founders_section = response.xpath('//section[.//text()[contains(., "Active Founders")]] | //div[.//text()[contains(., "Active Founders")]]')
+        # Get all unique LinkedIn links
+        linkedin_urls = response.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
+        linkedin_urls = [url for url in linkedin_urls if url and 'ycombinator.com' not in url]
         
-        if not active_founders_section:
-            # Fallback: look for any section with founder content
-            active_founders_section = response.xpath('//section | //div').css('[class*="founder"]')
+        # Remove duplicates while preserving order
+        seen_urls = set()
+        unique_linkedin_urls = []
+        for url in linkedin_urls:
+            # Normalize URL (remove query params, trailing slash)
+            normalized = url.split('?')[0].rstrip('/')
+            if normalized not in seen_urls:
+                seen_urls.add(normalized)
+                unique_linkedin_urls.append(normalized)
         
-        if active_founders_section:
-            founders_section = active_founders_section[0]
-        else:
-            founders_section = response
+        try:
+            self.debug_log.write(f"LinkedIn links found: {len(unique_linkedin_urls)}\n")
+            if unique_linkedin_urls:
+                for i, url in enumerate(unique_linkedin_urls[:5], 1):
+                    self.debug_log.write(f"  {i}. {url}\n")
+            self.debug_log.flush()
+        except:
+            pass
         
-        # Strategy: Find text nodes that exactly say "Founder" (not "Founders") 
-        # and get the heading/text element that appears immediately before it
-        # The name is the bold/larger heading above "Founder"
-        
-        # Find all text nodes containing exactly "Founder"
-        founder_text_nodes = founders_section.xpath('.//text()[normalize-space()="Founder"]')
-        
-        processed_containers = set()
-        
-        for founder_text in founder_text_nodes[:10]:  # Limit to 10
-            # Get the element containing "Founder" text
-            founder_elem = founder_text.xpath('./parent::*')
-            
-            if not founder_elem:
-                continue
-            
-            # Get the container/block this founder belongs to
-            container = founder_elem[0].xpath('./ancestor::div[position()<=5][1] | ./ancestor::section[position()<=3][1]')
-            
-            if not container:
-                continue
-            
-            container_id = str(container[0].extract())[:100]  # Create ID to avoid duplicates
-            if container_id in processed_containers:
-                continue
-            processed_containers.add(container_id)
-            
-            container_elem = container[0]
-            
-            # Look for the name - it should be a heading BEFORE the "Founder" element
-            # Try multiple methods to find the name heading
-            
-            # Method 1: Look for preceding sibling headings
-            name = founder_elem[0].xpath('./preceding-sibling::h1[1]/text() | ./preceding-sibling::h2[1]/text() | ./preceding-sibling::h3[1]/text() | ./preceding-sibling::h4[1]/text() | ./preceding-sibling::h5[1]/text()').get()
-            
-            # Method 2: Look for headings in the container before "Founder" element
-            if not name:
-                # Get all headings in container, find the one before "Founder"
-                all_headings = container_elem.xpath('.//h1 | .//h2 | .//h3 | .//h4 | .//h5')
-                founder_pos = None
-                for idx, heading in enumerate(all_headings):
-                    # Check if "Founder" comes after this heading
-                    if founder_elem[0].xpath('count(./preceding::*)') > heading.xpath('count(./preceding::*)'):
-                        founder_pos = idx
-                        break
-                if founder_pos and founder_pos > 0:
-                    name = all_headings[founder_pos - 1].xpath('./text()').get()
-            
-            # Method 3: Get first heading in the container (usually the name)
-            if not name:
-                name = container_elem.xpath('.//h1[1]/text() | .//h2[1]/text() | .//h3[1]/text() | .//h4[1]/text() | .//h5[1]/text()').get()
-            
-            # Method 4: Look for bold/strong text before "Founder"
-            if not name:
-                name = founder_elem[0].xpath('./preceding-sibling::strong[1]/text() | ./preceding-sibling::b[1]/text() | ./preceding::strong[1]/text() | ./preceding::b[1]/text()').get()
-            
-            if name:
-                name_clean = name.strip()
-                # Clean up - remove "Founder" if somehow included
-                name_clean = re.sub(r'\b(Co-?)?Founder\b', '', name_clean, flags=re.IGNORECASE).strip()
+        # PRIMARY METHOD: Extract names from LinkedIn URL slugs
+        # LinkedIn URLs like "linkedin.com/in/emre-kaplaner-7b3a3b15b/" contain the name in the slug
+        for linkedin_url in unique_linkedin_urls:
+            # Extract username from LinkedIn URL: linkedin.com/in/username or linkedin.com/in/username-ID
+            match = re.search(r'linkedin\.com/in/([^/?]+)', linkedin_url, re.IGNORECASE)
+            if match:
+                slug = match.group(1)
+                # Remove ID suffix - LinkedIn IDs are often alphanumeric strings at the end
+                # Pattern: name-name-XXXXXXXX where X is alphanumeric (usually 8+ chars)
                 
-                # Validation - must look like a name
-                if (name_clean and 
-                    2 <= len(name_clean) <= 50 and
-                    name_clean.lower() not in ['active', 'founders', 'founder'] and
-                    'http' not in name_clean.lower() and
-                    not name_clean.endswith('.') and
-                    not any(word in name_clean.lower() for word in ['based', 'located', 'company']) and
-                    name_clean not in founders_names):
-                    founders_names.append(name_clean)
-            
-            # Get LinkedIn and Twitter from this container
-            linkedin = container_elem.css('a[href*="linkedin.com/in/"]::attr(href)').get()
-            if linkedin and linkedin not in founders_linkedin:
-                founders_linkedin.append(linkedin)
-            
-            twitter = container_elem.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
-            if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
-                founders_twitter.append(twitter)
-        
-        # Alternative approach: Find each LinkedIn link and get the heading before "Founder" text in same container
-        if not founders_names:
-            linkedin_links = founders_section.css('a[href*="linkedin.com/in/"]::attr(href)').getall()
-            for linkedin_url in linkedin_links[:10]:
-                if linkedin_url and linkedin_url not in founders_linkedin:
-                    founders_linkedin.append(linkedin_url)
+                slug_parts = slug.split('-')
+                name_parts = []
+                
+                # Work forwards and stop when we hit an ID-like part
+                for part in slug_parts:
+                    # Check if this part looks like an ID:
+                    # - All digits and longer than 6 chars
+                    # - Alphanumeric mix with numbers and length >= 8
+                    # - Contains mostly numbers (like "30574a1b0")
+                    is_id = False
                     
-                    # Find the LinkedIn link element
-                    link_elem = founders_section.xpath(f'.//a[@href="{linkedin_url}"]')
-                    if link_elem:
+                    # More aggressive ID detection
+                    if part.isdigit() and len(part) > 6:
+                        is_id = True
+                    elif len(part) >= 8:
+                        # Long alphanumeric strings are likely IDs
+                        has_digits = any(c.isdigit() for c in part)
+                        has_letters = any(c.isalpha() for c in part)
+                        
+                        if has_digits and has_letters:
+                            # Alphanumeric ID pattern (mix of letters and numbers)
+                            digit_count = sum(1 for c in part if c.isdigit())
+                            # If more than 30% digits, likely an ID
+                            if digit_count / len(part) > 0.3:
+                                is_id = True
+                            # Also check if it looks like a hash (9+ chars with digits and letters)
+                            elif len(part) >= 9 and digit_count >= 3:
+                                is_id = True
+                        elif has_digits and len(part) >= 7:
+                            # Mostly numeric
+                            is_id = True
+                    elif len(part) >= 6 and part.isalnum() and any(c.isdigit() for c in part):
+                        # Shorter alphanumeric with numbers might be ID
+                        digit_count = sum(1 for c in part if c.isdigit())
+                        if part[0].isdigit() or (digit_count / len(part) > 0.4):
+                            is_id = True
+                    
+                    # Additional check: if part is all lowercase and has numbers, likely an ID
+                    if not is_id and part.islower() and any(c.isdigit() for c in part) and len(part) >= 7:
+                        digit_count = sum(1 for c in part if c.isdigit())
+                        if digit_count >= 3:  # At least 3 digits in a lowercase+number mix is suspicious
+                            is_id = True
+                    
+                    if is_id:
+                        # Found an ID, stop collecting (everything before this is the name)
+                        break
+                    else:
+                        name_parts.append(part)
+                
+                # Filter out very short single-character parts unless it's a middle initial
+                if len(name_parts) > 1:
+                    # Remove single char parts unless they're in the middle (likely initials)
+                    filtered_parts = []
+                    for idx, part in enumerate(name_parts):
+                        if len(part) == 1 and idx > 0 and idx < len(name_parts) - 1:
+                            # Middle initial - keep it
+                            filtered_parts.append(part)
+                        elif len(part) > 1:
+                            filtered_parts.append(part)
+                        elif len(name_parts) <= 2:
+                            # Very short name, keep all parts
+                            filtered_parts.append(part)
+                    name_parts = filtered_parts if filtered_parts else name_parts
+                
+                # Need at least 2 parts for a full name, but accept single if it looks like a name
+                if len(name_parts) >= 2:
+                    name = ' '.join(part.capitalize() for part in name_parts)
+                    name = name.strip()  # Clean any extra spaces
+                elif len(name_parts) == 1 and len(name_parts[0]) >= 4:
+                    # Single word but long enough - might be a valid single name
+                    name = name_parts[0].capitalize()
+                else:
+                    name = None
+                
+                # Validate and clean the name
+                if name:
+                    # Remove any trailing alphanumeric IDs that might have slipped through
+                    # More aggressive cleanup patterns
+                    name = re.sub(r'\s+[a-z0-9]{7,}$', '', name, flags=re.IGNORECASE)  # Remove trailing 7+ char alphanumeric
+                    name = re.sub(r'\s+\d{6,}$', '', name)  # Remove trailing 6+ digit IDs
+                    # Remove patterns like "word 123abc456" (alphanumeric with numbers)
+                    name = re.sub(r'\s+[a-z]*\d+[a-z\d]{5,}$', '', name, flags=re.IGNORECASE)
+                    name = re.sub(r'\s+\d+[a-z]+\d*[a-z\d]{4,}$', '', name, flags=re.IGNORECASE)
+                    name = name.strip()
+                    
+                    if self._is_valid_name(name, founders_names):
+                        founders_names.append(name)
+                        founders_linkedin.append(linkedin_url)
+                        
+                        # Find associated Twitter link near this LinkedIn link
+                        slug_first_part = slug.split('-')[0]
+                        link_elems = response.css(f'a[href*="linkedin.com/in/"]')
+                        for elem in link_elems:
+                            href = elem.css('::attr(href)').get() or ''
+                            if slug_first_part in href or slug.split('-')[0] in href:
+                                container = elem.xpath('./ancestor::div[position()<=4][1] | ./ancestor::section[position()<=3][1]')
+                                if container:
+                                    twitter = container[0].css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
+                                    if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
+                                        founders_twitter.append(twitter)
+                                break
+        
+        # FALLBACK: If we have LinkedIn links but fewer names, try HTML extraction for missing ones
+        if len(founders_linkedin) > len(founders_names):
+            # Try to find headings near LinkedIn links that we haven't extracted names for
+            for linkedin_url in unique_linkedin_urls:
+                if linkedin_url in founders_linkedin:
+                    # Already have a name for this URL
+                    continue
+                
+                # Find the LinkedIn link element
+                slug_match = re.search(r'linkedin\.com/in/([^/?]+)', linkedin_url, re.IGNORECASE)
+                if not slug_match:
+                    continue
+                slug_first_part = slug_match.group(1).split('-')[0]
+                
+                link_elems = response.css(f'a[href*="linkedin.com/in/"]')
+                for elem in link_elems:
+                    href = elem.css('::attr(href)').get() or ''
+                    if slug_first_part in href:
                         # Get parent container
-                        container = link_elem[0].xpath('./ancestor::div[position()<=4][1] | ./ancestor::section[position()<=3][1]')
+                        container = elem.xpath('./ancestor::div[position()<=5][1] | ./ancestor::section[position()<=3][1] | ./ancestor::article[1]')
                         if container:
-                            # Look for heading in this container
-                            name = container[0].xpath('.//h3[1]/text() | .//h4[1]/text() | .//h2[1]/text() | .//h1[1]/text()').get()
-                            if name and name.strip():
-                                name_clean = name.strip()
-                                if (2 <= len(name_clean) <= 50 and
-                                    'founder' not in name_clean.lower() and
-                                    'active' not in name_clean.lower() and
-                                    name_clean not in founders_names):
-                                    founders_names.append(name_clean)
-                            
-                            twitter = container[0].css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
-                            if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
-                                founders_twitter.append(twitter)
+                            container_elem = container[0]
+                            # Look for heading in this container (skip section titles)
+                            headings = container_elem.xpath('.//h1 | .//h2 | .//h3 | .//h4 | .//h5')
+                            for heading in headings[:3]:
+                                heading_text = heading.xpath('.//text()').get()
+                                if heading_text:
+                                    heading_text = heading_text.strip()
+                                    # Skip section titles
+                                    skip_phrases = ['tl;dr', 'our ask', 'our story', 'why we', 'problem:', 'solution:', 
+                                                   'the knowledge', 'we are working', 'founders', 'active founders']
+                                    if any(skip in heading_text.lower() for skip in skip_phrases):
+                                        continue
+                                    if self._is_valid_name(heading_text, founders_names):
+                                        founders_names.append(heading_text)
+                                        founders_linkedin.append(linkedin_url)
+                                        
+                                        # Get Twitter if available
+                                        twitter = container_elem.css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
+                                        if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
+                                            founders_twitter.append(twitter)
+                                        break
+                        break
+        
+        # Ensure lists are aligned - pad with empty strings if needed
+        max_len = max(len(founders_names), len(founders_linkedin), len(founders_twitter))
+        while len(founders_names) < max_len:
+            founders_names.append('')
+        while len(founders_linkedin) < max_len:
+            founders_linkedin.append('')
+        while len(founders_twitter) < max_len:
+            founders_twitter.append('')
         
         # Final cleanup - remove @ycombinator from Twitter if somehow included
-        founders_twitter = [t for t in founders_twitter if 'ycombinator' not in t.lower()]
+        founders_twitter = [t for t in founders_twitter if t and 'ycombinator' not in t.lower()]
+        
+        # Final cleanup of founder names - remove any trailing IDs that slipped through
+        cleaned_names = []
+        for name in founders_names:
+            if not name:
+                continue
+            # Remove trailing alphanumeric IDs (more aggressive patterns)
+            cleaned = re.sub(r'\s+[a-z0-9]{7,}$', '', name, flags=re.IGNORECASE)
+            # Remove trailing numeric IDs (6+ digits)
+            cleaned = re.sub(r'\s+\d{6,}$', '', cleaned)
+            # Remove patterns like "word 123abc456" (alphanumeric with numbers)
+            cleaned = re.sub(r'\s+[a-z]*\d+[a-z\d]{5,}$', '', cleaned, flags=re.IGNORECASE)
+            cleaned = re.sub(r'\s+\d+[a-z]+\d*[a-z\d]{4,}$', '', cleaned, flags=re.IGNORECASE)
+            # Remove any remaining trailing spaces
+            cleaned = cleaned.strip()
+            # Also check if the last word looks like an ID and remove it
+            words = cleaned.split()
+            if words:
+                last_word = words[-1]
+                # If last word looks like an ID, remove it
+                if (len(last_word) >= 7 and any(c.isdigit() for c in last_word) and 
+                    any(c.isalpha() for c in last_word)):
+                    digit_count = sum(1 for c in last_word if c.isdigit())
+                    if digit_count / len(last_word) > 0.3:
+                        words = words[:-1]
+                        cleaned = ' '.join(words).strip()
+            if cleaned and cleaned not in cleaned_names:
+                cleaned_names.append(cleaned)
+        
+        founders_names = cleaned_names
         
         # Set item fields
         item['founders_name'] = ', '.join(set(founders_names)) if founders_names else ''
         item['founders_linkedin'] = ', '.join(set(founders_linkedin)) if founders_linkedin else ''
         item['founders_twitter'] = ', '.join(set(founders_twitter)) if founders_twitter else ''
+        
+        # Final debug summary
+        try:
+            self.debug_log.write(f"\nFINAL RESULTS for {company_name}:\n")
+            if founders_names:
+                self.debug_log.write(f"✓ Found {len(founders_names)} founder(s): {', '.join(founders_names)}\n")
+            else:
+                self.debug_log.write(f"✗ NO FOUNDER NAMES FOUND\n")
+            self.debug_log.write(f"{'='*80}\n\n")
+            self.debug_log.flush()
+        except:
+            pass
         
         # Only yield if we have at least a company name
         if item.get('company_name'):

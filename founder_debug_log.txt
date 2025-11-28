@@ -1,10 +1,10 @@
 === FOUNDER EXTRACTION DEBUG LOG ===
-Started: 2025-11-26 12:30:38
+Started: 2025-11-28 17:45:19
 Debug log location: C:\Users\John Dansu\OneDrive\Desktop\yc_scraper_new\founder_debug_log.txt
 
 
 PARSING MAIN PAGE: https://www.ycombinator.com/companies?batch=Fall%202024&batch=Winter%202024&batch=Summer%202024&batch=Winter%202025&batch=Spring%202025&batch=Summer%202025&batch=Fall%202025&batch=Winter%202026
-Found 240 potential company links
+Found 640 potential company links
   Requesting company #1: https://www.ycombinator.com/companies/patientdeskai
   Requesting company #2: https://www.ycombinator.com/companies/luel
   Requesting company #3: https://www.ycombinator.com/companies/avoice
@@ -129,6 +129,34 @@ Found 240 potential company links
   Requesting company #122: https://www.ycombinator.com/companies/norra
   Requesting company #123: https://www.ycombinator.com/companies/soren
   Requesting company #124: https://www.ycombinator.com/companies/lunavo
+
+================================================================================
+COMPANY: Patientdesk.ai
+URL: https://www.ycombinator.com/companies/patientdeskai
+LinkedIn links found: 3
+  1. https://www.linkedin.com/in/emre-kaplaner-7b3a3b15b
+  2. https://www.linkedin.com/in/fikri-san-koktas-47a73b1ab
+  3. https://www.linkedin.com/in/oncelozgul
+    Processing slug: emre-kaplaner-7b3a3b15b, parts: ['emre', 'kaplaner', '7b3a3b15b']
+      Detected ID part: '7b3a3b15b', stopping. Name parts so far: ['emre', 'kaplaner']
+    Name parts before filtering: ['emre', 'kaplaner']
+    Name parts after filtering: ['emre', 'kaplaner']
+    Extracted name: 'Emre Kaplaner' (from 2 parts)
+  Cleaned 'Emre Kaplaner' -> 'Emre'
+    Processing slug: fikri-san-koktas-47a73b1ab, parts: ['fikri', 'san', 'koktas', '47a73b1ab']
+      Detected ID part: '47a73b1ab', stopping. Name parts so far: ['fikri', 'san', 'koktas']
+    Name parts before filtering: ['fikri', 'san', 'koktas']
+    Name parts after filtering: ['fikri', 'san', 'koktas']
+    Extracted name: 'Fikri San Koktas' (from 3 parts)
+    Processing slug: oncelozgul, parts: ['oncelozgul']
+    Name parts before filtering: ['oncelozgul']
+    Name parts after filtering: ['oncelozgul']
+    Extracted name: 'Oncelozgul' (from 1 parts)
+
+FINAL RESULTS for Patientdesk.ai:
+✓ Found 3 founder(s): Emre, Fikri San Koktas, Oncelozgul
+================================================================================
+
   Requesting company #125: https://www.ycombinator.com/companies/dari
   Requesting company #126: https://www.ycombinator.com/companies/the-context-company
   Requesting company #127: https://www.ycombinator.com/companies/sorce
@@ -245,2872 +273,406 @@ Found 240 potential company links
   Requesting company #238: https://www.ycombinator.com/companies/candytrail
   Requesting company #239: https://www.ycombinator.com/companies/embedder
   Requesting company #240: https://www.ycombinator.com/companies/flai
-
-================================================================================
-COMPANY: Patientdesk.ai
-URL: https://www.ycombinator.com/companies/patientdeskai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/emre-kaplaner-7b3a3b15b
-  2. https://www.linkedin.com/in/fikri-san-koktas-47a73b1ab
-  3. https://www.linkedin.com/in/oncelozgul
-
-FINAL RESULTS for Patientdesk.ai:
-✓ Found 3 founder(s): Emre, Fikri San Koktas, Oncelozgul
-================================================================================
-
-
-================================================================================
-COMPANY: Fastshot
-URL: https://www.ycombinator.com/companies/fastshot
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/dzhuraeva
-  2. https://www.linkedin.com/in/fatkhi
-
-FINAL RESULTS for Fastshot:
-✓ Found 2 founder(s): Dzhuraeva, Fatkhi
-================================================================================
-
-
-================================================================================
-COMPANY: Flai
-URL: https://www.ycombinator.com/companies/flai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/ari-polakof-78b976150
-  2. https://www.linkedin.com/in/jfalzugaray
-  3. https://www.linkedin.com/in/alenpolakof
-
-FINAL RESULTS for Flai:
-✓ Found 3 founder(s): Ari, Jfalzugaray, Alenpolakof
-================================================================================
-
-
-================================================================================
-COMPANY: Clicks
-URL: https://www.ycombinator.com/companies/clicks
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/dominik-helmreich-30574a1b0
-  2. https://www.linkedin.com/in/oliverkn
-
-FINAL RESULTS for Clicks:
-✓ Found 2 founder(s): Dominik, Oliverkn
-================================================================================
-
-
-================================================================================
-COMPANY: Embedder
-URL: https://www.ycombinator.com/companies/embedder
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/etgibbs
-  2. https://www.linkedin.com/in/jiachew
-
-FINAL RESULTS for Embedder:
-✓ Found 2 founder(s): Etgibbs, Jiachew
-================================================================================
-
-
-================================================================================
-COMPANY: Dome
-URL: https://www.ycombinator.com/companies/dome
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/kurushdubash
-  2. https://www.linkedin.com/in/kunal-roy-772a0672
-
-FINAL RESULTS for Dome:
-✓ Found 2 founder(s): Kurushdubash, Kunal Roy
-================================================================================
-
-
-================================================================================
-COMPANY: Candytrail
-URL: https://www.ycombinator.com/companies/candytrail
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/aditya-mahna-b57256325
-  2. https://www.linkedin.com/in/ayush-mahna-34r
-
-FINAL RESULTS for Candytrail:
-✓ Found 2 founder(s): Aditya Mahna, Ayush Mahna 34r
-================================================================================
-
-
-================================================================================
-COMPANY: MarkIt
-URL: https://www.ycombinator.com/companies/markit
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/chanhkim
-  2. https://www.linkedin.com/in/rsaav
-
-FINAL RESULTS for MarkIt:
-✓ Found 2 founder(s): Chanhkim, Rsaav
-================================================================================
-
-
-================================================================================
-COMPANY: Epicenter
-URL: https://www.ycombinator.com/companies/epicenter
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/braden-wong
-
-FINAL RESULTS for Epicenter:
-✓ Found 1 founder(s): Braden Wong
-================================================================================
-
-
-================================================================================
-COMPANY: Zarna
-URL: https://www.ycombinator.com/companies/zarna
-LinkedIn links found: 4
-  1. https://www.linkedin.com/in/rishabh-dhariwal
-  2. https://www.linkedin.com/in/vivan-agrawal
-  3. https://www.linkedin.com/in/rishij7
-  4. https://www.linkedin.com/in/rakeshvmehta
-
-FINAL RESULTS for Zarna:
-✓ Found 4 founder(s): Rishabh, Vivan, Rishij7, Rakeshvmehta
-================================================================================
-
-
-================================================================================
-COMPANY: Channel3
-URL: https://www.ycombinator.com/companies/channel3
-LinkedIn links found: 4
-  1. https://linkedin.com/in/alexanderschiff
-  2. https://linkedin.com/in/george-lawrence-aab0011a6
-  3. https://www.linkedin.com/in/george-lawrence-aab0011a6
-  4. https://www.linkedin.com/in/alexanderschiff
-
-FINAL RESULTS for Channel3:
-✓ Found 2 founder(s): Alexanderschiff, George
-================================================================================
-
-
-================================================================================
-COMPANY: Moss
-URL: https://www.ycombinator.com/companies/moss
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/r4ghu
-  2. https://www.linkedin.com/in/imharshanalluru
-
-FINAL RESULTS for Moss:
-✓ Found 2 founder(s): R4ghu, Imharshanalluru
-================================================================================
-
-
-================================================================================
-COMPANY: GhostEye
-URL: https://www.ycombinator.com/companies/ghosteye
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/moheshan
-  2. https://www.linkedin.com/in/charles-antoine-malenfant-618776b9
-
-FINAL RESULTS for GhostEye:
-✓ Found 2 founder(s): Moheshan, Charles
-================================================================================
-
-
-================================================================================
-COMPANY: Bear
-URL: https://www.ycombinator.com/companies/bear
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/siddhantpaliwal
-  2. https://www.linkedin.com/in/janaksunil
-
-FINAL RESULTS for Bear:
-✓ Found 2 founder(s): Siddhantpaliwal, Janaksunil
-================================================================================
-
-
-================================================================================
-COMPANY: Normal
-URL: https://www.ycombinator.com/companies/normal
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/anson-yu-231336141
-  2. https://linkedin.com/in/hudzah
-
-FINAL RESULTS for Normal:
-✓ Found 2 founder(s): Anson Yu, Hudzah
-================================================================================
-
-
-================================================================================
-COMPANY: Fixpoint
-URL: https://www.ycombinator.com/companies/fixpoint
-LinkedIn links found: 4
-  1. https://linkedin.com/in/jakub-cichon-14016a3b
-  2. https://linkedin.com/in/dbmikus
-  3. https://www.linkedin.com/in/jakub-c-14016a3b
-  4. https://www.linkedin.com/in/dbmikus
-
-FINAL RESULTS for Fixpoint:
-✓ Found 3 founder(s): Jakub Cichon, Dbmikus, Jakub C
-================================================================================
-
-
-================================================================================
-COMPANY: Comena
-URL: https://www.ycombinator.com/companies/comena
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/jiehua-wu
-  2. https://www.linkedin.com/in/almo-sutedjo
-
-FINAL RESULTS for Comena:
-✓ Found 2 founder(s): Jiehua Wu, Almo
-================================================================================
-
-
-================================================================================
-COMPANY: Openroll
-URL: https://www.ycombinator.com/companies/openroll
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/lindellmattias
-  2. https://www.linkedin.com/in/porsev-aslan
-
-FINAL RESULTS for Openroll:
-✓ Found 2 founder(s): Lindellmattias, Porsev Aslan
-================================================================================
-
-
-================================================================================
-COMPANY: VibeFlow
-URL: https://www.ycombinator.com/companies/vibeflow
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/alepacca
-  2. https://www.linkedin.com/in/elia-saquand-bb977b18a
-
-FINAL RESULTS for VibeFlow:
-✓ Found 2 founder(s): Alepacca, Elia
-================================================================================
-
-
-================================================================================
-COMPANY: Nozomio
-URL: https://www.ycombinator.com/companies/nozomio
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/arlan-rakhmetzhanov
-
-FINAL RESULTS for Nozomio:
-✓ Found 1 founder(s): Arlan
-================================================================================
-
-
-================================================================================
-COMPANY: item
-URL: https://www.ycombinator.com/companies/item
-LinkedIn links found: 2
-  1. https://linkedin.com/in/akguthal
-  2. https://linkedin.com/in/asantanilla
-
-FINAL RESULTS for item:
-✓ Found 2 founder(s): Akguthal, Asantanilla
-================================================================================
-
-
-================================================================================
-COMPANY: Rivet
-URL: https://www.ycombinator.com/companies/rivet-design
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/gormansam
-
-FINAL RESULTS for Rivet:
-✓ Found 1 founder(s): Gormansam
-================================================================================
-
-
-================================================================================
-COMPANY: Mimos
-URL: https://www.ycombinator.com/companies/mimos
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/rohit-sirosh
-  2. https://www.linkedin.com/in/michael-korovkin
-
-FINAL RESULTS for Mimos:
-✓ Found 2 founder(s): Rohit Sirosh, Michael
-================================================================================
-
-
-================================================================================
-COMPANY: Mayflower
-URL: https://www.ycombinator.com/companies/mayflower
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/naren-chittem-aaa43826b
-  2. https://linkedin.com/in/aryanguls
-
-FINAL RESULTS for Mayflower:
-✓ Found 2 founder(s): Naren, Aryanguls
-================================================================================
-
-
-================================================================================
-COMPANY: Mohi
-URL: https://www.ycombinator.com/companies/mohi
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/evanseeyave
-
-FINAL RESULTS for Mohi:
-✓ Found 1 founder(s): Evanseeyave
-================================================================================
-
-
-================================================================================
-COMPANY: Zephyr Fusion
-URL: https://www.ycombinator.com/companies/zephyr-fusion
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/galen-burke-78923317
-  2. https://www.linkedin.com/in/edward-hinson-078b15143
-
-FINAL RESULTS for Zephyr Fusion:
-✓ Found 2 founder(s): Galen Burke, Edward Hinson
-================================================================================
-
-
-================================================================================
-COMPANY: Riff
-URL: https://www.ycombinator.com/companies/riff
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/adithreddi
-  2. https://www.linkedin.com/in/kenny-zhang-jinlin
-
-FINAL RESULTS for Riff:
-✓ Found 2 founder(s): Adithreddi, Kenny Zhang Jinlin
-================================================================================
-
-
-================================================================================
-COMPANY: JSX Tool
-URL: https://www.ycombinator.com/companies/jsx-tool
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/jamesrainersunderland
-  2. https://www.linkedin.com/in/dan-hyman-dev
-
-FINAL RESULTS for JSX Tool:
-✓ Found 2 founder(s): Jamesrainersunderland, Dan Hyman Dev
-================================================================================
-
-
-================================================================================
-COMPANY: Albacore Inc.
-URL: https://www.ycombinator.com/companies/albacore-inc
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/john-huddleston-3584121b7
-  2. https://www.linkedin.com/in/dante-vaisbort
-
-FINAL RESULTS for Albacore Inc.:
-✓ Found 2 founder(s): John, Dante
-================================================================================
-
-
-================================================================================
-COMPANY: Sarah AI
-URL: https://www.ycombinator.com/companies/sarah-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/dirkbreeuwer
-  2. https://www.linkedin.com/in/cwnkong
-
-FINAL RESULTS for Sarah AI:
-✓ Found 2 founder(s): Dirkbreeuwer, Cwnkong
-================================================================================
-
-
-================================================================================
-COMPANY: Solva
-URL: https://www.ycombinator.com/companies/solva
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/hermanbaverudolsson
-  2. https://www.linkedin.com/in/sorenaamini
-  3. https://linkedin.com/in/linus-malmen
-
-FINAL RESULTS for Solva:
-✓ Found 3 founder(s): Hermanbaverudolsson, Sorenaamini, Linus Malmen
-================================================================================
-
-
-================================================================================
-COMPANY: Phases
-URL: https://www.ycombinator.com/companies/phases
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/j-m-wall
-  2. https://www.linkedin.com/in/anton-zaliznyi
-  3. https://www.linkedin.com/in/jonathan-vw
-
-FINAL RESULTS for Phases:
-✓ Found 3 founder(s): M Wall, Anton, Jonathan Vw
-================================================================================
-
-
-================================================================================
-COMPANY: Perseus Defense
-URL: https://www.ycombinator.com/companies/perseus-defense
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/jason-k-cornelius
-  2. https://www.linkedin.com/in/steve-messinger-a32680155
-
-FINAL RESULTS for Perseus Defense:
-✓ Found 2 founder(s): Jason K, Steve
-================================================================================
-
-
-================================================================================
-COMPANY: Novaflow
-URL: https://www.ycombinator.com/companies/novaflow
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/aman-agarwal-ca
-  2. https://linkedin.com/in/amulya-balakrishnan
-
-FINAL RESULTS for Novaflow:
-✓ Found 2 founder(s): Aman Agarwal Ca, Amulya
-================================================================================
-
-
-================================================================================
-COMPANY: mcp-use
-URL: https://www.ycombinator.com/companies/mcp-use
-LinkedIn links found: 2
-  1. https://linkedin.com/in/pietrozullo
-  2. https://www.linkedin.com/in/luigipederzani
-
-FINAL RESULTS for mcp-use:
-✓ Found 2 founder(s): Pietrozullo, Luigipederzani
-================================================================================
-
-
-================================================================================
-COMPANY: Hyprnote
-URL: https://www.ycombinator.com/companies/hyprnote
-LinkedIn links found: 3
-  1. https://linkedin.com/in/johntopia
-  2. https://www.linkedin.com/in/dklee0127
-  3. https://linkedin.com/in/yujong1ee
-
-FINAL RESULTS for Hyprnote:
-✓ Found 2 founder(s): Johntopia, Yujong1ee
-================================================================================
-
-
-================================================================================
-COMPANY: Relling
-URL: https://www.ycombinator.com/companies/relling
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/jairelan
-  2. http://linkedin.com/in/anya-singh
-
-FINAL RESULTS for Relling:
-✓ Found 2 founder(s): Jairelan, Anya Singh
-================================================================================
-
-
-================================================================================
-COMPANY: Motives
-URL: https://www.ycombinator.com/companies/motives
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/sean-conley-397b69b8
-  2. https://www.linkedin.com/in/sam-stoll-02ab1228
-
-FINAL RESULTS for Motives:
-✓ Found 2 founder(s): Sean Conley, Sam Stoll
-================================================================================
-
-
-================================================================================
-COMPANY: Finto
-URL: https://www.ycombinator.com/companies/finto-de
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/jonasmorgner
-  2. https://www.linkedin.com/in/linus-boehm
-  3. https://www.linkedin.com/in/lorenz-neuner
-
-FINAL RESULTS for Finto:
-✓ Found 3 founder(s): Jonasmorgner, Linus Boehm, Lorenz Neuner
-================================================================================
-
-
-================================================================================
-COMPANY: Iron Grid
-URL: https://www.ycombinator.com/companies/iron-grid
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/elizabeth-fern-morrison
-  2. https://www.linkedin.com/in/gabriele-pozzato-ph-d-2167a2107
-
-FINAL RESULTS for Iron Grid:
-✓ Found 2 founder(s): Elizabeth Fern, Gabriele Pozzato Ph
-================================================================================
-
-
-================================================================================
-COMPANY: April
-URL: https://www.ycombinator.com/companies/april
-LinkedIn links found: 2
-  1. https://linkedin.com/in/nehasuresh1904
-  2. https://www.linkedin.com/in/akashthakur1203
-
-FINAL RESULTS for April:
-✗ NO FOUNDER NAMES FOUND
-================================================================================
-
-
-================================================================================
-COMPANY: Autosana
-URL: https://www.ycombinator.com/companies/autosana
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/yuvan-sundrani
-  2. https://www.linkedin.com/in/jason-steinberg-6018261b6
-
-FINAL RESULTS for Autosana:
-✓ Found 2 founder(s): Yuvan, Jason
-================================================================================
-
-
-================================================================================
-COMPANY: Knowlify
-URL: https://www.ycombinator.com/companies/knowlify
-LinkedIn links found: 4
-  1. https://www.linkedin.com/in/ritamrana
-  2. https://www.linkedin.com/in/jonathanmaynard-
-  3. https://www.linkedin.com/in/arjun-talati
-  4. https://www.linkedin.com/in/ritvik-varada
-
-FINAL RESULTS for Knowlify:
-✓ Found 4 founder(s): Ritamrana, Jonathanmaynard, Arjun Talati, Ritvik Varada
-================================================================================
-
-
-================================================================================
-COMPANY: Omnara
-URL: https://www.ycombinator.com/companies/omnara
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ishaan-sehgal
-  2. https://www.linkedin.com/in/kartiksarangmath
-
-FINAL RESULTS for Omnara:
-✓ Found 2 founder(s): Ishaan Sehgal, Kartiksarangmath
-================================================================================
-
-
-================================================================================
-COMPANY: Risely AI
-URL: https://www.ycombinator.com/companies/risely-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/shahryarabbasi
-  2. https://www.linkedin.com/in/dasif
-  3. https://www.linkedin.com/in/sadiasaifuddin
-
-FINAL RESULTS for Risely AI:
-✓ Found 3 founder(s): Shahryarabbasi, Dasif, Sadiasaifuddin
-================================================================================
-
-
-================================================================================
-COMPANY: Minimal AI
-URL: https://www.ycombinator.com/companies/minimal-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/niek-hogenboom
-  2. https://linkedin.com/in/titus-ex-85691711a
-  3. https://www.linkedin.com/in/titus-ex-85691711a
-
-FINAL RESULTS for Minimal AI:
-✓ Found 2 founder(s): Niek, Titus Ex
-================================================================================
-
-
-================================================================================
-COMPANY: Socratix AI
-URL: https://www.ycombinator.com/companies/socratix-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/riya-jagetia
-  2. https://www.linkedin.com/in/satya-vasanth
-
-FINAL RESULTS for Socratix AI:
-✓ Found 2 founder(s): Riya, Satya
-================================================================================
-
-
-================================================================================
-COMPANY: Floot
-URL: https://www.ycombinator.com/companies/floot
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/yjyao
-  2. https://www.linkedin.com/in/edwlk
-
-FINAL RESULTS for Floot:
-✓ Found 2 founder(s): Yjyao, Edwlk
-================================================================================
-
-
-================================================================================
-COMPANY: Alara
-URL: https://www.ycombinator.com/companies/alara
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/sabrineobbad
-  2. https://www.linkedin.com/in/elyas-obbad-071a01176
-  3. https://www.linkedin.com/in/kamal-obbad-b69852158
-
-FINAL RESULTS for Alara:
-✓ Found 3 founder(s): Sabrineobbad, Elyas Obbad, Kamal Obbad
-================================================================================
-
-
-================================================================================
-COMPANY: Idler
-URL: https://www.ycombinator.com/companies/idler
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/ivanchub
-  2. https://linkedin.com/in/nalu-concepcion
-  3. https://www.linkedin.com/in/tony-goss-a53732132
-
-FINAL RESULTS for Idler:
-✓ Found 3 founder(s): Ivanchub, Nalu, Tony Goss
-================================================================================
-
-
-================================================================================
-COMPANY: Palace
-URL: https://www.ycombinator.com/companies/palace
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/leedsrising
-  2. https://www.linkedin.com/in/derek-ye-853412159
-
-FINAL RESULTS for Palace:
-✓ Found 2 founder(s): Leedsrising, Derek Ye
-================================================================================
-
-
-================================================================================
-COMPANY: Nautilus
-URL: https://www.ycombinator.com/companies/nautilus
-LinkedIn links found: 2
-  1. https://linkedin.com/in/amayrbabar
-  2. https://www.linkedin.com/in/alisareini
-
-FINAL RESULTS for Nautilus:
-✓ Found 2 founder(s): Amayrbabar, Alisareini
-================================================================================
-
-
-================================================================================
-COMPANY: Humoniq
-URL: https://www.ycombinator.com/companies/humoniq
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/todsul
-  2. https://www.linkedin.com/in/w-weber
-
-FINAL RESULTS for Humoniq:
-✓ Found 2 founder(s): Todsul, W Weber
-================================================================================
-
-
-================================================================================
-COMPANY: Avelis Health
-URL: https://www.ycombinator.com/companies/avelis-health
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/angel-onuoha
-  2. https://www.linkedin.com/in/ahmad-shehu
-
-FINAL RESULTS for Avelis Health:
-✓ Found 2 founder(s): Angel Onuoha, Ahmad Shehu
-================================================================================
-
-
-================================================================================
-COMPANY: PARES AI
-URL: https://www.ycombinator.com/companies/pares-ai
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/zihao-wang-mh
-
-FINAL RESULTS for PARES AI:
-✓ Found 1 founder(s): Zihao Wang Mh
-================================================================================
-
-
-================================================================================
-COMPANY: Altur
-URL: https://www.ycombinator.com/companies/altur
-LinkedIn links found: 2
-  1. https://linkedin.com/in/luis-olave
-  2. https://www.linkedin.com/in/pedrofdzl
-
-FINAL RESULTS for Altur:
-✓ Found 2 founder(s): Luis Olave, Pedrofdzl
-================================================================================
-
-
-================================================================================
-COMPANY: Eden
-URL: https://www.ycombinator.com/companies/tryeden
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/alexander-talamonti
-  2. https://www.linkedin.com/in/jasonjche
-
-FINAL RESULTS for Eden:
-✓ Found 2 founder(s): Alexander, Jasonjche
-================================================================================
-
-
-================================================================================
-COMPANY: Metis
-URL: https://www.ycombinator.com/companies/metis
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/aryan-shah1
-  2. https://linkedin.com/in/aasheth1
-  3. https://www.linkedin.com/in/marcus-yearwood
-
-FINAL RESULTS for Metis:
-✓ Found 3 founder(s): Aryan Shah1, Aasheth1, Marcus
-================================================================================
-
-
-================================================================================
-COMPANY: F4
-URL: https://www.ycombinator.com/companies/f4
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/paul-hyoungsang-shin
-  2. https://www.linkedin.com/in/aidan-cantu
-
-FINAL RESULTS for F4:
-✓ Found 2 founder(s): Paul Hyoungsang Shin, Aidan Cantu
-================================================================================
-
-
-================================================================================
-COMPANY: Sira
-URL: https://www.ycombinator.com/companies/sira
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/nathan-belaye-931005149
-  2. https://www.linkedin.com/in/antonio-chan
-
-FINAL RESULTS for Sira:
-✓ Found 2 founder(s): Nathan Belaye, Antonio Chan
-================================================================================
-
-
-================================================================================
-COMPANY: Opennote
-URL: https://www.ycombinator.com/companies/opennote
-LinkedIn links found: 4
-  1. https://www.linkedin.com/in/rishi-srihari
-  2. https://linkedin.com/in/abhiaarya
-  3. https://www.linkedin.com/in/vedant-vyas5
-  4. https://www.linkedin.com/in/abhiaarya
-
-FINAL RESULTS for Opennote:
-✓ Found 3 founder(s): Rishi, Abhiaarya, Vedant Vyas5
-================================================================================
-
-
-================================================================================
-COMPANY: SigmanticAI
-URL: https://www.ycombinator.com/companies/sigmanticai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/rohil-khare
-  2. https://www.linkedin.com/in/tamzid-razzaque
-
-FINAL RESULTS for SigmanticAI:
-✓ Found 2 founder(s): Rohil Khare, Tamzid
-================================================================================
-
-
-================================================================================
-COMPANY: Convexia
-URL: https://www.ycombinator.com/companies/convexia
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ayaan-parikh
-  2. https://www.linkedin.com/in/rahulvijayan28
-
-FINAL RESULTS for Convexia:
-✓ Found 2 founder(s): Ayaan Parikh, Rahulvijayan28
-================================================================================
-
-
-================================================================================
-COMPANY: Pleom
-URL: https://www.ycombinator.com/companies/pleom
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/roycea1
-
-FINAL RESULTS for Pleom:
-✓ Found 1 founder(s): Roycea1
-================================================================================
-
-
-================================================================================
-COMPANY: Fernstone
-URL: https://www.ycombinator.com/companies/fernstone
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/lukebutton
-  2. https://www.linkedin.com/in/james-chen-394ab67b
-  3. https://www.linkedin.com/in/bryant-le-3884a7134
-
-FINAL RESULTS for Fernstone:
-✓ Found 3 founder(s): Lukebutton, James Chen, Bryant Le
-================================================================================
-
-
-================================================================================
-COMPANY: AutoAce
-URL: https://www.ycombinator.com/companies/autoace
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/bradley-h-bunch
-  2. https://www.linkedin.com/in/mdwong25
-
-FINAL RESULTS for AutoAce:
-✓ Found 2 founder(s): Bradley H Bunch, Mdwong25
-================================================================================
-
-
-================================================================================
-COMPANY: Locata
-URL: https://www.ycombinator.com/companies/locata
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/asalinas21
-  2. https://www.linkedin.com/in/joshua-r-chang
-
-FINAL RESULTS for Locata:
-✓ Found 2 founder(s): Asalinas21, Joshua R Chang
-================================================================================
-
-
-================================================================================
-COMPANY: Pally
-URL: https://www.ycombinator.com/companies/pally
-LinkedIn links found: 2
-  1. https://linkedin.com/in/hazhubble
-  2. https://www.linkedin.com/in/wyattlansford
-
-FINAL RESULTS for Pally:
-✓ Found 2 founder(s): Hazhubble, Wyattlansford
-================================================================================
-
-
-================================================================================
-COMPANY: Nottelabs
-URL: https://www.ycombinator.com/companies/nottelabs
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/pinto-andrea
-  2. https://www.linkedin.com/in/giordano-lucas
-
-FINAL RESULTS for Nottelabs:
-✓ Found 2 founder(s): Pinto Andrea, Giordano Lucas
-================================================================================
-
-
-================================================================================
-COMPANY: Hera
-URL: https://www.ycombinator.com/companies/hera-video
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/peter-tribelhorn-36a967142
-  2. https://www.linkedin.com/in/chialunwu
-
-FINAL RESULTS for Hera:
-✓ Found 2 founder(s): Peter, Chialunwu
-================================================================================
-
-
-================================================================================
-COMPANY: Certus AI
-URL: https://www.ycombinator.com/companies/certus-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/gurveer-singh-35168031b
-  2. https://www.linkedin.com/in/adam-gamieldien-067605247
-  3. https://www.linkedin.com/in/isaac-nichols-963857251
-
-FINAL RESULTS for Certus AI:
-✓ Found 3 founder(s): Gurveer Singh, Adam, Isaac
-================================================================================
-
-
-================================================================================
-COMPANY: Reacher
-URL: https://www.ycombinator.com/companies/reacher
-LinkedIn links found: 2
-  1. https://linkedin.com/in/j-qian
-  2. https://linkedin.com/in/bora-mutluoglu
-
-FINAL RESULTS for Reacher:
-✓ Found 2 founder(s): J Qian, Bora
-================================================================================
-
-
-================================================================================
-COMPANY: Kernel
-URL: https://www.ycombinator.com/companies/kernel
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/juecd
-  2. https://www.linkedin.com/in/rafgarcia
-
-FINAL RESULTS for Kernel:
-✓ Found 2 founder(s): Juecd, Rafgarcia
-================================================================================
-
-
-================================================================================
-COMPANY: dScribe AI
-URL: https://www.ycombinator.com/companies/dscribe-ai
-LinkedIn links found: 2
-  1. https://linkedin.com/in/warrenwang-fnu
-  2. https://www.linkedin.com/in/colemrobertson
-
-FINAL RESULTS for dScribe AI:
-✓ Found 2 founder(s): Warrenwang Fnu, Colemrobertson
-================================================================================
-
-
-================================================================================
-COMPANY: Okibi
-URL: https://www.ycombinator.com/companies/okibi
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/mahyad-ghassemi
-  2. https://www.linkedin.com/in/thesauravmitra
-
-FINAL RESULTS for Okibi:
-✓ Found 2 founder(s): Mahyad, Thesauravmitra
-================================================================================
-
-
-================================================================================
-COMPANY: Juxta
-URL: https://www.ycombinator.com/companies/juxta
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/ferrara-john
-
-FINAL RESULTS for Juxta:
-✓ Found 1 founder(s): Ferrara John
-================================================================================
-
-
-================================================================================
-COMPANY: Flywheel AI
-URL: https://www.ycombinator.com/companies/flywheel-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/jashmota
-  2. https://www.linkedin.com/in/mahimanabhatt
-  3. https://linkedin.com/in/jashmota
-
-FINAL RESULTS for Flywheel AI:
-✓ Found 2 founder(s): Jashmota, Mahimanabhatt
-================================================================================
-
-
-================================================================================
-COMPANY: stagewise
-URL: https://www.ycombinator.com/companies/stagewise
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/glenntws
-  2. https://www.linkedin.com/in/juliangoetze
-
-FINAL RESULTS for stagewise:
-✓ Found 2 founder(s): Glenntws, Juliangoetze
-================================================================================
-
-
-================================================================================
-COMPANY: Clodo
-URL: https://www.ycombinator.com/companies/clodo
-LinkedIn links found: 2
-  1. https://linkedin.com/in/sidharthrajaram
-  2. https://www.linkedin.com/in/rithvikchuppala
-
-FINAL RESULTS for Clodo:
-✓ Found 2 founder(s): Sidharthrajaram, Rithvikchuppala
-================================================================================
-
-
-================================================================================
-COMPANY: Fleetline
-URL: https://www.ycombinator.com/companies/fleetline
-LinkedIn links found: 2
-  1. https://linkedin.com/in/sauravml
-  2. https://www.linkedin.com/in/veer-juneja-67255417a
-
-FINAL RESULTS for Fleetline:
-✓ Found 2 founder(s): Sauravml, Veer Juneja
-================================================================================
-
-
-================================================================================
-COMPANY: Magnetic
-URL: https://www.ycombinator.com/companies/magnetic
-LinkedIn links found: 2
-  1. https://linkedin.com/in/thomasjshelley
-  2. https://linkedin.com/in/patrick-fay-5418a822
-
-FINAL RESULTS for Magnetic:
-✓ Found 2 founder(s): Thomasjshelley, Patrick Fay
-================================================================================
-
-
-================================================================================
-COMPANY: Modelence
-URL: https://www.ycombinator.com/companies/modelence
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/artahian
-  2. https://www.linkedin.com/in/eduard-piliposyan
-
-FINAL RESULTS for Modelence:
-✓ Found 2 founder(s): Artahian, Eduard
-================================================================================
-
-
-================================================================================
-COMPANY: Perspectives Health
-URL: https://www.ycombinator.com/companies/perspectives-health
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/eshan-dosani
-  2. https://www.linkedin.com/in/kyle-hyun-woo-jung-a06814180
-  3. https://www.linkedin.com/in/nicholaskovalsky
-
-FINAL RESULTS for Perspectives Health:
-✓ Found 3 founder(s): Eshan Dosani, Kyle Hyun Woo Jung, Nicholaskovalsky
-================================================================================
-
-
-================================================================================
-COMPANY: Duranium
-URL: https://www.ycombinator.com/companies/duranium
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/brenden-prins-mckinney-96959a69
-  2. https://www.linkedin.com/in/berkleynoble
-
-FINAL RESULTS for Duranium:
-✓ Found 2 founder(s): Brenden Prins, Berkleynoble
-================================================================================
-
-
-================================================================================
-COMPANY: TectoAI
-URL: https://www.ycombinator.com/companies/tectoai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/afsharikia
-  2. https://www.linkedin.com/in/roksana-baleshzar
-
-FINAL RESULTS for TectoAI:
-✓ Found 2 founder(s): Afsharikia, Roksana
-================================================================================
-
-
-================================================================================
-COMPANY: Munify
-URL: https://www.ycombinator.com/companies/munify
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/khalidashmawy
-
-FINAL RESULTS for Munify:
-✓ Found 1 founder(s): Khalidashmawy
-================================================================================
-
-
-================================================================================
-COMPANY: RowFlow
-URL: https://www.ycombinator.com/companies/rowflow
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/alec-olesky
-  2. https://www.linkedin.com/in/jack-bubes
-
-FINAL RESULTS for RowFlow:
-✓ Found 2 founder(s): Alec Olesky, Jack Bubes
-================================================================================
-
-
-================================================================================
-COMPANY: Interfere
-URL: https://www.ycombinator.com/companies/interfere
-LinkedIn links found: 1
-  1. https://linkedin.com/in/shiels
-
-FINAL RESULTS for Interfere:
-✓ Found 1 founder(s): Shiels
-================================================================================
-
-
-================================================================================
-COMPANY: Spotlight Realty
-URL: https://www.ycombinator.com/companies/spotlight-realty
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/raymond-allie
-  2. https://www.linkedin.com/in/jacob-phelan-9359222a5
-  3. https://www.linkedin.com/in/aryansharma12358
-
-FINAL RESULTS for Spotlight Realty:
-✓ Found 2 founder(s): Raymond Allie, Jacob Phelan
-================================================================================
-
-
-================================================================================
-COMPANY: NOSO LABS
-URL: https://www.ycombinator.com/companies/noso-labs
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/lwchi
-
-FINAL RESULTS for NOSO LABS:
-✓ Found 1 founder(s): Lwchi
-================================================================================
-
-
-================================================================================
-COMPANY: Vulcan Technologies
-URL: https://www.ycombinator.com/companies/vulcan-technologies
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/tanner-jones-817192167
-  2. https://www.linkedin.com/in/aleksander-mekhanik-41547b272
-  3. https://www.linkedin.com/in/chrisminge
-
-FINAL RESULTS for Vulcan Technologies:
-✓ Found 3 founder(s): Tanner Jones, Aleksander, Chrisminge
-================================================================================
-
-
-================================================================================
-COMPANY: Outrove
-URL: https://www.ycombinator.com/companies/outrove
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ahmedelshireef
-  2. https://www.linkedin.com/in/saif-elhager-18b96a202
-
-FINAL RESULTS for Outrove:
-✓ Found 2 founder(s): Ahmedelshireef, Saif
-================================================================================
-
-
-================================================================================
-COMPANY: Veritus Agent
-URL: https://www.ycombinator.com/companies/veritus-agent
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/joshuamarch
-  2. https://www.linkedin.com/in/davidschles
-  3. https://www.linkedin.com/in/josephstein1
-
-FINAL RESULTS for Veritus Agent:
-✓ Found 3 founder(s): Joshuamarch, Davidschles, Josephstein1
-================================================================================
-
-
-================================================================================
-COMPANY: Cacao
-URL: https://www.ycombinator.com/companies/cacao
-LinkedIn links found: 3
-  1. https://linkedin.com/in/alexandermhoward
-  2. https://www.linkedin.com/in/carlosjimenezcastrillo
-  3. https://www.linkedin.com/in/mason-michael
-
-FINAL RESULTS for Cacao:
-✓ Found 3 founder(s): Alexandermhoward, Carlosjimenezcastrillo, Mason
-================================================================================
-
-
-================================================================================
-COMPANY: Avent
-URL: https://www.ycombinator.com/companies/avent
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/abhay-kalra-683688214
-
-FINAL RESULTS for Avent:
-✓ Found 1 founder(s): Abhay Kalra
-================================================================================
-
-
-================================================================================
-COMPANY: burnt
-URL: https://www.ycombinator.com/companies/burnt
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/josephjacob93
-  2. https://www.linkedin.com/in/rheakarimpanal
-  3. https://linkedin.com/in/chandrushanmugasundaram
-
-FINAL RESULTS for burnt:
-✓ Found 3 founder(s): Josephjacob93, Rheakarimpanal, Chandrushanmugasundaram
-================================================================================
-
-
-================================================================================
-COMPANY: Freya
-URL: https://www.ycombinator.com/companies/freya
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/tunga-bayrak
-  2. https://www.linkedin.com/in/tomas-nepala
-
-FINAL RESULTS for Freya:
-✓ Found 2 founder(s): Tunga Bayrak, Tomas Nepala
-================================================================================
-
-
-================================================================================
-COMPANY: Luminal
-URL: https://www.ycombinator.com/companies/luminal
-LinkedIn links found: 5
-  1. https://linkedin.com/in/joe-fioti-24a986189
-  2. https://www.linkedin.com/in/matthewjgunton
-  3. https://linkedin.com/in/jake-stevens-
-  4. https://www.linkedin.com/in/joe-fioti-24a986189
-  5. https://www.linkedin.com/in/jake-stevens-
-
-FINAL RESULTS for Luminal:
-✓ Found 3 founder(s): Joe Fioti, Matthewjgunton, Jake
-================================================================================
-
-
-================================================================================
-COMPANY: RealRoots
-URL: https://www.ycombinator.com/companies/realroots
-LinkedIn links found: 2
-  1. https://linkedin.com/in/dorothy-li-994a2213
-  2. https://linkedin.com/in/tara-kappel-5baa6095
-
-FINAL RESULTS for RealRoots:
-✓ Found 2 founder(s): Dorothy Li, Tara Kappel
-================================================================================
-
-
-================================================================================
-COMPANY: Uplift AI
-URL: https://www.ycombinator.com/companies/uplift-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/hammad2
-  2. https://linkedin.com/in/zaidqureshi
-
-FINAL RESULTS for Uplift AI:
-✓ Found 2 founder(s): Hammad2, Zaidqureshi
-================================================================================
-
-
-================================================================================
-COMPANY: Paloma
-URL: https://www.ycombinator.com/companies/paloma
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/nazlidanis
-  2. https://www.linkedin.com/in/alex-avnit-222b3611a
-  3. https://www.linkedin.com/in/kaiwen-song
-
-FINAL RESULTS for Paloma:
-✓ Found 3 founder(s): Nazlidanis, Alex Avnit, Kaiwen Song
-================================================================================
-
-
-================================================================================
-COMPANY: Mixy
-URL: https://www.ycombinator.com/companies/mixy
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/joekndy
-  2. https://linkedin.com/in/jonahsiegle
-  3. https://www.linkedin.com/in/jonahsiegle
-
-FINAL RESULTS for Mixy:
-✓ Found 2 founder(s): Joekndy, Jonahsiegle
-================================================================================
-
-
-================================================================================
-COMPANY: Blue
-URL: https://www.ycombinator.com/companies/blue
-LinkedIn links found: 3
-  1. https://linkedin.com/in/oabdelaziz
-  2. https://www.linkedin.com/in/mfarhanh
-  3. https://www.linkedin.com/in/peter-krogh-820273
-
-FINAL RESULTS for Blue:
-✓ Found 3 founder(s): Oabdelaziz, Mfarhanh, Peter Krogh
-================================================================================
-
-
-================================================================================
-COMPANY: Digipals
-URL: https://www.ycombinator.com/companies/digipals
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/peggy-wang-ai
-  2. https://www.linkedin.com/in/justatree
-
-FINAL RESULTS for Digipals:
-✓ Found 2 founder(s): Peggy Wang Ai, Justatree
-================================================================================
-
-
-================================================================================
-COMPANY: Nox Metals
-URL: https://www.ycombinator.com/companies/nox-metals
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/zanehh
-
-FINAL RESULTS for Nox Metals:
-✓ Found 1 founder(s): Zanehh
-================================================================================
-
-
-================================================================================
-COMPANY: Efference
-URL: https://www.ycombinator.com/companies/efference
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/gianluca-bencomo-326469133
-
-FINAL RESULTS for Efference:
-✓ Found 1 founder(s): Gianluca
-================================================================================
-
-
-================================================================================
-COMPANY: Lapis
-URL: https://www.ycombinator.com/companies/lapis
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/varunramg
-  2. https://www.linkedin.com/in/saisamrit-surbehera
-
-FINAL RESULTS for Lapis:
-✓ Found 2 founder(s): Varunramg, Saisamrit
-================================================================================
-
-
-================================================================================
-COMPANY: Semiotic
-URL: https://www.ycombinator.com/companies/semiotic
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/bryan-grisales
-  2. https://www.linkedin.com/in/michael-h-roberson
-  3. https://www.linkedin.com/in/brandonyao
-
-FINAL RESULTS for Semiotic:
-✓ Found 3 founder(s): Bryan, Michael H, Brandonyao
-================================================================================
-
-
-================================================================================
-COMPANY: Remedy
-URL: https://www.ycombinator.com/companies/remedy
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/nikhildevaraj
-  2. https://www.linkedin.com/in/saimandhan
-  3. https://www.linkedin.com/in/vsreenivasan
-
-FINAL RESULTS for Remedy:
-✓ Found 3 founder(s): Nikhildevaraj, Saimandhan, Vsreenivasan
-================================================================================
-
-
-================================================================================
-COMPANY: F2
-URL: https://www.ycombinator.com/companies/f2
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/don-muir
-
-FINAL RESULTS for F2:
-✓ Found 1 founder(s): Don Muir
-================================================================================
-
-
-================================================================================
-COMPANY: Brickanta
-URL: https://www.ycombinator.com/companies/brickanta
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/linus-bf
-  2. https://www.linkedin.com/in/lucas-otterling
-
-FINAL RESULTS for Brickanta:
-✓ Found 2 founder(s): Linus Bf, Lucas
-================================================================================
-
-
-================================================================================
-COMPANY: AirCaps
-URL: https://www.ycombinator.com/companies/aircaps
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/madhav-lavakare
-  2. https://www.linkedin.com/in/nirbhay-singh-narang-6188a11ab
-
-FINAL RESULTS for AirCaps:
-✓ Found 2 founder(s): Madhav, Nirbhay Singh Narang
-================================================================================
-
-
-================================================================================
-COMPANY: Uplane
-URL: https://www.ycombinator.com/companies/uplane
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/julius-koerfgen
-  2. https://www.linkedin.com/in/marvinabdel-massih
-  3. https://www.linkedin.com/in/lukasvollmer
-
-FINAL RESULTS for Uplane:
-✓ Found 3 founder(s): Julius, Marvinabdel Massih, Lukasvollmer
-================================================================================
-
-
-================================================================================
-COMPANY: Structured AI
-URL: https://www.ycombinator.com/companies/structured-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/isabelgreenslade
-  2. https://www.linkedin.com/in/brandon-abreu-smith
-  3. https://www.linkedin.com/in/raymondz1
-
-FINAL RESULTS for Structured AI:
-✓ Found 3 founder(s): Isabelgreenslade, Brandon Abreu Smith, Raymondz1
-================================================================================
-
-
-================================================================================
-COMPANY: Parse
-URL: https://www.ycombinator.com/companies/parse-bot
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/alex-k-forman
-
-FINAL RESULTS for Parse:
-✓ Found 1 founder(s): Alex K Forman
-================================================================================
-
-
-================================================================================
-COMPANY: Brickwise
-URL: https://www.ycombinator.com/companies/brickwise
-LinkedIn links found: 3
-  1. https://linkedin.com/in/jeilani
-  2. https://www.linkedin.com/in/eliaskassell
-  3. https://www.linkedin.com/in/jeilani
-
-FINAL RESULTS for Brickwise:
-✓ Found 2 founder(s): Jeilani, Eliaskassell
-================================================================================
-
-
-================================================================================
-COMPANY: Parrot
-URL: https://www.ycombinator.com/companies/parrot
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/-erik-dahl-
-  2. https://www.linkedin.com/in/amirhanna1
-  3. https://www.linkedin.com/in/julia-hudea-aa582414a
-
-FINAL RESULTS for Parrot:
-✓ Found 3 founder(s): Erik Dahl, Amirhanna1, Julia Hudea
-================================================================================
-
-
-================================================================================
-COMPANY: MOVEdot
-URL: https://www.ycombinator.com/companies/movedot
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/girish-radhakrishnan
-  2. https://www.linkedin.com/in/bruno-finco-610999b6
-
-FINAL RESULTS for MOVEdot:
-✓ Found 2 founder(s): Girish, Bruno Finco
-================================================================================
-
-
-================================================================================
-COMPANY: Zavo
-URL: https://www.ycombinator.com/companies/zavo
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ilkan-gezer-4a16a6268
-  2. https://www.linkedin.com/in/canzehebi
-
-FINAL RESULTS for Zavo:
-✓ Found 2 founder(s): Ilkan Gezer, Canzehebi
-================================================================================
-
-
-================================================================================
-COMPANY: Sylvian
-URL: https://www.ycombinator.com/companies/sylvian
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/william-s-huang
-  2. https://www.linkedin.com/in/niallkehoe
-  3. https://linkedin.com/in/william-s-huang
-
-FINAL RESULTS for Sylvian:
-✓ Found 2 founder(s): William S Huang, Niallkehoe
-================================================================================
-
-
-================================================================================
-COMPANY: Nexus
-URL: https://www.ycombinator.com/companies/gpt
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/shady-al-shoha
-  2. https://www.linkedin.com/in/assemchammah
-
-FINAL RESULTS for Nexus:
-✓ Found 2 founder(s): Shady Al Shoha, Assemchammah
-================================================================================
-
-
-================================================================================
-COMPANY: Bolna AI
-URL: https://www.ycombinator.com/companies/bolna-ai
-LinkedIn links found: 2
-  1. https://linkedin.com/in/prateek-sachan
-  2. https://www.linkedin.com/in/maitreya-wagh
-
-FINAL RESULTS for Bolna AI:
-✓ Found 2 founder(s): Prateek Sachan, Maitreya Wagh
-================================================================================
-
-
-================================================================================
-COMPANY: Hyperspell
-URL: https://www.ycombinator.com/companies/hyperspell
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/conorbrennanburke
-  2. https://linkedin.com/in/maebert
-
-FINAL RESULTS for Hyperspell:
-✓ Found 2 founder(s): Conorbrennanburke, Maebert
-================================================================================
-
-
-================================================================================
-COMPANY: Scoop
-URL: https://www.ycombinator.com/companies/scoop
-LinkedIn links found: 2
-  1. https://linkedin.com/in/vpark
-  2. https://www.linkedin.com/in/soonjae
-
-FINAL RESULTS for Scoop:
-✓ Found 2 founder(s): Vpark, Soonjae
-================================================================================
-
-
-================================================================================
-COMPANY: Aspect
-URL: https://www.ycombinator.com/companies/aspect-inc
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/gurish-sharma-
-  2. https://www.linkedin.com/in/edison-chiu
-  3. https://www.linkedin.com/in/brightxu
-
-FINAL RESULTS for Aspect:
-✓ Found 3 founder(s): Gurish Sharma, Edison Chiu, Brightxu
-================================================================================
-
-
-================================================================================
-COMPANY: Deeptrace
-URL: https://www.ycombinator.com/companies/deeptrace
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/andy-lee-126073148
-  2. https://www.linkedin.com/in/srinath-somasundaram-768bb8210
-
-FINAL RESULTS for Deeptrace:
-✓ Found 2 founder(s): Andy Lee, Srinath
-================================================================================
-
-
-================================================================================
-COMPANY: Locus
-URL: https://www.ycombinator.com/companies/locus
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/coledermott
-  2. https://linkedin.com/in/eliotlee3
-  3. https://www.linkedin.com/in/eliotlee3
-
-FINAL RESULTS for Locus:
-✓ Found 2 founder(s): Coledermott, Eliotlee3
-================================================================================
-
-
-================================================================================
-COMPANY: Alt-X
-URL: https://www.ycombinator.com/companies/alt-x
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ryan-samadi
-  2. https://www.linkedin.com/in/michael-wachsman-a0912a1ab
-
-FINAL RESULTS for Alt-X:
-✓ Found 2 founder(s): Ryan Samadi, Michael
-================================================================================
-
-
-================================================================================
-COMPANY: Caddy
-URL: https://www.ycombinator.com/companies/caddy
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/rajivsancheti
-  2. https://www.linkedin.com/in/connor-waslo
-
-FINAL RESULTS for Caddy:
-✓ Found 2 founder(s): Rajivsancheti, Connor Waslo
-================================================================================
-
-
-================================================================================
-COMPANY: Sorce
-URL: https://www.ycombinator.com/companies/sorce
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/dan-ajayi
-  2. https://www.linkedin.com/in/david-alade
-  3. https://www.linkedin.com/in/oldada
-
-FINAL RESULTS for Sorce:
-✓ Found 3 founder(s): Dan Ajayi, David Alade, Oldada
-================================================================================
-
-
-================================================================================
-COMPANY: The Context Company
-URL: https://www.ycombinator.com/companies/the-context-company
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/rohil-ag
-  2. https://www.linkedin.com/in/armankumaraswamy
-
-FINAL RESULTS for The Context Company:
-✓ Found 2 founder(s): Rohil Ag, Armankumaraswamy
-================================================================================
-
-
-================================================================================
-COMPANY: Dari
-URL: https://www.ycombinator.com/companies/dari
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/benjaminyhong
-  2. https://www.linkedin.com/in/avyayv
-
-FINAL RESULTS for Dari:
-✓ Found 2 founder(s): Benjaminyhong, Avyayv
-================================================================================
-
-
-================================================================================
-COMPANY: Lunavo
-URL: https://www.ycombinator.com/companies/lunavo
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/heun
-  2. https://www.linkedin.com/in/felix-loesch
-
-FINAL RESULTS for Lunavo:
-✓ Found 2 founder(s): Heun, Felix Loesch
-================================================================================
-
-
-================================================================================
-COMPANY: Soren
-URL: https://www.ycombinator.com/companies/soren
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/kevinxie06
-
-FINAL RESULTS for Soren:
-✓ Found 1 founder(s): Kevinxie06
-================================================================================
-
-
-================================================================================
-COMPANY: Norra
-URL: https://www.ycombinator.com/companies/norra
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/ben-rubin-b771b8237
-  2. https://www.linkedin.com/in/yining-z
-  3. https://www.linkedin.com/in/benjamin--rubin
-
-FINAL RESULTS for Norra:
-✓ Found 3 founder(s): Ben Rubin, Yining Z, Benjamin Rubin
-================================================================================
-
-
-================================================================================
-COMPANY: Kaigo Health
-URL: https://www.ycombinator.com/companies/kaigo-health
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/peterchien111
-  2. https://www.linkedin.com/in/lukas-klaiber-0458121ba
-  3. https://www.linkedin.com/in/kazuki-shin
-
-FINAL RESULTS for Kaigo Health:
-✓ Found 2 founder(s): Lukas, Kazuki Shin
-================================================================================
-
-
-================================================================================
-COMPANY: Koyal
-URL: https://www.ycombinator.com/companies/koyal
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/gauri-agarwal
-  2. https://www.linkedin.com/in/mehul-agarwal-a274a0287
-
-FINAL RESULTS for Koyal:
-✓ Found 2 founder(s): Gauri, Mehul
-================================================================================
-
-
-================================================================================
-COMPANY: PlayVision
-URL: https://www.ycombinator.com/companies/playvision
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/anishjaygupta
-  2. https://www.linkedin.com/in/marc-zoghby
-
-FINAL RESULTS for PlayVision:
-✓ Found 2 founder(s): Anishjaygupta, Marc Zoghby
-================================================================================
-
-
-================================================================================
-COMPANY: Iris
-URL: https://www.ycombinator.com/companies/iriscal
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/sidlad
-  2. https://www.linkedin.com/in/samika-sanghvi
-
-FINAL RESULTS for Iris:
-✓ Found 2 founder(s): Sidlad, Samika
-================================================================================
-
-
-================================================================================
-COMPANY: Veria Labs
-URL: https://www.ycombinator.com/companies/veria-labs
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/cayden-liao-6b018a272
-  2. https://www.linkedin.com/in/jayden-s
-  3. https://www.linkedin.com/in/stuxf
-
-FINAL RESULTS for Veria Labs:
-✓ Found 3 founder(s): Cayden Liao, Jayden S, Stuxf
-================================================================================
-
-
-================================================================================
-COMPANY: Velum Labs
-URL: https://www.ycombinator.com/companies/velum-labs
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/benjamzc
-  2. https://www.linkedin.com/in/000alen
-
-FINAL RESULTS for Velum Labs:
-✓ Found 1 founder(s): Benjamzc
-================================================================================
-
-
-================================================================================
-COMPANY: Questom
-URL: https://www.ycombinator.com/companies/questom
-LinkedIn links found: 2
-  1. https://linkedin.com/in/ritanshudokania
-  2. https://www.linkedin.com/in/abhiy1
-
-FINAL RESULTS for Questom:
-✓ Found 2 founder(s): Ritanshudokania, Abhiy1
-================================================================================
-
-
-================================================================================
-COMPANY: Cranston AI
-URL: https://www.ycombinator.com/companies/cranston-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/max-minsker
-  2. https://linkedin.com/in/sean-obannon
-
-FINAL RESULTS for Cranston AI:
-✓ Found 2 founder(s): Max, Sean
-================================================================================
-
-
-================================================================================
-COMPANY: Hypercubic
-URL: https://www.ycombinator.com/companies/hypercubic
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/saig18
-  2. https://www.linkedin.com/in/aayn
-
-FINAL RESULTS for Hypercubic:
-✓ Found 2 founder(s): Saig18, Aayn
-================================================================================
-
-
-================================================================================
-COMPANY: Nessie
-URL: https://www.ycombinator.com/companies/nessie
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/anna-zhang-y
-  2. https://www.linkedin.com/in/tiger-wang-6a9b06189
-
-FINAL RESULTS for Nessie:
-✓ Found 2 founder(s): Anna Zhang, Tiger Wang
-================================================================================
-
-
-================================================================================
-COMPANY: Wardstone
-URL: https://www.ycombinator.com/companies/wardstone
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/sebastian-fischer-71ba9658
-  2. https://www.linkedin.com/in/tobifischer
-  3. https://www.linkedin.com/in/sebafischer
-
-FINAL RESULTS for Wardstone:
-✓ Found 3 founder(s): Sebastian, Tobifischer, Sebafischer
-================================================================================
-
-
-================================================================================
-COMPANY: AtlasGrid
-URL: https://www.ycombinator.com/companies/atlasgrid
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/aaghababyan
-  2. https://www.linkedin.com/in/olegkostour
-  3. https://www.linkedin.com/in/antonkrutiansky
-
-FINAL RESULTS for AtlasGrid:
-✓ Found 3 founder(s): Aaghababyan, Olegkostour, Antonkrutiansky
-================================================================================
-
-
-================================================================================
-COMPANY: hillclimb
-URL: https://www.ycombinator.com/companies/hillclimb
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/jpark72
-  2. https://www.linkedin.com/in/ibrakhim
-
-FINAL RESULTS for hillclimb:
-✓ Found 2 founder(s): Jpark72, Ibrakhim
-================================================================================
-
-
-================================================================================
-COMPANY: Flick
-URL: https://www.ycombinator.com/companies/flick
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ruiwang3
-  2. https://www.linkedin.com/in/z0ey
-
-FINAL RESULTS for Flick:
-✓ Found 2 founder(s): Ruiwang3, Z0ey
-================================================================================
-
-
-================================================================================
-COMPANY: Semble AI
-URL: https://www.ycombinator.com/companies/semble-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/ethan-boyers
-  2. https://www.linkedin.com/in/jonathan-tyshler
-
-FINAL RESULTS for Semble AI:
-✓ Found 2 founder(s): Ethan Boyers, Jonathan
-================================================================================
-
-
-================================================================================
-COMPANY: Mod AI
-URL: https://www.ycombinator.com/companies/mod-ai
-LinkedIn links found: 3
-  1. https://linkedin.com/in/evanameyer
-  2. https://www.linkedin.com/in/jeetchugh
-  3. https://www.linkedin.com/in/evanameyer
-
-FINAL RESULTS for Mod AI:
-✓ Found 2 founder(s): Evanameyer, Jeetchugh
-================================================================================
-
-
-================================================================================
-COMPANY: SellRaze
-URL: https://www.ycombinator.com/companies/sellraze
-LinkedIn links found: 4
-  1. https://linkedin.com/in/tyler-ma-9854751aa
-  2. https://linkedin.com/in/jeff-mao
-  3. https://www.linkedin.com/in/jeff-mao
-  4. https://www.linkedin.com/in/tyler-ma-9854751aa
-
-FINAL RESULTS for SellRaze:
-✓ Found 2 founder(s): Tyler Ma, Jeff Mao
-================================================================================
-
-
-================================================================================
-COMPANY: Lakonia
-URL: https://www.ycombinator.com/companies/lakonia
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/gordysun
-  2. https://www.linkedin.com/in/justin2028
-
-FINAL RESULTS for Lakonia:
-✓ Found 1 founder(s): Gordysun
-================================================================================
-
-
-================================================================================
-COMPANY: Nivara
-URL: https://www.ycombinator.com/companies/nivara
-LinkedIn links found: 2
-  1. https://linkedin.com/in/tejaswiagarwal
-  2. https://linkedin.com/in/pkj-m
-
-FINAL RESULTS for Nivara:
-✓ Found 2 founder(s): Tejaswiagarwal, Pkj M
-================================================================================
-
-
-================================================================================
-COMPANY: AnswerThis
-URL: https://www.ycombinator.com/companies/answerthis
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/ayush4921
-  2. https://www.linkedin.com/in/ryan-mccarroll-
-  3. https://linkedin.com/in/ayush4921
-
-FINAL RESULTS for AnswerThis:
-✓ Found 1 founder(s): Ryan
-================================================================================
-
-
-================================================================================
-COMPANY: SF Tensor
-URL: https://www.ycombinator.com/companies/sf-tensor
-LinkedIn links found: 4
-  1. https://linkedin.com/in/benkoska
-  2. https://www.linkedin.com/in/lukkoska
-  3. https://www.linkedin.com/in/tomkoska
-  4. https://www.linkedin.com/in/benkoska
-
-FINAL RESULTS for SF Tensor:
-✓ Found 3 founder(s): Benkoska, Lukkoska, Tomkoska
-================================================================================
-
-
-================================================================================
-COMPANY: Unsiloed AI
-URL: https://www.ycombinator.com/companies/unsiloed-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/adnan-abbas-903b711a2
-  2. https://www.linkedin.com/in/aman005
-
-FINAL RESULTS for Unsiloed AI:
-✓ Found 1 founder(s): Adnan Abbas
-================================================================================
-
-
-================================================================================
-COMPANY: Allus AI
-URL: https://www.ycombinator.com/companies/allus-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/zhisenan
-  2. https://linkedin.com/in/kaixiang-cui
-  3. https://www.linkedin.com/in/shijiew
-
-FINAL RESULTS for Allus AI:
-✓ Found 3 founder(s): Zhisenan, Kaixiang Cui, Shijiew
-================================================================================
-
-
-================================================================================
-COMPANY: Multifactor
-URL: https://www.ycombinator.com/companies/multifactor
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/nair
-  2. https://www.linkedin.com/in/colinproberts
-
-FINAL RESULTS for Multifactor:
-✓ Found 2 founder(s): Nair, Colinproberts
-================================================================================
-
-
-================================================================================
-COMPANY: Sciloop
-URL: https://www.ycombinator.com/companies/sciloop
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/bilal-asmatullah-8705692b4
-  2. https://www.linkedin.com/in/osman-siddiquer
-
-FINAL RESULTS for Sciloop:
-✓ Found 2 founder(s): Bilal, Osman
-================================================================================
-
-
-================================================================================
-COMPANY: LogosGuard
-URL: https://www.ycombinator.com/companies/logosguard
-LinkedIn links found: 2
-  1. https://linkedin.com/in/abel-john-85a7551b6
-  2. https://www.linkedin.com/in/sukrut-oak
-
-FINAL RESULTS for LogosGuard:
-✓ Found 2 founder(s): Abel John, Sukrut Oak
-================================================================================
-
-
-================================================================================
-COMPANY: Sanctum
-URL: https://www.ycombinator.com/companies/sanctum
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/kdao
-  2. https://www.linkedin.com/in/vrushank-gunjur
-
-FINAL RESULTS for Sanctum:
-✓ Found 2 founder(s): Kdao, Vrushank Gunjur
-================================================================================
-
-
-================================================================================
-COMPANY: Tensr
-URL: https://www.ycombinator.com/companies/tensr
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/ekberndt
-  2. https://www.linkedin.com/in/adithsundram
-  3. https://www.linkedin.com/in/ckwolfe
-
-FINAL RESULTS for Tensr:
-✓ Found 3 founder(s): Ekberndt, Adithsundram, Ckwolfe
-================================================================================
-
-
-================================================================================
-COMPANY: Agentic Fabriq
-URL: https://www.ycombinator.com/companies/agentic-fabriq
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/matthew-xu-b32a36271
-  2. https://www.linkedin.com/in/paulina-xu-5bba0821b
-
-FINAL RESULTS for Agentic Fabriq:
-✓ Found 2 founder(s): Matthew Xu, Paulina Xu
-================================================================================
-
-
-================================================================================
-COMPANY: Kestrel AI
-URL: https://www.ycombinator.com/companies/kestrel-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/evanchopra
-  2. https://www.linkedin.com/in/ramanvarma
-
-FINAL RESULTS for Kestrel AI:
-✓ Found 2 founder(s): Evanchopra, Ramanvarma
-================================================================================
-
-
-================================================================================
-COMPANY: Logical
-URL: https://www.ycombinator.com/companies/logical
-LinkedIn links found: 5
-  1. https://www.linkedin.com/in/anushkaidamekorala
-  2. https://www.linkedin.com/in/samurdhilbk
-  3. http://linkedin.com/in/samurdhilbk
-  4. http://linkedin.com/in/anushkaidamekorala
-  5. https://www.linkedin.com/in/trylogical
-
-FINAL RESULTS for Logical:
-✓ Found 3 founder(s): Anushkaidamekorala, Samurdhilbk, Trylogical
-================================================================================
-
-
-================================================================================
-COMPANY: Aleph Lab
-URL: https://www.ycombinator.com/companies/aleph-lab
-LinkedIn links found: 5
-  1. https://www.linkedin.com/in/hnjang
-  2. https://www.linkedin.com/in/gy-han
-  3. https://www.linkedin.com/in/kim-jaihee
-  4. https://www.linkedin.com/in/hannim
-  5. https://www.linkedin.com/in/minjae-kwon
-
-FINAL RESULTS for Aleph Lab:
-✓ Found 5 founder(s): Hnjang, Gy Han, Kim Jaihee, Hannim, Minjae Kwon
-================================================================================
-
-
-================================================================================
-COMPANY: Articulate
-URL: https://www.ycombinator.com/companies/articulate
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/blake-passe
-  2. https://www.linkedin.com/in/milind-sagaram
-
-FINAL RESULTS for Articulate:
-✓ Found 2 founder(s): Blake Passe, Milind
-================================================================================
-
-
-================================================================================
-COMPANY: Redapto
-URL: https://www.ycombinator.com/companies/redapto
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/anirudh-pupneja
-  2. https://www.linkedin.com/in/cheril-shah-ab244bb6
-
-FINAL RESULTS for Redapto:
-✓ Found 2 founder(s): Anirudh, Cheril Shah
-================================================================================
-
-
-================================================================================
-COMPANY: Captain
-URL: https://www.ycombinator.com/companies/captain
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/edgarbabajanyan
-  2. https://www.linkedin.com/in/lewispolansky
-
-FINAL RESULTS for Captain:
-✓ Found 2 founder(s): Edgarbabajanyan, Lewispolansky
-================================================================================
-
-
-================================================================================
-COMPANY: Sunflower
-URL: https://www.ycombinator.com/companies/sunflower
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/kobyconrad
-
-FINAL RESULTS for Sunflower:
-✓ Found 1 founder(s): Kobyconrad
-================================================================================
-
-
-================================================================================
-COMPANY: Rovr
-URL: https://www.ycombinator.com/companies/rovr
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/arnavjain053
-  2. https://www.linkedin.com/in/yashjain75
-  3. https://www.linkedin.com/in/nithik-yekollu-7298671a8
-
-FINAL RESULTS for Rovr:
-✓ Found 2 founder(s): Yashjain75, Nithik
-================================================================================
-
-
-================================================================================
-COMPANY: Bravi
-URL: https://www.ycombinator.com/companies/bravi
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/anas-bouassami
-  2. https://www.linkedin.com/in/pierre-habte-nouvellon
-
-FINAL RESULTS for Bravi:
-✓ Found 2 founder(s): Anas, Pierre Habte
-================================================================================
-
-
-================================================================================
-COMPANY: ComplyDo
-URL: https://www.ycombinator.com/companies/complydo
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/leo-schuhmann-324927182
-  2. https://www.linkedin.com/in/moritz-moser-99b3a320a
-  3. https://www.linkedin.com/in/matthias-schneider-134391223
-
-FINAL RESULTS for ComplyDo:
-✓ Found 3 founder(s): Leo, Moritz Moser, Matthias
-================================================================================
-
-
-================================================================================
-COMPANY: Lexi
-URL: https://www.ycombinator.com/companies/lexi
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/harshitgarg03
-  2. https://www.linkedin.com/in/kiranmohanb
-
-FINAL RESULTS for Lexi:
-✓ Found 2 founder(s): Harshitgarg03, Kiranmohanb
-================================================================================
-
-
-================================================================================
-COMPANY: Codyco
-URL: https://www.ycombinator.com/companies/codyco
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/endrit-bytyqi
-  2. https://www.linkedin.com/in/stefanschaff
-  3. https://www.linkedin.com/in/alexander-schober
-
-FINAL RESULTS for Codyco:
-✓ Found 3 founder(s): Endrit Bytyqi, Stefanschaff, Alexander
-================================================================================
-
-
-================================================================================
-COMPANY: Compyle
-URL: https://www.ycombinator.com/companies/compyle
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/miranda-jonathan
-  2. https://www.linkedin.com/in/marknazzaro
-
-FINAL RESULTS for Compyle:
-✓ Found 2 founder(s): Miranda, Marknazzaro
-================================================================================
-
-
-================================================================================
-COMPANY: Selfin
-URL: https://www.ycombinator.com/companies/selfin
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/paula-gutierrez-
-  2. https://www.linkedin.com/in/joel-tomas-pimentel
-
-FINAL RESULTS for Selfin:
-✓ Found 2 founder(s): Paula, Joel Tomas
-================================================================================
-
-
-================================================================================
-COMPANY: Casey
-URL: https://www.ycombinator.com/companies/casey
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/nicohaenggi
-  2. https://www.linkedin.com/in/pascalkueng
-  3. https://www.linkedin.com/in/maximilian-thoelen
-
-FINAL RESULTS for Casey:
-✓ Found 3 founder(s): Nicohaenggi, Pascalkueng, Maximilian
-================================================================================
-
-
-================================================================================
-COMPANY: Play Health
-URL: https://www.ycombinator.com/companies/play-health
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/andrea-mazzocchi-b61b4b40
-  2. https://www.linkedin.com/in/miller-ian
-
-FINAL RESULTS for Play Health:
-✓ Found 2 founder(s): Andrea, Miller Ian
-================================================================================
-
-
-================================================================================
-COMPANY: Thesis
-URL: https://www.ycombinator.com/companies/thesis
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/sergio-charles-5a8052134
-  2. https://www.linkedin.com/in/luigicharles
-  3. https://www.linkedin.com/in/gil-kornberg-25a130116
-
-FINAL RESULTS for Thesis:
-✓ Found 3 founder(s): Sergio, Luigicharles, Gil
-================================================================================
-
-
-================================================================================
-COMPANY: Inspector
-URL: https://www.ycombinator.com/companies/inspector
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/mklikushin
-  2. https://linkedin.com/in/quentinrl
-
-FINAL RESULTS for Inspector:
-✓ Found 2 founder(s): Mklikushin, Quentinrl
-================================================================================
-
-
-================================================================================
-COMPANY: Cortex AI
-URL: https://www.ycombinator.com/companies/cortex-ai
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/lucasngoo
-
-FINAL RESULTS for Cortex AI:
-✓ Found 1 founder(s): Lucasngoo
-================================================================================
-
-
-================================================================================
-COMPANY: Pixley AI
-URL: https://www.ycombinator.com/companies/pixley-ai
-LinkedIn links found: 3
-  1. https://linkedin.com/in/pranit-agrawal
-  2. https://www.linkedin.com/in/krish-iyengar
-  3. https://www.linkedin.com/in/pranit-agrawal
-
-FINAL RESULTS for Pixley AI:
-✓ Found 2 founder(s): Pranit, Krish
-================================================================================
-
-
-================================================================================
-COMPANY: Leadbay
-URL: https://www.ycombinator.com/companies/leadbay
-LinkedIn links found: 4
-  1. https://linkedin.com/in/ludovic-granger
-  2. https://linkedin.com/in/milanstankovic
-  3. https://www.linkedin.com/in/ludovic-granger
-  4. https://www.linkedin.com/in/milanstankovic
-
-FINAL RESULTS for Leadbay:
-✓ Found 2 founder(s): Ludovic, Milanstankovic
-================================================================================
-
-
-================================================================================
-COMPANY: Nucleo
-URL: https://www.ycombinator.com/companies/nucleo
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/angelica-iacovelli-490a8a1a7
-  2. https://www.linkedin.com/in/luca-pegolotti
-
-FINAL RESULTS for Nucleo:
-✓ Found 2 founder(s): Angelica, Luca
-================================================================================
-
-
-================================================================================
-COMPANY: Tornyol
-URL: https://www.ycombinator.com/companies/tornyol
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/clovispiedallu
-  2. https://www.linkedin.com/in/alex-toussaint-51a439189
-
-FINAL RESULTS for Tornyol:
-✓ Found 2 founder(s): Clovispiedallu, Alex
-================================================================================
-
-
-================================================================================
-COMPANY: s2.dev
-URL: https://www.ycombinator.com/companies/s2-dev
-LinkedIn links found: 4
-  1. https://linkedin.com/in/shikhrr
-  2. https://www.linkedin.com/in/stephen-balogh-078a4995
-  3. https://www.linkedin.com/in/dwarakgovindparthiban
-  4. https://www.linkedin.com/in/shikhrr
-
-FINAL RESULTS for s2.dev:
-✓ Found 3 founder(s): Shikhrr, Stephen Balogh, Dwarakgovindparthiban
-================================================================================
-
-
-================================================================================
-COMPANY: Patent Watch
-URL: https://www.ycombinator.com/companies/patent-watch
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/alex-stroe
-  2. https://www.linkedin.com/in/andreasstroe
-
-FINAL RESULTS for Patent Watch:
-✓ Found 2 founder(s): Alex Stroe, Andreasstroe
-================================================================================
-
-
-================================================================================
-COMPANY: Anto Biosciences
-URL: https://www.ycombinator.com/companies/anto-biosciences
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/arvid-gollwitzer
-  2. https://linkedin.com/in/daviddegruijl
-  3. https://www.linkedin.com/in/daviddegruijl
-
-FINAL RESULTS for Anto Biosciences:
-✓ Found 2 founder(s): Arvid, Daviddegruijl
-================================================================================
-
-
-================================================================================
-COMPANY: Imagine AI
-URL: https://www.ycombinator.com/companies/imagine-ai
-LinkedIn links found: 4
-  1. https://www.linkedin.com/in/neo-lky
-  2. https://www.linkedin.com/in/skyyang
-  3. https://www.linkedin.com/in/skyyang/**
-  4. https://linkedin.com/in/neo-lky**
-
-FINAL RESULTS for Imagine AI:
-✓ Found 3 founder(s): Neo Lky, Skyyang, Neo Lky**
-================================================================================
-
-
-================================================================================
-COMPANY: Expected Parrot
-URL: https://www.ycombinator.com/companies/expected-parrot
-LinkedIn links found: 3
-  1. https://linkedin.com/in/robertahorton
-  2. https://www.linkedin.com/in/john-horton-48a75819
-  3. https://www.linkedin.com/in/robertahorton
-
-FINAL RESULTS for Expected Parrot:
-✓ Found 2 founder(s): Robertahorton, John Horton
-================================================================================
-
-
-================================================================================
-COMPANY: Everest
-URL: https://www.ycombinator.com/companies/everest
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/yolandacao1
-  2. https://www.linkedin.com/in/spencer-mckee
-
-FINAL RESULTS for Everest:
-✓ Found 2 founder(s): Yolandacao1, Spencer Mckee
-================================================================================
-
-
-================================================================================
-COMPANY: Scott AI
-URL: https://www.ycombinator.com/companies/scott-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/davidemaulick
-  2. https://www.linkedin.com/in/devin-cintron
-
-FINAL RESULTS for Scott AI:
-✓ Found 2 founder(s): Davidemaulick, Devin
-================================================================================
-
-
-================================================================================
-COMPANY: Aside
-URL: https://www.ycombinator.com/companies/aside
-LinkedIn links found: 4
-  1. https://linkedin.com/in/therne
-  2. https://linkedin.com/in/hiddenest
-  3. https://www.linkedin.com/in/dsa28s
-  4. https://www.linkedin.com/in/therne
-
-FINAL RESULTS for Aside:
-✓ Found 3 founder(s): Therne, Hiddenest, Dsa28s
-================================================================================
-
-
-================================================================================
-COMPANY: HireGlide
-URL: https://www.ycombinator.com/companies/hireglide
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/theokitsberg
-  2. https://www.linkedin.com/in/axel-la-pira
-  3. https://www.linkedin.com/in/axel-la-pira-80380a2a2
-
-FINAL RESULTS for HireGlide:
-✓ Found 2 founder(s): Theokitsberg, Axel La Pira
-================================================================================
-
-
-================================================================================
-COMPANY: Sourcebot
-URL: https://www.ycombinator.com/companies/sourcebot
-LinkedIn links found: 2
-  1. https://linkedin.com/in/msukkari
-  2. https://linkedin.com/in/brendan-kellam
-
-FINAL RESULTS for Sourcebot:
-✓ Found 2 founder(s): Msukkari, Brendan Kellam
-================================================================================
-
-
-================================================================================
-COMPANY: Spatial AI
-URL: https://www.ycombinator.com/companies/spatial-ai
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/alexandros-petkos
-
-FINAL RESULTS for Spatial AI:
-✓ Found 1 founder(s): Alexandros Petkos
-================================================================================
-
-
-================================================================================
-COMPANY: Zalos
-URL: https://www.ycombinator.com/companies/zalos
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/willfairbairn
-  2. https://www.linkedin.com/in/hxuanhung
-
-FINAL RESULTS for Zalos:
-✓ Found 2 founder(s): Willfairbairn, Hxuanhung
-================================================================================
-
-
-================================================================================
-COMPANY: Lua Global Inc
-URL: https://www.ycombinator.com/companies/lua-global-inc
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/stefan-kruger-0957b168
-  2. https://www.linkedin.com/in/lorcan-o-cathain
-
-FINAL RESULTS for Lua Global Inc:
-✓ Found 2 founder(s): Stefan Kruger, Lorcan O
-================================================================================
-
-
-================================================================================
-COMPANY: Crunched
-URL: https://www.ycombinator.com/companies/crunched
-LinkedIn links found: 4
-  1. https://www.linkedin.com/in/philip-z-borge-97690b149
-  2. https://www.linkedin.com/in/lars-g-mus%C3%A6us-756701174
-  3. https://www.linkedin.com/in/michael-sakowski-9b9043148
-  4. https://www.linkedin.com/in/markus-skagemo
-
-FINAL RESULTS for Crunched:
-✓ Found 4 founder(s): Philip Z Borge, Lars G Mus%c3%a6us, Michael, Markus
-================================================================================
-
-
-================================================================================
-COMPANY: Narrative
-URL: https://www.ycombinator.com/companies/usenarrative
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/victor-chapman-9175b2260
-  2. https://www.linkedin.com/in/aryan-sawhney-a852b1229
-  3. https://www.linkedin.com/in/erik-vank
-
-FINAL RESULTS for Narrative:
-✓ Found 3 founder(s): Victor, Aryan, Erik Vank
-================================================================================
-
-
-================================================================================
-COMPANY: Primer
-URL: https://www.ycombinator.com/companies/primer
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/green-c
-  2. https://www.linkedin.com/in/v1nh
-
-FINAL RESULTS for Primer:
-✓ Found 2 founder(s): Green C, V1nh
-================================================================================
-
-
-================================================================================
-COMPANY: Specific
-URL: https://www.ycombinator.com/companies/specific
-LinkedIn links found: 3
-  1. https://linkedin.com/in/fabian-lindfors
-  2. https://www.linkedin.com/in/iman-radjavi
-  3. https://www.linkedin.com/in/fabian-lindfors
-
-FINAL RESULTS for Specific:
-✓ Found 2 founder(s): Fabian, Iman
-================================================================================
-
-
-================================================================================
-COMPANY: Automax.ai
-URL: https://www.ycombinator.com/companies/automax-ai
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/h4ahmed
-
-FINAL RESULTS for Automax.ai:
-✓ Found 1 founder(s): H4ahmed
-================================================================================
-
-
-================================================================================
-COMPANY: Clad Labs
-URL: https://www.ycombinator.com/companies/clad-labs
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/lekevin2
-  2. https://www.linkedin.com/in/richard-wang-39554994
-
-FINAL RESULTS for Clad Labs:
-✓ Found 2 founder(s): Lekevin2, Richard Wang
-================================================================================
-
-
-================================================================================
-COMPANY: Absurd
-URL: https://www.ycombinator.com/companies/absurd
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/philiptho
-  2. https://www.linkedin.com/in/damian-chng
-  3. https://www.linkedin.com/in/daniel-kathein
-
-FINAL RESULTS for Absurd:
-✓ Found 3 founder(s): Philiptho, Damian Chng, Daniel
-================================================================================
-
-
-================================================================================
-COMPANY: Kalpa Labs
-URL: https://www.ycombinator.com/companies/kalpa-labs
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/gautam-jha37
-  2. https://linkedin.com/in/pshishodia
-  3. https://www.linkedin.com/in/pshishodia
-
-FINAL RESULTS for Kalpa Labs:
-✓ Found 2 founder(s): Gautam Jha37, Pshishodia
-================================================================================
-
-
-================================================================================
-COMPANY: Metorial
-URL: https://www.ycombinator.com/companies/metorial
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/tobias-herber
-  2. https://www.linkedin.com/in/karim-rahme
-
-FINAL RESULTS for Metorial:
-✓ Found 2 founder(s): Tobias Herber, Karim Rahme
-================================================================================
-
-
-================================================================================
-COMPANY: Arcten
-URL: https://www.ycombinator.com/companies/arcten
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/michael-nguyen-jr-02a576354
-  2. https://linkedin.com/in/armeetjatyani
-
-FINAL RESULTS for Arcten:
-✓ Found 2 founder(s): Michael Nguyen Jr, Armeetjatyani
-================================================================================
-
-
-================================================================================
-COMPANY: Denki
-URL: https://www.ycombinator.com/companies/denki
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/david-jin-li
-  2. https://www.linkedin.com/in/felipe-jin-li-a42380132
-
-FINAL RESULTS for Denki:
-✓ Found 2 founder(s): David Jin Li, Felipe Jin Li
-================================================================================
-
-
-================================================================================
-COMPANY: Waffer
-URL: https://www.ycombinator.com/companies/waffer
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/ragavsachdeva
-
-FINAL RESULTS for Waffer:
-✓ Found 1 founder(s): Ragavsachdeva
-================================================================================
-
-
-================================================================================
-COMPANY: Sava
-URL: https://www.ycombinator.com/companies/savahq
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/nimit
-  2. https://www.linkedin.com/in/rushabh-sadiwala
-
-FINAL RESULTS for Sava:
-✓ Found 2 founder(s): Nimit, Rushabh
-================================================================================
-
-
-================================================================================
-COMPANY: Icarus
-URL: https://www.ycombinator.com/companies/icarus
-LinkedIn links found: 1
-  1. https://linkedin.com/in/kwan-henry
-
-FINAL RESULTS for Icarus:
-✓ Found 1 founder(s): Kwan Henry
-================================================================================
-
-
-================================================================================
-COMPANY: Karumi
-URL: https://www.ycombinator.com/companies/karumi
-LinkedIn links found: 3
-  1. https://linkedin.com/in/tonilopezmr
-  2. https://www.linkedin.com/in/pablo-omenaca-muro
-  3. https://www.linkedin.com/in/tonilopezmr
-
-FINAL RESULTS for Karumi:
-✓ Found 2 founder(s): Tonilopezmr, Pablo Omenaca Muro
-================================================================================
-
-
-================================================================================
-COMPANY: Mantle
-URL: https://www.ycombinator.com/companies/mantle
-LinkedIn links found: 2
-  1. https://linkedin.com/in/samrathchadha
-  2. https://www.linkedin.com/in/gparanjape
-
-FINAL RESULTS for Mantle:
-✓ Found 2 founder(s): Samrathchadha, Gparanjape
-================================================================================
-
-
-================================================================================
-COMPANY: Lemma
-URL: https://www.ycombinator.com/companies/uselemma
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/colegawin
-  2. https://www.linkedin.com/in/jerry-n-zhang
-
-FINAL RESULTS for Lemma:
-✓ Found 2 founder(s): Colegawin, Jerry N Zhang
-================================================================================
-
-
-================================================================================
-COMPANY: Exonic
-URL: https://www.ycombinator.com/companies/exonic
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/benjamin-brimacombe
-  2. https://www.linkedin.com/in/mikhail-kulak
-
-FINAL RESULTS for Exonic:
-✓ Found 2 founder(s): Benjamin, Mikhail Kulak
-================================================================================
-
-
-================================================================================
-COMPANY: Jarmin
-URL: https://www.ycombinator.com/companies/jarmin
-LinkedIn links found: 3
-  1. https://linkedin.com/in/chalmersbrown
-  2. https://www.linkedin.com/in/shirsenduhalder
-  3. https://www.linkedin.com/in/zackleman
-
-FINAL RESULTS for Jarmin:
-✓ Found 3 founder(s): Chalmersbrown, Shirsenduhalder, Zackleman
-================================================================================
-
-
-================================================================================
-COMPANY: Castari
-URL: https://www.ycombinator.com/companies/castari
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/cambree-bernkopf-3385b0250
-  2. https://linkedin.com/in/jacob-c-wright
-
-FINAL RESULTS for Castari:
-✓ Found 2 founder(s): Cambree, Jacob C Wright
-================================================================================
-
-
-================================================================================
-COMPANY: Rovi Health
-URL: https://www.ycombinator.com/companies/rovi-health
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/santoshvallabhaneni
-  2. https://www.linkedin.com/in/tvallabh
-
-FINAL RESULTS for Rovi Health:
-✓ Found 2 founder(s): Santoshvallabhaneni, Tvallabh
-================================================================================
-
-
-================================================================================
-COMPANY: Miniswap
-URL: https://www.ycombinator.com/companies/miniswap
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/will-h-48a38bbb
-  2. https://www.linkedin.com/in/zak-singh
-
-FINAL RESULTS for Miniswap:
-✓ Found 2 founder(s): Will H, Zak Singh
-================================================================================
-
-
-================================================================================
-COMPANY: Freeport Markets
-URL: https://www.ycombinator.com/companies/freeport-markets
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/bryan1738
-  2. https://www.linkedin.com/in/lihong062
-
-FINAL RESULTS for Freeport Markets:
-✗ NO FOUNDER NAMES FOUND
-================================================================================
-
-
-================================================================================
-COMPANY: Boom AI
-URL: https://www.ycombinator.com/companies/boom-ai
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/juancasian
-  2. https://www.linkedin.com/in/sergiogarciaglz
-  3. https://www.linkedin.com/in/josecarlostoscano
-
-FINAL RESULTS for Boom AI:
-✓ Found 3 founder(s): Juancasian, Sergiogarciaglz, Josecarlostoscano
-================================================================================
-
-
-================================================================================
-COMPANY: Telemetron
-URL: https://www.ycombinator.com/companies/telemetron-ai
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/shivanijpatel
-  2. https://www.linkedin.com/in/hamza-s-892a94103
-
-FINAL RESULTS for Telemetron:
-✓ Found 2 founder(s): Shivanijpatel, Hamza S
-================================================================================
-
-
-================================================================================
-COMPANY: The Hog
-URL: https://www.ycombinator.com/companies/the-hog
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/hudsonliao
-  2. https://linkedin.com/in/paulonasc
-
-FINAL RESULTS for The Hog:
-✓ Found 2 founder(s): Hudsonliao, Paulonasc
-================================================================================
-
-
-================================================================================
-COMPANY: Lightberry
-URL: https://www.ycombinator.com/companies/lightberry
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/attarali
-  2. https://www.linkedin.com/in/stephankoe
-
-FINAL RESULTS for Lightberry:
-✓ Found 2 founder(s): Attarali, Stephankoe
-================================================================================
-
-
-================================================================================
-COMPANY: Bluma
-URL: https://www.ycombinator.com/companies/bluma
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/stephen-ni
-  2. https://www.linkedin.com/in/wu-alisa
-
-FINAL RESULTS for Bluma:
-✓ Found 2 founder(s): Stephen Ni, Wu Alisa
-================================================================================
-
-
-================================================================================
-COMPANY: Stratus Aviation
-URL: https://www.ycombinator.com/companies/stratus-aviation
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/hunterhnguyen
-  2. https://www.linkedin.com/in/mizanrt
-
-FINAL RESULTS for Stratus Aviation:
-✓ Found 2 founder(s): Hunterhnguyen, Mizanrt
-================================================================================
-
-
-================================================================================
-COMPANY: Forge Robotics
-URL: https://www.ycombinator.com/companies/forge-robotics
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/eoincobbe
-  2. https://www.linkedin.com/in/robert-cormican-a4405990
-
-FINAL RESULTS for Forge Robotics:
-✓ Found 2 founder(s): Eoincobbe, Robert
-================================================================================
-
-
-================================================================================
-COMPANY: Amera
-URL: https://www.ycombinator.com/companies/amera
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/deepkkapur
-  2. https://www.linkedin.com/in/louise-tanski
-
-FINAL RESULTS for Amera:
-✓ Found 2 founder(s): Deepkkapur, Louise Tanski
-================================================================================
-
-
-================================================================================
-COMPANY: DiligenceSquared Inc.
-URL: https://www.ycombinator.com/companies/diligencesquared-inc
-LinkedIn links found: 3
-  1. https://www.linkedin.com/in/frederik-kofoed-hansen
-  2. https://www.linkedin.com/in/søren-biltoft-knudsen-58010932
-  3. https://www.linkedin.com/in/harshil-rastogi-3a754b65
-
-FINAL RESULTS for DiligenceSquared Inc.:
-✓ Found 3 founder(s): Frederik Kofoed Hansen, Søren, Harshil
-================================================================================
-
-
-================================================================================
-COMPANY: Velvet
-URL: https://www.ycombinator.com/companies/velvet
-LinkedIn links found: 2
-  1. https://www.linkedin.com/in/lucas-mantovani-a446a61a9
-  2. https://www.linkedin.com/in/lucas-tucker-21b278175
-
-FINAL RESULTS for Velvet:
-✓ Found 2 founder(s): Lucas, Lucas Tucker
-================================================================================
-
+  Requesting company #241: https://www.ycombinator.com/companies/b-12
+  Requesting company #242: https://www.ycombinator.com/companies/fulcrum
+  Requesting company #243: https://www.ycombinator.com/companies/trace-so
+  Requesting company #244: https://www.ycombinator.com/companies/the-interface
+  Requesting company #245: https://www.ycombinator.com/companies/ironledger-ai
+  Requesting company #246: https://www.ycombinator.com/companies/doe
+  Requesting company #247: https://www.ycombinator.com/companies/parachute
+  Requesting company #248: https://www.ycombinator.com/companies/kalinda
+  Requesting company #249: https://www.ycombinator.com/companies/stellon-labs
+  Requesting company #250: https://www.ycombinator.com/companies/bootloop
+  Requesting company #251: https://www.ycombinator.com/companies/nexa-labs
+  Requesting company #252: https://www.ycombinator.com/companies/agenthub-2
+  Requesting company #253: https://www.ycombinator.com/companies/cocreate
+  Requesting company #254: https://www.ycombinator.com/companies/slashy
+  Requesting company #255: https://www.ycombinator.com/companies/wedge
+  Requesting company #256: https://www.ycombinator.com/companies/careswift
+  Requesting company #257: https://www.ycombinator.com/companies/pangolin
+  Requesting company #258: https://www.ycombinator.com/companies/kestroll
+  Requesting company #259: https://www.ycombinator.com/companies/tesora
+  Requesting company #260: https://www.ycombinator.com/companies/deepaware-ai
+  Requesting company #261: https://www.ycombinator.com/companies/stockline
+  Requesting company #262: https://www.ycombinator.com/companies/sagekit
+  Requesting company #263: https://www.ycombinator.com/companies/keystone
+  Requesting company #264: https://www.ycombinator.com/companies/nori
+  Requesting company #265: https://www.ycombinator.com/companies/deepgrove
+  Requesting company #266: https://www.ycombinator.com/companies/frizzle
+  Requesting company #267: https://www.ycombinator.com/companies/skope
+  Requesting company #268: https://www.ycombinator.com/companies/ondeck-ai
+  Requesting company #269: https://www.ycombinator.com/companies/alter
+  Requesting company #270: https://www.ycombinator.com/companies/imprezia
+  Requesting company #271: https://www.ycombinator.com/companies/lilac
+  Requesting company #272: https://www.ycombinator.com/companies/tryjanet
+  Requesting company #273: https://www.ycombinator.com/companies/cyberdesk
+  Requesting company #274: https://www.ycombinator.com/companies/qualify-bot
+  Requesting company #275: https://www.ycombinator.com/companies/panels
+  Requesting company #276: https://www.ycombinator.com/companies/wafer
+  Requesting company #277: https://www.ycombinator.com/companies/orange-slice
+  Requesting company #278: https://www.ycombinator.com/companies/overdrive-health
+  Requesting company #279: https://www.ycombinator.com/companies/monarcha
+  Requesting company #280: https://www.ycombinator.com/companies/lotas
+  Requesting company #281: https://www.ycombinator.com/companies/design-arena
+  Requesting company #282: https://www.ycombinator.com/companies/effigov
+  Requesting company #283: https://www.ycombinator.com/companies/bitrig
+  Requesting company #284: https://www.ycombinator.com/companies/null-labs
+  Requesting company #285: https://www.ycombinator.com/companies/lark
+  Requesting company #286: https://www.ycombinator.com/companies/topological
+  Requesting company #287: https://www.ycombinator.com/companies/datafruit
+  Requesting company #288: https://www.ycombinator.com/companies/contextfort
+  Requesting company #289: https://www.ycombinator.com/companies/zeroeval
+  Requesting company #290: https://www.ycombinator.com/companies/verne-robotics
+  Requesting company #291: https://www.ycombinator.com/companies/pharmie-ai
+  Requesting company #292: https://www.ycombinator.com/companies/liva-ai
+  Requesting company #293: https://www.ycombinator.com/companies/pond
+  Requesting company #294: https://www.ycombinator.com/companies/ghostship
+  Requesting company #295: https://www.ycombinator.com/companies/shor
+  Requesting company #296: https://www.ycombinator.com/companies/golpo
+  Requesting company #297: https://www.ycombinator.com/companies/async
+  Requesting company #298: https://www.ycombinator.com/companies/lanesurf
+  Requesting company #299: https://www.ycombinator.com/companies/gaus
+  Requesting company #300: https://www.ycombinator.com/companies/blank-bio
+  Requesting company #301: https://www.ycombinator.com/companies/truthsystems
+  Requesting company #302: https://www.ycombinator.com/companies/agentmail
+  Requesting company #303: https://www.ycombinator.com/companies/traceroot-ai
+  Requesting company #304: https://www.ycombinator.com/companies/halluminate
+  Requesting company #305: https://www.ycombinator.com/companies/mangodesk
+  Requesting company #306: https://www.ycombinator.com/companies/the-prompting-company
+  Requesting company #307: https://www.ycombinator.com/companies/acrely
+  Requesting company #308: https://www.ycombinator.com/companies/dedalus-labs
+  Requesting company #309: https://www.ycombinator.com/companies/parametric
+  Requesting company #310: https://www.ycombinator.com/companies/closera
+  Requesting company #311: https://www.ycombinator.com/companies/meteor
+  Requesting company #312: https://www.ycombinator.com/companies/getasap
+  Requesting company #313: https://www.ycombinator.com/companies/adaptional
+  Requesting company #314: https://www.ycombinator.com/companies/prox
+  Requesting company #315: https://www.ycombinator.com/companies/pingo-ai
+  Requesting company #316: https://www.ycombinator.com/companies/fifth-door
+  Requesting company #317: https://www.ycombinator.com/companies/rid
+  Requesting company #318: https://www.ycombinator.com/companies/cohesive
+  Requesting company #319: https://www.ycombinator.com/companies/docket
+  Requesting company #320: https://www.ycombinator.com/companies/sureform
+  Requesting company #321: https://www.ycombinator.com/companies/foundation-industries
+  Requesting company #322: https://www.ycombinator.com/companies/godela
+  Requesting company #323: https://www.ycombinator.com/companies/aegis
+  Requesting company #324: https://www.ycombinator.com/companies/cascade-space
+  Requesting company #325: https://www.ycombinator.com/companies/bond
+  Requesting company #326: https://www.ycombinator.com/companies/blueshoe
+  Requesting company #327: https://www.ycombinator.com/companies/sieveai
+  Requesting company #328: https://www.ycombinator.com/companies/airweave
+  Requesting company #329: https://www.ycombinator.com/companies/theorem-2
+  Requesting company #330: https://www.ycombinator.com/companies/text-ai
+  Requesting company #331: https://www.ycombinator.com/companies/starsling
+  Requesting company #332: https://www.ycombinator.com/companies/wavedash
+  Requesting company #333: https://www.ycombinator.com/companies/oncactus
+  Requesting company #334: https://www.ycombinator.com/companies/linewise
+  Requesting company #335: https://www.ycombinator.com/companies/code-four
+  Requesting company #336: https://www.ycombinator.com/companies/lumari
+  Requesting company #337: https://www.ycombinator.com/companies/mlop
+  Requesting company #338: https://www.ycombinator.com/companies/den
+  Requesting company #339: https://www.ycombinator.com/companies/propolis
+  Requesting company #340: https://www.ycombinator.com/companies/cotool
+  Requesting company #341: https://www.ycombinator.com/companies/delty
+  Requesting company #342: https://www.ycombinator.com/companies/nimbic-ai
+  Requesting company #343: https://www.ycombinator.com/companies/moby-analytics
+  Requesting company #344: https://www.ycombinator.com/companies/rimba
+  Requesting company #345: https://www.ycombinator.com/companies/adentris
+  Requesting company #346: https://www.ycombinator.com/companies/probo
+  Requesting company #347: https://www.ycombinator.com/companies/mindfort
+  Requesting company #348: https://www.ycombinator.com/companies/chrt
+  Requesting company #349: https://www.ycombinator.com/companies/lapel
+  Requesting company #350: https://www.ycombinator.com/companies/mesmer
+  Requesting company #351: https://www.ycombinator.com/companies/relixir
+  Requesting company #352: https://www.ycombinator.com/companies/janus
+  Requesting company #353: https://www.ycombinator.com/companies/synthetic-society
+  Requesting company #354: https://www.ycombinator.com/companies/hemut
+  Requesting company #355: https://www.ycombinator.com/companies/zero
+  Requesting company #356: https://www.ycombinator.com/companies/valuemate
+  Requesting company #357: https://www.ycombinator.com/companies/bramante-biologics
+  Requesting company #358: https://www.ycombinator.com/companies/saffron-health
+  Requesting company #359: https://www.ycombinator.com/companies/scalar-field
+  Requesting company #360: https://www.ycombinator.com/companies/eloquent-ai
+  Requesting company #361: https://www.ycombinator.com/companies/morphoai
+  Requesting company #362: https://www.ycombinator.com/companies/vassar-robotics
+  Requesting company #363: https://www.ycombinator.com/companies/cactus
+  Requesting company #364: https://www.ycombinator.com/companies/boost-robotics
+  Requesting company #365: https://www.ycombinator.com/companies/sygaldry-technologies
+  Requesting company #366: https://www.ycombinator.com/companies/paraquery
+  Requesting company #367: https://www.ycombinator.com/companies/klavis-ai
+  Requesting company #368: https://www.ycombinator.com/companies/third-chair
+  Requesting company #369: https://www.ycombinator.com/companies/vesence
+  Requesting company #370: https://www.ycombinator.com/companies/powermatrix
+  Requesting company #371: https://www.ycombinator.com/companies/jazzberry
+  Requesting company #372: https://www.ycombinator.com/companies/besimple-ai
+  Requesting company #373: https://www.ycombinator.com/companies/alkali
+  Requesting company #374: https://www.ycombinator.com/companies/human-behavior
+  Requesting company #375: https://www.ycombinator.com/companies/qualgent
+  Requesting company #376: https://www.ycombinator.com/companies/nixo
+  Requesting company #377: https://www.ycombinator.com/companies/prism
+  Requesting company #378: https://www.ycombinator.com/companies/novoflow
+  Requesting company #379: https://www.ycombinator.com/companies/theta
+  Requesting company #380: https://www.ycombinator.com/companies/lyrahq
+  Requesting company #381: https://www.ycombinator.com/companies/cleon
+  Requesting company #382: https://www.ycombinator.com/companies/throxy
+  Requesting company #383: https://www.ycombinator.com/companies/lucis
+  Requesting company #384: https://www.ycombinator.com/companies/flott-hq
+  Requesting company #385: https://www.ycombinator.com/companies/crimson
+  Requesting company #386: https://www.ycombinator.com/companies/casco
+  Requesting company #387: https://www.ycombinator.com/companies/nomi
+  Requesting company #388: https://www.ycombinator.com/companies/morphik
+  Requesting company #389: https://www.ycombinator.com/companies/runrl
+  Requesting company #390: https://www.ycombinator.com/companies/ticket-wallet
+  Requesting company #391: https://www.ycombinator.com/companies/kaizen
+  Requesting company #392: https://www.ycombinator.com/companies/habit
+  Requesting company #393: https://www.ycombinator.com/companies/clidey
+  Requesting company #394: https://www.ycombinator.com/companies/opusense-ai
+  Requesting company #395: https://www.ycombinator.com/companies/labric
+  Requesting company #396: https://www.ycombinator.com/companies/photonium
+  Requesting company #397: https://www.ycombinator.com/companies/sixtyfour
+  Requesting company #398: https://www.ycombinator.com/companies/tegore
+  Requesting company #399: https://www.ycombinator.com/companies/clado
+  Requesting company #400: https://www.ycombinator.com/companies/combinely
+  Requesting company #401: https://www.ycombinator.com/companies/voiceos
+  Requesting company #402: https://www.ycombinator.com/companies/chiron
+  Requesting company #403: https://www.ycombinator.com/companies/jeevy-fabrication
+  Requesting company #404: https://www.ycombinator.com/companies/trapeze
+  Requesting company #405: https://www.ycombinator.com/companies/tinfoil
+  Requesting company #406: https://www.ycombinator.com/companies/the-llm-data-company
+  Requesting company #407: https://www.ycombinator.com/companies/refresh
+  Requesting company #408: https://www.ycombinator.com/companies/parsewise
+  Requesting company #409: https://www.ycombinator.com/companies/better-auth
+  Requesting company #410: https://www.ycombinator.com/companies/bluejay
+  Requesting company #411: https://www.ycombinator.com/companies/kestral
+  Requesting company #412: https://www.ycombinator.com/companies/attune
+  Requesting company #413: https://www.ycombinator.com/companies/pgdog
+  Requesting company #414: https://www.ycombinator.com/companies/kirana-ai
+  Requesting company #415: https://www.ycombinator.com/companies/mbodi-ai
+  Requesting company #416: https://www.ycombinator.com/companies/percival
+  Requesting company #417: https://www.ycombinator.com/companies/typeos
+  Requesting company #418: https://www.ycombinator.com/companies/youlearn
+  Requesting company #419: https://www.ycombinator.com/companies/stratify
+  Requesting company #420: https://www.ycombinator.com/companies/sim
+  Requesting company #421: https://www.ycombinator.com/companies/clarm
+  Requesting company #422: https://www.ycombinator.com/companies/beluga-labs
+  Requesting company #423: https://www.ycombinator.com/companies/kaelio
+  Requesting company #424: https://www.ycombinator.com/companies/dolphin
+  Requesting company #425: https://www.ycombinator.com/companies/zeon-systems
+  Requesting company #426: https://www.ycombinator.com/companies/the-robot-learning-company
+  Requesting company #427: https://www.ycombinator.com/companies/helixdb
+  Requesting company #428: https://www.ycombinator.com/companies/chonkie
+  Requesting company #429: https://www.ycombinator.com/companies/almond-2
+  Requesting company #430: https://www.ycombinator.com/companies/claim-health
+  Requesting company #431: https://www.ycombinator.com/companies/capacitive
+  Requesting company #432: https://www.ycombinator.com/companies/acolite
+  Requesting company #433: https://www.ycombinator.com/companies/approval-ai
+  Requesting company #434: https://www.ycombinator.com/companies/auctor
+  Requesting company #435: https://www.ycombinator.com/companies/neoncoral
+  Requesting company #436: https://www.ycombinator.com/companies/galen-ai
+  Requesting company #437: https://www.ycombinator.com/companies/synthiolabs
+  Requesting company #438: https://www.ycombinator.com/companies/cua
+  Requesting company #439: https://www.ycombinator.com/companies/minerva
+  Requesting company #440: https://www.ycombinator.com/companies/groundcontrol
+  Requesting company #441: https://www.ycombinator.com/companies/avallon-ai
+  Requesting company #442: https://www.ycombinator.com/companies/serafis
+  Requesting company #443: https://www.ycombinator.com/companies/bloom-4
+  Requesting company #444: https://www.ycombinator.com/companies/cubic
+  Requesting company #445: https://www.ycombinator.com/companies/notus-autonomous-systems
+  Requesting company #446: https://www.ycombinator.com/companies/golf
+  Requesting company #447: https://www.ycombinator.com/companies/bitboard
+  Requesting company #448: https://www.ycombinator.com/companies/nao-labs
+  Requesting company #449: https://www.ycombinator.com/companies/vybe
+  Requesting company #450: https://www.ycombinator.com/companies/aravolta
+  Requesting company #451: https://www.ycombinator.com/companies/kashikoi
+  Requesting company #452: https://www.ycombinator.com/companies/plexe
+  Requesting company #453: https://www.ycombinator.com/companies/frekil
+  Requesting company #454: https://www.ycombinator.com/companies/chestnut
+  Requesting company #455: https://www.ycombinator.com/companies/red-barn-robotics
+  Requesting company #456: https://www.ycombinator.com/companies/qfex
+  Requesting company #457: https://www.ycombinator.com/companies/blaxel
+  Requesting company #458: https://www.ycombinator.com/companies/mentra
+  Requesting company #459: https://www.ycombinator.com/companies/wayline
+  Requesting company #460: https://www.ycombinator.com/companies/blindpay
+  Requesting company #461: https://www.ycombinator.com/companies/ambral
+  Requesting company #462: https://www.ycombinator.com/companies/vantel
+  Requesting company #463: https://www.ycombinator.com/companies/fira
+  Requesting company #464: https://www.ycombinator.com/companies/assistant-ui
+  Requesting company #465: https://www.ycombinator.com/companies/artifact-2
+  Requesting company #466: https://www.ycombinator.com/companies/axal
+  Requesting company #467: https://www.ycombinator.com/companies/fluidize
+  Requesting company #468: https://www.ycombinator.com/companies/thirdlayer
+  Requesting company #469: https://www.ycombinator.com/companies/trainloop
+  Requesting company #470: https://www.ycombinator.com/companies/tallyhq
+  Requesting company #471: https://www.ycombinator.com/companies/sammy-labs
+  Requesting company #472: https://www.ycombinator.com/companies/instinct
+  Requesting company #473: https://www.ycombinator.com/companies/mercura
+  Requesting company #474: https://www.ycombinator.com/companies/lightbox
+  Requesting company #475: https://www.ycombinator.com/companies/cedar
+  Requesting company #476: https://www.ycombinator.com/companies/browser-use
+  Requesting company #477: https://www.ycombinator.com/companies/tamlabs
+  Requesting company #478: https://www.ycombinator.com/companies/ergo
+  Requesting company #479: https://www.ycombinator.com/companies/copycat
+  Requesting company #480: https://www.ycombinator.com/companies/paratus-health
+  Requesting company #481: https://www.ycombinator.com/companies/atlog
+  Requesting company #482: https://www.ycombinator.com/companies/butter
+  Requesting company #483: https://www.ycombinator.com/companies/bluebook
+  Requesting company #484: https://www.ycombinator.com/companies/tensorpool
+  Requesting company #485: https://www.ycombinator.com/companies/waffle
+  Requesting company #486: https://www.ycombinator.com/companies/dalus
+  Requesting company #487: https://www.ycombinator.com/companies/roark
+  Requesting company #488: https://www.ycombinator.com/companies/rebolt
+  Requesting company #489: https://www.ycombinator.com/companies/spott
+  Requesting company #490: https://www.ycombinator.com/companies/woz
+  Requesting company #491: https://www.ycombinator.com/companies/proception-inc
+  Requesting company #492: https://www.ycombinator.com/companies/demeter
+  Requesting company #493: https://www.ycombinator.com/companies/wildcard
+  Requesting company #494: https://www.ycombinator.com/companies/permitify
+  Requesting company #495: https://www.ycombinator.com/companies/reditus-space
+  Requesting company #496: https://www.ycombinator.com/companies/optifye-ai
+  Requesting company #497: https://www.ycombinator.com/companies/pinch
+  Requesting company #498: https://www.ycombinator.com/companies/retrofit
+  Requesting company #499: https://www.ycombinator.com/companies/archon
+  Requesting company #500: https://www.ycombinator.com/companies/forge-automation
+  Requesting company #501: https://www.ycombinator.com/companies/mastra
+  Requesting company #502: https://www.ycombinator.com/companies/afterquery
+  Requesting company #503: https://www.ycombinator.com/companies/misprint
+  Requesting company #504: https://www.ycombinator.com/companies/fuseai
+  Requesting company #505: https://www.ycombinator.com/companies/miyagi-labs
+  Requesting company #506: https://www.ycombinator.com/companies/artificial-societies
+  Requesting company #507: https://www.ycombinator.com/companies/openintake
+  Requesting company #508: https://www.ycombinator.com/companies/peppr-ai
+  Requesting company #509: https://www.ycombinator.com/companies/infinite
+  Requesting company #510: https://www.ycombinator.com/companies/sennu-ai
+  Requesting company #511: https://www.ycombinator.com/companies/orbital-operations
+  Requesting company #512: https://www.ycombinator.com/companies/mesh-2
+  Requesting company #513: https://www.ycombinator.com/companies/outlit
+  Requesting company #514: https://www.ycombinator.com/companies/tire-swing
+  Requesting company #515: https://www.ycombinator.com/companies/harper
+  Requesting company #516: https://www.ycombinator.com/companies/calltree
+  Requesting company #517: https://www.ycombinator.com/companies/nitrode
+  Requesting company #518: https://www.ycombinator.com/companies/karsa
+  Requesting company #519: https://www.ycombinator.com/companies/exla
+  Requesting company #520: https://www.ycombinator.com/companies/confident-ai
+  Requesting company #521: https://www.ycombinator.com/companies/riviera
+  Requesting company #522: https://www.ycombinator.com/companies/waypoint-transit
+  Requesting company #523: https://www.ycombinator.com/companies/highintent
+  Requesting company #524: https://www.ycombinator.com/companies/agentin-ai
+  Requesting company #525: https://www.ycombinator.com/companies/rejot
+  Requesting company #526: https://www.ycombinator.com/companies/general-trajectory
+  Requesting company #527: https://www.ycombinator.com/companies/solidroad
+  Requesting company #528: https://www.ycombinator.com/companies/trata
+  Requesting company #529: https://www.ycombinator.com/companies/haleum
+  Requesting company #530: https://www.ycombinator.com/companies/lucidic-ai
+  Requesting company #531: https://www.ycombinator.com/companies/mundo-ai
+  Requesting company #532: https://www.ycombinator.com/companies/g-lnk
+  Requesting company #533: https://www.ycombinator.com/companies/strike
+  Requesting company #534: https://www.ycombinator.com/companies/athenahq
+  Requesting company #535: https://www.ycombinator.com/companies/lopus-ai
+  Requesting company #536: https://www.ycombinator.com/companies/cenote
+  Requesting company #537: https://www.ycombinator.com/companies/harbera
+  Requesting company #538: https://www.ycombinator.com/companies/stillwind
+  Requesting company #539: https://www.ycombinator.com/companies/bindwell
+  Requesting company #540: https://www.ycombinator.com/companies/pickle-2
+  Requesting company #541: https://www.ycombinator.com/companies/lucid
+  Requesting company #542: https://www.ycombinator.com/companies/macadamia
+  Requesting company #543: https://www.ycombinator.com/companies/asteroid
+  Requesting company #544: https://www.ycombinator.com/companies/gale
+  Requesting company #545: https://www.ycombinator.com/companies/pave-robotics
+  Requesting company #546: https://www.ycombinator.com/companies/pax-markets
+  Requesting company #547: https://www.ycombinator.com/companies/olive
+  Requesting company #548: https://www.ycombinator.com/companies/hud
+  Requesting company #549: https://www.ycombinator.com/companies/finbar
+  Requesting company #550: https://www.ycombinator.com/companies/cuckoo-labs
+  Requesting company #551: https://www.ycombinator.com/companies/mecha-health
+  Requesting company #552: https://www.ycombinator.com/companies/gradewiz
+  Requesting company #553: https://www.ycombinator.com/companies/healthkey
+  Requesting company #554: https://www.ycombinator.com/companies/operand
+  Requesting company #555: https://www.ycombinator.com/companies/osmosis
+  Requesting company #556: https://www.ycombinator.com/companies/swerve
+  Requesting company #557: https://www.ycombinator.com/companies/mosaic-2
+  Requesting company #558: https://www.ycombinator.com/companies/cifrato
+  Requesting company #559: https://www.ycombinator.com/companies/oki
+  Requesting company #560: https://www.ycombinator.com/companies/zeroentropy
+  Requesting company #561: https://www.ycombinator.com/companies/bezel
+  Requesting company #562: https://www.ycombinator.com/companies/cardamon
+  Requesting company #563: https://www.ycombinator.com/companies/amby-health
+  Requesting company #564: https://www.ycombinator.com/companies/trim
+  Requesting company #565: https://www.ycombinator.com/companies/tergle
+  Requesting company #566: https://www.ycombinator.com/companies/rally-3
+  Requesting company #567: https://www.ycombinator.com/companies/adam
+  Requesting company #568: https://www.ycombinator.com/companies/inversion-semiconductor
+  Requesting company #569: https://www.ycombinator.com/companies/carecycle
+  Requesting company #570: https://www.ycombinator.com/companies/deployparagon
+  Requesting company #571: https://www.ycombinator.com/companies/salespatriot
+  Requesting company #572: https://www.ycombinator.com/companies/maive
+  Requesting company #573: https://www.ycombinator.com/companies/weave-3
+  Requesting company #574: https://www.ycombinator.com/companies/caseflood-ai
+  Requesting company #575: https://www.ycombinator.com/companies/tejas-ai
+  Requesting company #576: https://www.ycombinator.com/companies/trava
+  Requesting company #577: https://www.ycombinator.com/companies/maritime-fusion
+  Requesting company #578: https://www.ycombinator.com/companies/a0-dev
+  Requesting company #579: https://www.ycombinator.com/companies/altrina
+  Requesting company #580: https://www.ycombinator.com/companies/a1base
+  Requesting company #581: https://www.ycombinator.com/companies/verbiflow
+  Requesting company #582: https://www.ycombinator.com/companies/toothy-ai
+  Requesting company #583: https://www.ycombinator.com/companies/rocketable
+  Requesting company #584: https://www.ycombinator.com/companies/contrario
+  Requesting company #585: https://www.ycombinator.com/companies/ovlo
+  Requesting company #586: https://www.ycombinator.com/companies/truffle-ai
+  Requesting company #587: https://www.ycombinator.com/companies/superglue
+  Requesting company #588: https://www.ycombinator.com/companies/conntour
+  Requesting company #589: https://www.ycombinator.com/companies/closure
+  Requesting company #590: https://www.ycombinator.com/companies/promptless
+  Requesting company #591: https://www.ycombinator.com/companies/scout-4
+  Requesting company #592: https://www.ycombinator.com/companies/subtrace
+  Requesting company #593: https://www.ycombinator.com/companies/vocality-health
+  Requesting company #594: https://www.ycombinator.com/companies/astro
+  Requesting company #595: https://www.ycombinator.com/companies/dartboard-energy
+  Requesting company #596: https://www.ycombinator.com/companies/karoo
+  Requesting company #597: https://www.ycombinator.com/companies/awen
+  Requesting company #598: https://www.ycombinator.com/companies/dollyglot
+  Requesting company #599: https://www.ycombinator.com/companies/alice-tech
+  Requesting company #600: https://www.ycombinator.com/companies/stamp
+  Requesting company #601: https://www.ycombinator.com/companies/splash-inc
+  Requesting company #602: https://www.ycombinator.com/companies/orchids
+  Requesting company #603: https://www.ycombinator.com/companies/axiom
+  Requesting company #604: https://www.ycombinator.com/companies/partcl
+  Requesting company #605: https://www.ycombinator.com/companies/steinmetz
+  Requesting company #606: https://www.ycombinator.com/companies/subimage
+  Requesting company #607: https://www.ycombinator.com/companies/hey-telo
+  Requesting company #608: https://www.ycombinator.com/companies/praxim
+  Requesting company #609: https://www.ycombinator.com/companies/excellence-learning
+  Requesting company #610: https://www.ycombinator.com/companies/tweeksio
+  Requesting company #611: https://www.ycombinator.com/companies/flowtel
+  Requesting company #612: https://www.ycombinator.com/companies/leaping-ai
+  Requesting company #613: https://www.ycombinator.com/companies/vetnio
+  Requesting company #614: https://www.ycombinator.com/companies/candor
+  Requesting company #615: https://www.ycombinator.com/companies/bild-ai
+  Requesting company #616: https://www.ycombinator.com/companies/trace
+  Requesting company #617: https://www.ycombinator.com/companies/revise-robotics
+  Requesting company #618: https://www.ycombinator.com/companies/aviro
+  Requesting company #619: https://www.ycombinator.com/companies/enhanced-radar
+  Requesting company #620: https://www.ycombinator.com/companies/edexia
+  Requesting company #621: https://www.ycombinator.com/companies/quantstruct
+  Requesting company #622: https://www.ycombinator.com/companies/asha-health
+  Requesting company #623: https://www.ycombinator.com/companies/apolink
+  Requesting company #624: https://www.ycombinator.com/companies/humanlayer
+  Requesting company #625: https://www.ycombinator.com/companies/loombotic
+  Requesting company #626: https://www.ycombinator.com/companies/roundabout-technologies
+  Requesting company #627: https://www.ycombinator.com/companies/synth-3
+  Requesting company #628: https://www.ycombinator.com/companies/careforce-prev-helpcare-ai
+  Requesting company #629: https://www.ycombinator.com/companies/canvas
+  Requesting company #630: https://www.ycombinator.com/companies/ember
+  Requesting company #631: https://www.ycombinator.com/companies/relvy-ai
+  Requesting company #632: https://www.ycombinator.com/companies/friday
+  Requesting company #633: https://www.ycombinator.com/companies/sre-ai
+  Requesting company #634: https://www.ycombinator.com/companies/ryvn
+  Requesting company #635: https://www.ycombinator.com/companies/melder
+  Requesting company #636: https://www.ycombinator.com/companies/bookmyflight
+  Requesting company #637: https://www.ycombinator.com/companies/foundry
+  Requesting company #638: https://www.ycombinator.com/companies/forerunner-ai
+  Requesting company #639: https://www.ycombinator.com/companies/futureclinic
+  Requesting company #640: https://www.ycombinator.com/companies/edgedive
 
 ================================================================================
 COMPANY: Axial Composites Industries
@@ -3118,6 +680,16 @@ URL: https://www.ycombinator.com/companies/axial-composites-industries
 LinkedIn links found: 2
   1. https://www.linkedin.com/in/giuseppe-rapisarda2001
   2. https://www.linkedin.com/in/rollo-tully-5a3306221
+    Processing slug: giuseppe-rapisarda2001, parts: ['giuseppe', 'rapisarda2001']
+      Detected ID part: 'rapisarda2001', stopping. Name parts so far: ['giuseppe']
+    Name parts before filtering: ['giuseppe']
+    Name parts after filtering: ['giuseppe']
+    Extracted name: 'Giuseppe' (from 1 parts)
+    Processing slug: rollo-tully-5a3306221, parts: ['rollo', 'tully', '5a3306221']
+      Detected ID part: '5a3306221', stopping. Name parts so far: ['rollo', 'tully']
+    Name parts before filtering: ['rollo', 'tully']
+    Name parts after filtering: ['rollo', 'tully']
+    Extracted name: 'Rollo Tully' (from 2 parts)
 
 FINAL RESULTS for Axial Composites Industries:
 ✓ Found 2 founder(s): Giuseppe, Rollo Tully
@@ -3131,9 +703,44 @@ LinkedIn links found: 3
   1. https://www.linkedin.com/in/daviddaytw
   2. https://www.linkedin.com/in/suhailparry
   3. https://www.linkedin.com/in/yashraj22
+    Processing slug: daviddaytw, parts: ['daviddaytw']
+    Name parts before filtering: ['daviddaytw']
+    Name parts after filtering: ['daviddaytw']
+    Extracted name: 'Daviddaytw' (from 1 parts)
+    Processing slug: suhailparry, parts: ['suhailparry']
+    Name parts before filtering: ['suhailparry']
+    Name parts after filtering: ['suhailparry']
+    Extracted name: 'Suhailparry' (from 1 parts)
+    Processing slug: yashraj22, parts: ['yashraj22']
+    Name parts before filtering: ['yashraj22']
+    Name parts after filtering: ['yashraj22']
+    Extracted name: 'Yashraj22' (from 1 parts)
 
 FINAL RESULTS for LunaBill:
 ✓ Found 3 founder(s): Daviddaytw, Suhailparry, Yashraj22
+================================================================================
+
+
+================================================================================
+COMPANY: Velvet
+URL: https://www.ycombinator.com/companies/velvet
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/lucas-mantovani-a446a61a9
+  2. https://www.linkedin.com/in/lucas-tucker-21b278175
+    Processing slug: lucas-mantovani-a446a61a9, parts: ['lucas', 'mantovani', 'a446a61a9']
+      Detected ID part: 'a446a61a9', stopping. Name parts so far: ['lucas', 'mantovani']
+    Name parts before filtering: ['lucas', 'mantovani']
+    Name parts after filtering: ['lucas', 'mantovani']
+    Extracted name: 'Lucas Mantovani' (from 2 parts)
+  Cleaned 'Lucas Mantovani' -> 'Lucas'
+    Processing slug: lucas-tucker-21b278175, parts: ['lucas', 'tucker', '21b278175']
+      Detected ID part: '21b278175', stopping. Name parts so far: ['lucas', 'tucker']
+    Name parts before filtering: ['lucas', 'tucker']
+    Name parts after filtering: ['lucas', 'tucker']
+    Extracted name: 'Lucas Tucker' (from 2 parts)
+
+FINAL RESULTS for Velvet:
+✓ Found 2 founder(s): Lucas, Lucas Tucker
 ================================================================================
 
 
@@ -3143,6 +750,14 @@ URL: https://www.ycombinator.com/companies/claybird
 LinkedIn links found: 2
   1. https://www.linkedin.com/in/sadjamz
   2. https://www.linkedin.com/in/abdullahnauman
+    Processing slug: sadjamz, parts: ['sadjamz']
+    Name parts before filtering: ['sadjamz']
+    Name parts after filtering: ['sadjamz']
+    Extracted name: 'Sadjamz' (from 1 parts)
+    Processing slug: abdullahnauman, parts: ['abdullahnauman']
+    Name parts before filtering: ['abdullahnauman']
+    Name parts after filtering: ['abdullahnauman']
+    Extracted name: 'Abdullahnauman' (from 1 parts)
 
 FINAL RESULTS for Claybird:
 ✓ Found 2 founder(s): Sadjamz, Abdullahnauman
@@ -3150,51 +765,265 @@ FINAL RESULTS for Claybird:
 
 
 ================================================================================
-COMPANY: Valgo
-URL: https://www.ycombinator.com/companies/valgo
+COMPANY: Fastshot
+URL: https://www.ycombinator.com/companies/fastshot
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/robert-j-moss
-  2. https://www.linkedin.com/in/smkatz
+  1. https://www.linkedin.com/in/dzhuraeva
+  2. https://www.linkedin.com/in/fatkhi
+    Processing slug: dzhuraeva, parts: ['dzhuraeva']
+    Name parts before filtering: ['dzhuraeva']
+    Name parts after filtering: ['dzhuraeva']
+    Extracted name: 'Dzhuraeva' (from 1 parts)
+    Processing slug: fatkhi, parts: ['fatkhi']
+    Name parts before filtering: ['fatkhi']
+    Name parts after filtering: ['fatkhi']
+    Extracted name: 'Fatkhi' (from 1 parts)
 
-FINAL RESULTS for Valgo:
-✓ Found 2 founder(s): Robert J Moss, Smkatz
+FINAL RESULTS for Fastshot:
+✓ Found 2 founder(s): Dzhuraeva, Fatkhi
 ================================================================================
 
 
 ================================================================================
-COMPANY: Hlabs
-URL: https://www.ycombinator.com/companies/hlabs
+COMPANY: Clicks
+URL: https://www.ycombinator.com/companies/clicks
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/dominik-helmreich-30574a1b0
+  2. https://www.linkedin.com/in/oliverkn
+    Processing slug: dominik-helmreich-30574a1b0, parts: ['dominik', 'helmreich', '30574a1b0']
+      Detected ID part: '30574a1b0', stopping. Name parts so far: ['dominik', 'helmreich']
+    Name parts before filtering: ['dominik', 'helmreich']
+    Name parts after filtering: ['dominik', 'helmreich']
+    Extracted name: 'Dominik Helmreich' (from 2 parts)
+  Cleaned 'Dominik Helmreich' -> 'Dominik'
+    Processing slug: oliverkn, parts: ['oliverkn']
+    Name parts before filtering: ['oliverkn']
+    Name parts after filtering: ['oliverkn']
+    Extracted name: 'Oliverkn' (from 1 parts)
+
+FINAL RESULTS for Clicks:
+✓ Found 2 founder(s): Dominik, Oliverkn
+================================================================================
+
+
+================================================================================
+COMPANY: Dome
+URL: https://www.ycombinator.com/companies/dome
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/kurushdubash
+  2. https://www.linkedin.com/in/kunal-roy-772a0672
+    Processing slug: kurushdubash, parts: ['kurushdubash']
+    Name parts before filtering: ['kurushdubash']
+    Name parts after filtering: ['kurushdubash']
+    Extracted name: 'Kurushdubash' (from 1 parts)
+    Processing slug: kunal-roy-772a0672, parts: ['kunal', 'roy', '772a0672']
+      Detected ID part: '772a0672', stopping. Name parts so far: ['kunal', 'roy']
+    Name parts before filtering: ['kunal', 'roy']
+    Name parts after filtering: ['kunal', 'roy']
+    Extracted name: 'Kunal Roy' (from 2 parts)
+
+FINAL RESULTS for Dome:
+✓ Found 2 founder(s): Kurushdubash, Kunal Roy
+================================================================================
+
+
+================================================================================
+COMPANY: MarkIt
+URL: https://www.ycombinator.com/companies/markit
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/chanhkim
+  2. https://www.linkedin.com/in/rsaav
+    Processing slug: chanhkim, parts: ['chanhkim']
+    Name parts before filtering: ['chanhkim']
+    Name parts after filtering: ['chanhkim']
+    Extracted name: 'Chanhkim' (from 1 parts)
+    Processing slug: rsaav, parts: ['rsaav']
+    Name parts before filtering: ['rsaav']
+    Name parts after filtering: ['rsaav']
+    Extracted name: 'Rsaav' (from 1 parts)
+
+FINAL RESULTS for MarkIt:
+✓ Found 2 founder(s): Chanhkim, Rsaav
+================================================================================
+
+
+================================================================================
+COMPANY: Zarna
+URL: https://www.ycombinator.com/companies/zarna
+LinkedIn links found: 4
+  1. https://www.linkedin.com/in/rishabh-dhariwal
+  2. https://www.linkedin.com/in/vivan-agrawal
+  3. https://www.linkedin.com/in/rishij7
+  4. https://www.linkedin.com/in/rakeshvmehta
+    Processing slug: rishabh-dhariwal, parts: ['rishabh', 'dhariwal']
+    Name parts before filtering: ['rishabh', 'dhariwal']
+    Name parts after filtering: ['rishabh', 'dhariwal']
+    Extracted name: 'Rishabh Dhariwal' (from 2 parts)
+  Cleaned 'Rishabh Dhariwal' -> 'Rishabh'
+    Processing slug: vivan-agrawal, parts: ['vivan', 'agrawal']
+    Name parts before filtering: ['vivan', 'agrawal']
+    Name parts after filtering: ['vivan', 'agrawal']
+    Extracted name: 'Vivan Agrawal' (from 2 parts)
+    Processing slug: rishij7, parts: ['rishij7']
+    Name parts before filtering: ['rishij7']
+    Name parts after filtering: ['rishij7']
+    Extracted name: 'Rishij7' (from 1 parts)
+    Processing slug: rakeshvmehta, parts: ['rakeshvmehta']
+    Name parts before filtering: ['rakeshvmehta']
+    Name parts after filtering: ['rakeshvmehta']
+    Extracted name: 'Rakeshvmehta' (from 1 parts)
+
+FINAL RESULTS for Zarna:
+✓ Found 4 founder(s): Rishabh, Vivan, Rishij7, Rakeshvmehta
+================================================================================
+
+
+================================================================================
+COMPANY: Moss
+URL: https://www.ycombinator.com/companies/moss
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/r4ghu
+  2. https://www.linkedin.com/in/imharshanalluru
+    Processing slug: r4ghu, parts: ['r4ghu']
+    Name parts before filtering: ['r4ghu']
+    Name parts after filtering: ['r4ghu']
+    Extracted name: 'R4ghu' (from 1 parts)
+    Processing slug: imharshanalluru, parts: ['imharshanalluru']
+    Name parts before filtering: ['imharshanalluru']
+    Name parts after filtering: ['imharshanalluru']
+    Extracted name: 'Imharshanalluru' (from 1 parts)
+
+FINAL RESULTS for Moss:
+✓ Found 2 founder(s): R4ghu, Imharshanalluru
+================================================================================
+
+
+================================================================================
+COMPANY: Bear
+URL: https://www.ycombinator.com/companies/bear
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/siddhantpaliwal
+  2. https://www.linkedin.com/in/janaksunil
+    Processing slug: siddhantpaliwal, parts: ['siddhantpaliwal']
+    Name parts before filtering: ['siddhantpaliwal']
+    Name parts after filtering: ['siddhantpaliwal']
+    Extracted name: 'Siddhantpaliwal' (from 1 parts)
+    Processing slug: janaksunil, parts: ['janaksunil']
+    Name parts before filtering: ['janaksunil']
+    Name parts after filtering: ['janaksunil']
+    Extracted name: 'Janaksunil' (from 1 parts)
+
+FINAL RESULTS for Bear:
+✓ Found 2 founder(s): Siddhantpaliwal, Janaksunil
+================================================================================
+
+
+================================================================================
+COMPANY: Fixpoint
+URL: https://www.ycombinator.com/companies/fixpoint
+LinkedIn links found: 4
+  1. https://linkedin.com/in/jakub-cichon-14016a3b
+  2. https://linkedin.com/in/dbmikus
+  3. https://www.linkedin.com/in/jakub-c-14016a3b
+  4. https://www.linkedin.com/in/dbmikus
+    Processing slug: jakub-cichon-14016a3b, parts: ['jakub', 'cichon', '14016a3b']
+      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'cichon']
+    Name parts before filtering: ['jakub', 'cichon']
+    Name parts after filtering: ['jakub', 'cichon']
+    Extracted name: 'Jakub Cichon' (from 2 parts)
+    Processing slug: dbmikus, parts: ['dbmikus']
+    Name parts before filtering: ['dbmikus']
+    Name parts after filtering: ['dbmikus']
+    Extracted name: 'Dbmikus' (from 1 parts)
+    Processing slug: jakub-c-14016a3b, parts: ['jakub', 'c', '14016a3b']
+      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'c']
+    Name parts before filtering: ['jakub', 'c']
+    Name parts after filtering: ['jakub', 'c']
+    Extracted name: 'Jakub C' (from 2 parts)
+    Processing slug: dbmikus, parts: ['dbmikus']
+    Name parts before filtering: ['dbmikus']
+    Name parts after filtering: ['dbmikus']
+    Extracted name: 'Dbmikus' (from 1 parts)
+
+FINAL RESULTS for Fixpoint:
+✓ Found 3 founder(s): Jakub Cichon, Dbmikus, Jakub C
+================================================================================
+
+
+================================================================================
+COMPANY: Openroll
+URL: https://www.ycombinator.com/companies/openroll
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/lindellmattias
+  2. https://www.linkedin.com/in/porsev-aslan
+    Processing slug: lindellmattias, parts: ['lindellmattias']
+    Name parts before filtering: ['lindellmattias']
+    Name parts after filtering: ['lindellmattias']
+    Extracted name: 'Lindellmattias' (from 1 parts)
+    Processing slug: porsev-aslan, parts: ['porsev', 'aslan']
+    Name parts before filtering: ['porsev', 'aslan']
+    Name parts after filtering: ['porsev', 'aslan']
+    Extracted name: 'Porsev Aslan' (from 2 parts)
+
+FINAL RESULTS for Openroll:
+✓ Found 2 founder(s): Lindellmattias, Porsev Aslan
+================================================================================
+
+
+================================================================================
+COMPANY: Rivet
+URL: https://www.ycombinator.com/companies/rivet-design
 LinkedIn links found: 1
-  1. https://www.linkedin.com/in/paul-hetherington
+  1. https://www.linkedin.com/in/gormansam
+    Processing slug: gormansam, parts: ['gormansam']
+    Name parts before filtering: ['gormansam']
+    Name parts after filtering: ['gormansam']
+    Extracted name: 'Gormansam' (from 1 parts)
 
-FINAL RESULTS for Hlabs:
-✓ Found 1 founder(s): Paul
+FINAL RESULTS for Rivet:
+✓ Found 1 founder(s): Gormansam
 ================================================================================
 
 
 ================================================================================
-COMPANY: AVoice
-URL: https://www.ycombinator.com/companies/avoice
+COMPANY: item
+URL: https://www.ycombinator.com/companies/item
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/chawinasava
-  2. https://www.linkedin.com/in/chawit-asavasaetakul-a487a724b
+  1. https://linkedin.com/in/akguthal
+  2. https://linkedin.com/in/asantanilla
+    Processing slug: akguthal, parts: ['akguthal']
+    Name parts before filtering: ['akguthal']
+    Name parts after filtering: ['akguthal']
+    Extracted name: 'Akguthal' (from 1 parts)
+    Processing slug: asantanilla, parts: ['asantanilla']
+    Name parts before filtering: ['asantanilla']
+    Name parts after filtering: ['asantanilla']
+    Extracted name: 'Asantanilla' (from 1 parts)
 
-FINAL RESULTS for AVoice:
-✓ Found 2 founder(s): Chawinasava, Chawit
+FINAL RESULTS for item:
+✓ Found 2 founder(s): Akguthal, Asantanilla
 ================================================================================
 
 
 ================================================================================
-COMPANY: Luel
-URL: https://www.ycombinator.com/companies/luel
+COMPANY: Rovi Health
+URL: https://www.ycombinator.com/companies/rovi-health
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/inigolenderking
-  2. https://www.linkedin.com/in/william-namgyal
+  1. https://www.linkedin.com/in/santoshvallabhaneni
+  2. https://www.linkedin.com/in/tvallabh
+    Processing slug: santoshvallabhaneni, parts: ['santoshvallabhaneni']
+    Name parts before filtering: ['santoshvallabhaneni']
+    Name parts after filtering: ['santoshvallabhaneni']
+    Extracted name: 'Santoshvallabhaneni' (from 1 parts)
+    Processing slug: tvallabh, parts: ['tvallabh']
+    Name parts before filtering: ['tvallabh']
+    Name parts after filtering: ['tvallabh']
+    Extracted name: 'Tvallabh' (from 1 parts)
 
-FINAL RESULTS for Luel:
-✓ Found 2 founder(s): Inigolenderking, William
+FINAL RESULTS for Rovi Health:
+✓ Found 2 founder(s): Santoshvallabhaneni, Tvallabh
 ================================================================================
 
 
 === END OF LOG ===
-Ended: 2025-11-26 12:33:12
+Ended: 2025-11-28 18:19:02

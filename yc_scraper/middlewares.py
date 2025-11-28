@@ -74,16 +74,20 @@ class SeleniumMiddleware:
         
         try:
             self.driver = webdriver.Chrome(options=chrome_options)
+            print("✅ Selenium Chrome driver initialized successfully")
         except Exception as e:
+            print(f"⚠️ Chrome driver failed: {e}")
             # If Chrome is not available, try Firefox
             try:
                 from selenium.webdriver.firefox.options import Options as FirefoxOptions
                 firefox_options = FirefoxOptions()
                 firefox_options.add_argument('--headless')
                 self.driver = webdriver.Firefox(options=firefox_options)
+                print("✅ Selenium Firefox driver initialized successfully")
             except Exception as e2:
-                print(f"Error initializing browser drivers: {e}, {e2}")
-                raise
+                print(f"❌ Error initializing browser drivers: {e}, {e2}")
+                print("⚠️ Selenium will not be available - pages may not load correctly")
+                self.driver = None
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -94,7 +98,9 @@ class SeleniumMiddleware:
     def process_request(self, request, spider):
         # Only use Selenium for the companies listing page (which has infinite scroll)
         # Skip Selenium for individual company pages - they're mostly static HTML
-        is_listing_page = '/companies?' in request.url or request.url.endswith('/companies')
+        is_listing_page = '/companies?' in request.url or '/companies' in request.url.split('?')[0].split('#')[0] or request.url.endswith('/companies')
+        
+        spider.logger.info(f'Selenium check: URL={request.url}, is_listing_page={is_listing_page}, has_driver={self.driver is not None}')
         
         if is_listing_page and 'ycombinator.com' in request.url and self.driver:
             spider.logger.info(f'Processing listing page {request.url} with Selenium')
@@ -107,19 +113,27 @@ class SeleniumMiddleware:
                 # Scroll to load more content (infinite scroll)
                 last_height = self.driver.execute_script("return document.body.scrollHeight")
                 scroll_attempts = 0
-                max_scrolls = 10  # Reduced scroll attempts
+                max_scrolls = 30  # Increased scroll attempts to load all companies
+                no_change_count = 0
                 
                 while scroll_attempts < max_scrolls:
                     # Scroll down
                     self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(0.5)  # Reduced wait time
+                    time.sleep(1)  # Wait for content to load
                     
                     # Calculate new scroll height
                     new_height = self.driver.execute_script("return document.body.scrollHeight")
                     if new_height == last_height:
-                        break
-                    last_height = new_height
+                        no_change_count += 1
+                        # If no change for 3 consecutive scrolls, probably loaded everything
+                        if no_change_count >= 3:
+                            break
+                    else:
+                        no_change_count = 0
+                        last_height = new_height
                     scroll_attempts += 1
+                    
+                spider.logger.info(f'Finished scrolling after {scroll_attempts} attempts')
                 
                 # Get page source after scrolling
                 body = self.driver.page_source

@@ -121,15 +121,37 @@ class YcCompaniesSpider(scrapy.Spider):
         # Common patterns: links to /companies/, divs with company info
         company_links = response.css('a[href*="/companies/"]:not([href*="/companies?"])')
         
-        # Also try to find company cards/items
-        company_cards = response.css('[class*="CompanyCard"], [class*="company-card"], [data-testid*="company"]')
+        # Also try to find company cards/items with broader selectors
+        company_cards = response.css(
+            '[class*="CompanyCard"], [class*="company-card"], '
+            '[data-testid*="company"], [class*="Company"], '
+            'a[href^="/companies/"]'
+        )
         
-        # Combine both approaches
-        all_companies = list(company_links) + list(company_cards)
+        # Combine both approaches and remove duplicates
+        all_companies = []
+        seen_urls = set()
+        
+        for element in list(company_links) + list(company_cards):
+            href = element.css('::attr(href)').get() or ''
+            # Normalize URL
+            if '/companies/' in href:
+                # Extract just the company slug part for deduplication
+                company_slug = href.split('/companies/')[-1].split('?')[0].split('#')[0]
+                if company_slug and company_slug not in seen_urls and company_slug != 'companies':
+                    seen_urls.add(company_slug)
+                    all_companies.append(element)
         
         if not all_companies:
-            # Fallback: try to find any link containing company info
-            all_companies = response.css('a[href*="companies"]')
+            # Fallback: try to find any link containing company info (more broadly)
+            all_links = response.css('a[href*="companies"]')
+            for element in all_links:
+                href = element.css('::attr(href)').get() or ''
+                if '/companies/' in href and 'companies?' not in href:
+                    company_slug = href.split('/companies/')[-1].split('?')[0].split('#')[0]
+                    if company_slug and company_slug not in seen_urls and company_slug != 'companies':
+                        seen_urls.add(company_slug)
+                        all_companies.append(element)
         
         self.logger.info(f'Found {len(all_companies)} potential company links')
         
@@ -286,6 +308,13 @@ class YcCompaniesSpider(scrapy.Spider):
                 slug_parts = slug.split('-')
                 name_parts = []
                 
+                # Debug: log the slug parts
+                try:
+                    self.debug_log.write(f"    Processing slug: {slug}, parts: {slug_parts}\n")
+                    self.debug_log.flush()
+                except:
+                    pass
+                
                 # Work forwards and stop when we hit an ID-like part
                 for part in slug_parts:
                     # Check if this part looks like an ID:
@@ -328,9 +357,21 @@ class YcCompaniesSpider(scrapy.Spider):
                     
                     if is_id:
                         # Found an ID, stop collecting (everything before this is the name)
+                        try:
+                            self.debug_log.write(f"      Detected ID part: '{part}', stopping. Name parts so far: {name_parts}\n")
+                            self.debug_log.flush()
+                        except:
+                            pass
                         break
                     else:
                         name_parts.append(part)
+                
+                # Debug: log name parts before filtering
+                try:
+                    self.debug_log.write(f"    Name parts before filtering: {name_parts}\n")
+                    self.debug_log.flush()
+                except:
+                    pass
                 
                 # Filter out very short single-character parts unless it's a middle initial
                 if len(name_parts) > 1:
@@ -347,6 +388,13 @@ class YcCompaniesSpider(scrapy.Spider):
                             filtered_parts.append(part)
                     name_parts = filtered_parts if filtered_parts else name_parts
                 
+                # Debug: log name parts after filtering
+                try:
+                    self.debug_log.write(f"    Name parts after filtering: {name_parts}\n")
+                    self.debug_log.flush()
+                except:
+                    pass
+                
                 # Need at least 2 parts for a full name, but accept single if it looks like a name
                 if len(name_parts) >= 2:
                     name = ' '.join(part.capitalize() for part in name_parts)
@@ -357,16 +405,32 @@ class YcCompaniesSpider(scrapy.Spider):
                 else:
                     name = None
                 
+                # Debug: log final name
+                try:
+                    self.debug_log.write(f"    Extracted name: '{name}' (from {len(name_parts)} parts)\n")
+                    self.debug_log.flush()
+                except:
+                    pass
+                
                 # Validate and clean the name
                 if name:
                     # Remove any trailing alphanumeric IDs that might have slipped through
-                    # More aggressive cleanup patterns
-                    name = re.sub(r'\s+[a-z0-9]{7,}$', '', name, flags=re.IGNORECASE)  # Remove trailing 7+ char alphanumeric
-                    name = re.sub(r'\s+\d{6,}$', '', name)  # Remove trailing 6+ digit IDs
-                    # Remove patterns like "word 123abc456" (alphanumeric with numbers)
-                    name = re.sub(r'\s+[a-z]*\d+[a-z\d]{5,}$', '', name, flags=re.IGNORECASE)
-                    name = re.sub(r'\s+\d+[a-z]+\d*[a-z\d]{4,}$', '', name, flags=re.IGNORECASE)
+                    # Only remove if it's clearly an ID (has digits and is at the end)
+                    original_name = name
+                    # Remove trailing IDs: patterns like "Name 7b3a3b15b" or "Name 1234567"
+                    name = re.sub(r'\s+[a-z]*\d+[a-z\d]{6,}$', '', name, flags=re.IGNORECASE)  # Trailing ID with 6+ chars after digit
+                    name = re.sub(r'\s+\d{7,}$', '', name)  # Trailing 7+ digit IDs
+                    # Only remove if the trailing part has significant digits
+                    name = re.sub(r'\s+[a-z\d]{8,}$', '', name, flags=re.IGNORECASE)  # Only if trailing part is 8+ chars (likely ID)
                     name = name.strip()
+                    
+                    # Debug: log if name was modified
+                    if name != original_name:
+                        try:
+                            self.debug_log.write(f"  Cleaned '{original_name}' -> '{name}'\n")
+                            self.debug_log.flush()
+                        except:
+                            pass
                     
                     if self._is_valid_name(name, founders_names):
                         founders_names.append(name)
@@ -430,13 +494,15 @@ class YcCompaniesSpider(scrapy.Spider):
                         break
         
         # Ensure lists are aligned - pad with empty strings if needed
+        # But only align if we have at least one item in any list
         max_len = max(len(founders_names), len(founders_linkedin), len(founders_twitter))
-        while len(founders_names) < max_len:
-            founders_names.append('')
-        while len(founders_linkedin) < max_len:
-            founders_linkedin.append('')
-        while len(founders_twitter) < max_len:
-            founders_twitter.append('')
+        if max_len > 0:
+            while len(founders_names) < max_len:
+                founders_names.append('')
+            while len(founders_linkedin) < max_len:
+                founders_linkedin.append('')
+            while len(founders_twitter) < max_len:
+                founders_twitter.append('')
         
         # Final cleanup - remove @ycombinator from Twitter if somehow included
         founders_twitter = [t for t in founders_twitter if t and 'ycombinator' not in t.lower()]
@@ -455,15 +521,16 @@ class YcCompaniesSpider(scrapy.Spider):
             cleaned = re.sub(r'\s+\d+[a-z]+\d*[a-z\d]{4,}$', '', cleaned, flags=re.IGNORECASE)
             # Remove any remaining trailing spaces
             cleaned = cleaned.strip()
-            # Also check if the last word looks like an ID and remove it
+            # Check if the last word looks like an ID and remove it (but be careful not to remove valid names)
             words = cleaned.split()
-            if words:
+            if len(words) > 1:  # Only remove last word if there are multiple words
                 last_word = words[-1]
-                # If last word looks like an ID, remove it
-                if (len(last_word) >= 7 and any(c.isdigit() for c in last_word) and 
+                # If last word looks like an ID (8+ chars with mix of digits and letters), remove it
+                if (len(last_word) >= 8 and any(c.isdigit() for c in last_word) and 
                     any(c.isalpha() for c in last_word)):
                     digit_count = sum(1 for c in last_word if c.isdigit())
-                    if digit_count / len(last_word) > 0.3:
+                    # Only remove if it's clearly an ID (50%+ digits in an 8+ char string)
+                    if digit_count / len(last_word) > 0.5:
                         words = words[:-1]
                         cleaned = ' '.join(words).strip()
             if cleaned and cleaned not in cleaned_names:
@@ -488,9 +555,20 @@ class YcCompaniesSpider(scrapy.Spider):
         except:
             pass
         
-        # Only yield if we have at least a company name
+        # Always yield if we have a company name, even if no founders were found
         if item.get('company_name'):
             yield item
         else:
-            self.logger.warning(f'No company name found for {response.url}')
+            # Log and try to extract company name from URL or page
+            try:
+                # Try to get company name from URL slug
+                url_slug = response.url.split('/')[-1]
+                if url_slug:
+                    item['company_name'] = url_slug.replace('-', ' ').title()
+                    self.logger.warning(f'Company name not found for {response.url}, using URL slug: {item["company_name"]}')
+                    yield item
+                else:
+                    self.logger.warning(f'No company name found for {response.url}')
+            except:
+                self.logger.warning(f'No company name found for {response.url}')
 

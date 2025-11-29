@@ -6,6 +6,7 @@
 from scrapy import signals
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from scrapy.http import HtmlResponse
 import time
 
@@ -70,10 +71,19 @@ class SeleniumMiddleware:
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--window-size=1920,1080')
+        chrome_options.add_argument('--disable-images')  # Don't load images - faster
+        chrome_options.add_argument('--disable-plugins')
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--disable-background-timer-throttling')
+        chrome_options.add_argument('--disable-backgrounding-occluded-windows')
+        chrome_options.add_argument('--disable-renderer-backgrounding')
         chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
+        chrome_options.page_load_strategy = 'eager'  # Faster page loading - don't wait for full load
         
         try:
             self.driver = webdriver.Chrome(options=chrome_options)
+            self.driver.set_page_load_timeout(30)  # 30 second timeout for page loads
+            self.driver.implicitly_wait(5)  # 5 second implicit wait
             print("✅ Selenium Chrome driver initialized successfully")
         except Exception as e:
             print(f"⚠️ Chrome driver failed: {e}")
@@ -105,35 +115,60 @@ class SeleniumMiddleware:
         if is_listing_page and 'ycombinator.com' in request.url and self.driver:
             spider.logger.info(f'Processing listing page {request.url} with Selenium')
             try:
+                self.driver.set_page_load_timeout(30)  # 30 second timeout
                 self.driver.get(request.url)
                 
-                # Wait for content to load
-                time.sleep(1)
+                # Wait for content to load (reduced from 1s)
+                time.sleep(0.5)
                 
-                # Scroll to load more content (infinite scroll)
+                # Scroll to load more content (infinite scroll) - OPTIMIZED for speed
+                spider.logger.info('Starting infinite scroll to load all companies...')
                 last_height = self.driver.execute_script("return document.body.scrollHeight")
                 scroll_attempts = 0
-                max_scrolls = 30  # Increased scroll attempts to load all companies
+                max_scrolls = 50  # Reduced from 100 - more efficient stopping
                 no_change_count = 0
+                last_company_count = 0
+                start_time = time.time()
+                max_scroll_time = 120  # Max 2 minutes for scrolling
                 
-                while scroll_attempts < max_scrolls:
+                while scroll_attempts < max_scrolls and (time.time() - start_time) < max_scroll_time:
                     # Scroll down
                     self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(1)  # Wait for content to load
+                    time.sleep(0.3)  # Reduced from 1.5s to 0.3s for faster scrolling
                     
-                    # Calculate new scroll height
+                    # Check company count every 3 scrolls (not every scroll - saves time)
+                    if scroll_attempts % 3 == 0:
+                        try:
+                            script = """
+                            var links = document.querySelectorAll('a[href*="/companies/"]:not([href*="/companies?"])');
+                            var hrefs = Array.from(links).map(l => l.href).filter(h => h && h.includes('/companies/') && !h.includes('companies?'));
+                            return new Set(hrefs).size;
+                            """
+                            current_company_count = self.driver.execute_script(script)
+                            
+                            if current_company_count and current_company_count > last_company_count:
+                                spider.logger.info(f'Loaded {current_company_count} companies so far...')
+                                last_company_count = current_company_count
+                                no_change_count = 0
+                            else:
+                                no_change_count += 1
+                        except:
+                            pass
+                    
+                    # Check scroll height
                     new_height = self.driver.execute_script("return document.body.scrollHeight")
                     if new_height == last_height:
                         no_change_count += 1
-                        # If no change for 3 consecutive scrolls, probably loaded everything
-                        if no_change_count >= 3:
+                        if no_change_count >= 3:  # Reduced from 5 to 3 - stop faster
+                            spider.logger.info(f'No new content after {no_change_count} scrolls, stopping')
                             break
                     else:
                         no_change_count = 0
                         last_height = new_height
-                    scroll_attempts += 1
                     
-                spider.logger.info(f'Finished scrolling after {scroll_attempts} attempts')
+                    scroll_attempts += 1
+                
+                spider.logger.info(f'Finished scrolling after {scroll_attempts} attempts ({int(time.time() - start_time)}s), found {last_company_count} companies')
                 
                 # Get page source after scrolling
                 body = self.driver.page_source

@@ -12,11 +12,14 @@ import re
 
 
 class ExcelExportPipeline:
-    """Pipeline to export items to Excel format"""
+    """Pipeline to export items to Excel format with incremental updates"""
 
     def __init__(self):
         self.items = []
         self.original_urls = []  # Store original URLs for hyperlinks
+        self.output_file = 'yc_companies.xlsx'
+        self.write_every = 10  # Write to Excel every 10 items for real-time updates
+        self.last_write_count = 0
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
@@ -56,53 +59,66 @@ class ExcelExportPipeline:
             'founders_twitter': founders_twitter_raw
         })
         
+        # Incremental write - update Excel every N items
+        if len(self.items) - self.last_write_count >= self.write_every:
+            self._write_excel_incremental(spider)
+            self.last_write_count = len(self.items)
+        
         return item
 
+    def _write_excel_incremental(self, spider):
+        """Write current items to Excel file incrementally"""
+        if not self.items:
+            return
+        
+        try:
+            # Create DataFrame with proper column names
+            df = pd.DataFrame(self.items)
+            
+            # Rename columns to user-friendly names
+            column_mapping = {
+                'company_name': 'Company Name',
+                'company_website': 'Company Website',
+                'founders_name': "Founder's Name",
+                'founders_linkedin': 'Founders LinkedIn',
+                'founders_twitter': 'Founders Twitter'
+            }
+            
+            df = df.rename(columns=column_mapping)
+            
+            # Ensure columns are in the correct order
+            column_order = [
+                'Company Name',
+                'Company Website',
+                "Founder's Name",
+                'Founders LinkedIn',
+                'Founders Twitter'
+            ]
+            
+            # Reorder columns (only include columns that exist)
+            df = df[[col for col in column_order if col in df.columns]]
+            
+            # Write to Excel (will overwrite existing file)
+            df.to_excel(self.output_file, index=False, engine='openpyxl')
+            
+            # Format the Excel file
+            self._format_excel_file(self.output_file)
+            
+            spider.logger.info(f'📊 Progress: Saved {len(self.items)} companies to {self.output_file}')
+        except Exception as e:
+            spider.logger.error(f'Error writing Excel incrementally: {e}')
+            # Don't raise - continue scraping even if Excel write fails
+    
     def close_spider(self, spider):
+        """Final write when spider closes"""
         if not self.items:
             spider.logger.warning('No items to export')
             return
         
-        # Create DataFrame with proper column names
-        df = pd.DataFrame(self.items)
+        # Final write with all items (in case there are any remaining)
+        self._write_excel_incremental(spider)
         
-        # Rename columns to user-friendly names
-        column_mapping = {
-            'company_name': 'Company Name',
-            'company_website': 'Company Website',
-            'founders_name': "Founder's Name",
-            'founders_linkedin': 'Founders LinkedIn',
-            'founders_twitter': 'Founders Twitter'
-        }
-        
-        df = df.rename(columns=column_mapping)
-        
-        # Ensure columns are in the correct order
-        column_order = [
-            'Company Name',
-            'Company Website',
-            "Founder's Name",
-            'Founders LinkedIn',
-            'Founders Twitter'
-        ]
-        
-        # Reorder columns (only include columns that exist)
-        df = df[[col for col in column_order if col in df.columns]]
-        
-        # Export to Excel
-        output_file = 'yc_companies.xlsx'
-        
-        try:
-            # Write to Excel
-            df.to_excel(output_file, index=False, engine='openpyxl')
-            
-            # Format the Excel file for better readability
-            self._format_excel_file(output_file)
-            
-            spider.logger.info(f'✅ Successfully exported {len(self.items)} companies to {output_file}')
-        except Exception as e:
-            spider.logger.error(f'Error exporting to Excel: {e}')
-            raise
+        spider.logger.info(f'✅ Final export complete: {len(self.items)} companies saved to {self.output_file}')
     
     def _format_website(self, url):
         """Format website URL to short format: www.example.com, exclude unwanted domains"""

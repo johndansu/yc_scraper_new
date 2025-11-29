@@ -1,5 +1,5 @@
 === FOUNDER EXTRACTION DEBUG LOG ===
-Started: 2025-11-28 17:45:19
+Started: 2025-11-29 22:09:05
 Debug log location: C:\Users\John Dansu\OneDrive\Desktop\yc_scraper_new\founder_debug_log.txt
 
 
@@ -111,24 +111,6 @@ Found 640 potential company links
   Requesting company #104: https://www.ycombinator.com/companies/lakonia
   Requesting company #105: https://www.ycombinator.com/companies/sellraze
   Requesting company #106: https://www.ycombinator.com/companies/mod-ai
-  Requesting company #107: https://www.ycombinator.com/companies/semble-ai
-  Requesting company #108: https://www.ycombinator.com/companies/flick
-  Requesting company #109: https://www.ycombinator.com/companies/hillclimb
-  Requesting company #110: https://www.ycombinator.com/companies/atlasgrid
-  Requesting company #111: https://www.ycombinator.com/companies/wardstone
-  Requesting company #112: https://www.ycombinator.com/companies/nessie
-  Requesting company #113: https://www.ycombinator.com/companies/hypercubic
-  Requesting company #114: https://www.ycombinator.com/companies/cranston-ai
-  Requesting company #115: https://www.ycombinator.com/companies/questom
-  Requesting company #116: https://www.ycombinator.com/companies/velum-labs
-  Requesting company #117: https://www.ycombinator.com/companies/veria-labs
-  Requesting company #118: https://www.ycombinator.com/companies/iriscal
-  Requesting company #119: https://www.ycombinator.com/companies/playvision
-  Requesting company #120: https://www.ycombinator.com/companies/koyal
-  Requesting company #121: https://www.ycombinator.com/companies/kaigo-health
-  Requesting company #122: https://www.ycombinator.com/companies/norra
-  Requesting company #123: https://www.ycombinator.com/companies/soren
-  Requesting company #124: https://www.ycombinator.com/companies/lunavo
 
 ================================================================================
 COMPANY: Patientdesk.ai
@@ -157,6 +139,272 @@ FINAL RESULTS for Patientdesk.ai:
 ✓ Found 3 founder(s): Emre, Fikri San Koktas, Oncelozgul
 ================================================================================
 
+  Requesting company #107: https://www.ycombinator.com/companies/semble-ai
+  Requesting company #108: https://www.ycombinator.com/companies/flick
+  Requesting company #109: https://www.ycombinator.com/companies/hillclimb
+  Requesting company #110: https://www.ycombinator.com/companies/atlasgrid
+  Requesting company #111: https://www.ycombinator.com/companies/wardstone
+  Requesting company #112: https://www.ycombinator.com/companies/nessie
+  Requesting company #113: https://www.ycombinator.com/companies/hypercubic
+  Requesting company #114: https://www.ycombinator.com/companies/cranston-ai
+  Requesting company #115: https://www.ycombinator.com/companies/questom
+  Requesting company #116: https://www.ycombinator.com/companies/velum-labs
+  Requesting company #117: https://www.ycombinator.com/companies/veria-labs
+  Requesting company #118: https://www.ycombinator.com/companies/iriscal
+  Requesting company #119: https://www.ycombinator.com/companies/playvision
+  Requesting company #120: https://www.ycombinator.com/companies/koyal
+  Requesting company #121: https://www.ycombinator.com/companies/kaigo-health
+  Requesting company #122: https://www.ycombinator.com/companies/norra
+  Requesting company #123: https://www.ycombinator.com/companies/soren
+
+================================================================================
+COMPANY: Fixpoint
+URL: https://www.ycombinator.com/companies/fixpoint
+LinkedIn links found: 4
+  1. https://linkedin.com/in/dbmikus
+  2. https://linkedin.com/in/jakub-cichon-14016a3b
+  3. https://www.linkedin.com/in/jakub-c-14016a3b
+  4. https://www.linkedin.com/in/dbmikus
+    Processing slug: dbmikus, parts: ['dbmikus']
+    Name parts before filtering: ['dbmikus']
+    Name parts after filtering: ['dbmikus']
+    Extracted name: 'Dbmikus' (from 1 parts)
+    Processing slug: jakub-cichon-14016a3b, parts: ['jakub', 'cichon', '14016a3b']
+      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'cichon']
+    Name parts before filtering: ['jakub', 'cichon']
+    Name parts after filtering: ['jakub', 'cichon']
+    Extracted name: 'Jakub Cichon' (from 2 parts)
+    Processing slug: jakub-c-14016a3b, parts: ['jakub', 'c', '14016a3b']
+      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'c']
+    Name parts before filtering: ['jakub', 'c']
+    Name parts after filtering: ['jakub', 'c']
+    Extracted name: 'Jakub C' (from 2 parts)
+    Processing slug: dbmikus, parts: ['dbmikus']
+    Name parts before filtering: ['dbmikus']
+    Name parts after filtering: ['dbmikus']
+    Extracted name: 'Dbmikus' (from 1 parts)
+
+FINAL RESULTS for Fixpoint:
+✓ Found 3 founder(s): Dbmikus, Jakub Cichon, Jakub C
+================================================================================
+
+
+================================================================================
+COMPANY: Openroll
+URL: https://www.ycombinator.com/companies/openroll
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/lindellmattias
+  2. https://www.linkedin.com/in/porsev-aslan
+    Processing slug: lindellmattias, parts: ['lindellmattias']
+    Name parts before filtering: ['lindellmattias']
+    Name parts after filtering: ['lindellmattias']
+    Extracted name: 'Lindellmattias' (from 1 parts)
+    Processing slug: porsev-aslan, parts: ['porsev', 'aslan']
+    Name parts before filtering: ['porsev', 'aslan']
+    Name parts after filtering: ['porsev', 'aslan']
+    Extracted name: 'Porsev Aslan' (from 2 parts)
+
+FINAL RESULTS for Openroll:
+✓ Found 2 founder(s): Lindellmattias, Porsev Aslan
+================================================================================
+
+
+================================================================================
+COMPANY: Rivet
+URL: https://www.ycombinator.com/companies/rivet-design
+LinkedIn links found: 1
+  1. https://www.linkedin.com/in/gormansam
+    Processing slug: gormansam, parts: ['gormansam']
+    Name parts before filtering: ['gormansam']
+    Name parts after filtering: ['gormansam']
+    Extracted name: 'Gormansam' (from 1 parts)
+
+FINAL RESULTS for Rivet:
+✓ Found 1 founder(s): Gormansam
+================================================================================
+
+
+================================================================================
+COMPANY: item
+URL: https://www.ycombinator.com/companies/item
+LinkedIn links found: 2
+  1. https://linkedin.com/in/asantanilla
+  2. https://linkedin.com/in/akguthal
+    Processing slug: asantanilla, parts: ['asantanilla']
+    Name parts before filtering: ['asantanilla']
+    Name parts after filtering: ['asantanilla']
+    Extracted name: 'Asantanilla' (from 1 parts)
+    Processing slug: akguthal, parts: ['akguthal']
+    Name parts before filtering: ['akguthal']
+    Name parts after filtering: ['akguthal']
+    Extracted name: 'Akguthal' (from 1 parts)
+
+FINAL RESULTS for item:
+✓ Found 2 founder(s): Asantanilla, Akguthal
+================================================================================
+
+
+================================================================================
+COMPANY: Mayflower
+URL: https://www.ycombinator.com/companies/mayflower
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/naren-chittem-aaa43826b
+  2. https://linkedin.com/in/aryanguls
+    Processing slug: naren-chittem-aaa43826b, parts: ['naren', 'chittem', 'aaa43826b']
+      Detected ID part: 'aaa43826b', stopping. Name parts so far: ['naren', 'chittem']
+    Name parts before filtering: ['naren', 'chittem']
+    Name parts after filtering: ['naren', 'chittem']
+    Extracted name: 'Naren Chittem' (from 2 parts)
+    Processing slug: aryanguls, parts: ['aryanguls']
+    Name parts before filtering: ['aryanguls']
+    Name parts after filtering: ['aryanguls']
+    Extracted name: 'Aryanguls' (from 1 parts)
+
+FINAL RESULTS for Mayflower:
+✓ Found 2 founder(s): Naren, Aryanguls
+================================================================================
+
+
+================================================================================
+COMPANY: Zephyr Fusion
+URL: https://www.ycombinator.com/companies/zephyr-fusion
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/edward-hinson-078b15143
+  2. https://www.linkedin.com/in/galen-burke-78923317
+    Processing slug: edward-hinson-078b15143, parts: ['edward', 'hinson', '078b15143']
+      Detected ID part: '078b15143', stopping. Name parts so far: ['edward', 'hinson']
+    Name parts before filtering: ['edward', 'hinson']
+    Name parts after filtering: ['edward', 'hinson']
+    Extracted name: 'Edward Hinson' (from 2 parts)
+    Processing slug: galen-burke-78923317, parts: ['galen', 'burke', '78923317']
+      Detected ID part: '78923317', stopping. Name parts so far: ['galen', 'burke']
+    Name parts before filtering: ['galen', 'burke']
+    Name parts after filtering: ['galen', 'burke']
+    Extracted name: 'Galen Burke' (from 2 parts)
+
+FINAL RESULTS for Zephyr Fusion:
+✓ Found 2 founder(s): Edward Hinson, Galen Burke
+================================================================================
+
+
+================================================================================
+COMPANY: JSX Tool
+URL: https://www.ycombinator.com/companies/jsx-tool
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/jamesrainersunderland
+  2. https://www.linkedin.com/in/dan-hyman-dev
+    Processing slug: jamesrainersunderland, parts: ['jamesrainersunderland']
+    Name parts before filtering: ['jamesrainersunderland']
+    Name parts after filtering: ['jamesrainersunderland']
+    Extracted name: 'Jamesrainersunderland' (from 1 parts)
+    Processing slug: dan-hyman-dev, parts: ['dan', 'hyman', 'dev']
+    Name parts before filtering: ['dan', 'hyman', 'dev']
+    Name parts after filtering: ['dan', 'hyman', 'dev']
+    Extracted name: 'Dan Hyman Dev' (from 3 parts)
+
+FINAL RESULTS for JSX Tool:
+✓ Found 2 founder(s): Jamesrainersunderland, Dan Hyman Dev
+================================================================================
+
+
+================================================================================
+COMPANY: Sarah AI
+URL: https://www.ycombinator.com/companies/sarah-ai
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/dirkbreeuwer
+  2. https://www.linkedin.com/in/cwnkong
+    Processing slug: dirkbreeuwer, parts: ['dirkbreeuwer']
+    Name parts before filtering: ['dirkbreeuwer']
+    Name parts after filtering: ['dirkbreeuwer']
+    Extracted name: 'Dirkbreeuwer' (from 1 parts)
+    Processing slug: cwnkong, parts: ['cwnkong']
+    Name parts before filtering: ['cwnkong']
+    Name parts after filtering: ['cwnkong']
+    Extracted name: 'Cwnkong' (from 1 parts)
+
+FINAL RESULTS for Sarah AI:
+✓ Found 2 founder(s): Dirkbreeuwer, Cwnkong
+================================================================================
+
+
+================================================================================
+COMPANY: Valgo
+URL: https://www.ycombinator.com/companies/valgo
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/robert-j-moss
+  2. https://www.linkedin.com/in/smkatz
+    Processing slug: robert-j-moss, parts: ['robert', 'j', 'moss']
+    Name parts before filtering: ['robert', 'j', 'moss']
+    Name parts after filtering: ['robert', 'j', 'moss']
+    Extracted name: 'Robert J Moss' (from 3 parts)
+    Processing slug: smkatz, parts: ['smkatz']
+    Name parts before filtering: ['smkatz']
+    Name parts after filtering: ['smkatz']
+    Extracted name: 'Smkatz' (from 1 parts)
+
+FINAL RESULTS for Valgo:
+✓ Found 2 founder(s): Robert J Moss, Smkatz
+================================================================================
+
+
+================================================================================
+COMPANY: Hlabs
+URL: https://www.ycombinator.com/companies/hlabs
+LinkedIn links found: 1
+  1. https://www.linkedin.com/in/paul-hetherington
+    Processing slug: paul-hetherington, parts: ['paul', 'hetherington']
+    Name parts before filtering: ['paul', 'hetherington']
+    Name parts after filtering: ['paul', 'hetherington']
+    Extracted name: 'Paul Hetherington' (from 2 parts)
+  Cleaned 'Paul Hetherington' -> 'Paul'
+
+FINAL RESULTS for Hlabs:
+✓ Found 1 founder(s): Paul
+================================================================================
+
+
+================================================================================
+COMPANY: AVoice
+URL: https://www.ycombinator.com/companies/avoice
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/chawinasava
+  2. https://www.linkedin.com/in/chawit-asavasaetakul-a487a724b
+    Processing slug: chawinasava, parts: ['chawinasava']
+    Name parts before filtering: ['chawinasava']
+    Name parts after filtering: ['chawinasava']
+    Extracted name: 'Chawinasava' (from 1 parts)
+    Processing slug: chawit-asavasaetakul-a487a724b, parts: ['chawit', 'asavasaetakul', 'a487a724b']
+      Detected ID part: 'a487a724b', stopping. Name parts so far: ['chawit', 'asavasaetakul']
+    Name parts before filtering: ['chawit', 'asavasaetakul']
+    Name parts after filtering: ['chawit', 'asavasaetakul']
+    Extracted name: 'Chawit Asavasaetakul' (from 2 parts)
+  Cleaned 'Chawit Asavasaetakul' -> 'Chawit'
+
+FINAL RESULTS for AVoice:
+✓ Found 2 founder(s): Chawinasava, Chawit
+================================================================================
+
+
+================================================================================
+COMPANY: Luel
+URL: https://www.ycombinator.com/companies/luel
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/inigolenderking
+  2. https://www.linkedin.com/in/william-namgyal
+    Processing slug: inigolenderking, parts: ['inigolenderking']
+    Name parts before filtering: ['inigolenderking']
+    Name parts after filtering: ['inigolenderking']
+    Extracted name: 'Inigolenderking' (from 1 parts)
+    Processing slug: william-namgyal, parts: ['william', 'namgyal']
+    Name parts before filtering: ['william', 'namgyal']
+    Name parts after filtering: ['william', 'namgyal']
+    Extracted name: 'William Namgyal' (from 2 parts)
+
+FINAL RESULTS for Luel:
+✓ Found 2 founder(s): Inigolenderking, William
+================================================================================
+
+  Requesting company #124: https://www.ycombinator.com/companies/lunavo
   Requesting company #125: https://www.ycombinator.com/companies/dari
   Requesting company #126: https://www.ycombinator.com/companies/the-context-company
   Requesting company #127: https://www.ycombinator.com/companies/sorce
@@ -175,549 +423,113 @@ FINAL RESULTS for Patientdesk.ai:
   Requesting company #140: https://www.ycombinator.com/companies/parrot
   Requesting company #141: https://www.ycombinator.com/companies/brickwise
   Requesting company #142: https://www.ycombinator.com/companies/parse-bot
-  Requesting company #143: https://www.ycombinator.com/companies/structured-ai
-  Requesting company #144: https://www.ycombinator.com/companies/uplane
-  Requesting company #145: https://www.ycombinator.com/companies/aircaps
-  Requesting company #146: https://www.ycombinator.com/companies/brickanta
-  Requesting company #147: https://www.ycombinator.com/companies/f2
-  Requesting company #148: https://www.ycombinator.com/companies/remedy
-  Requesting company #149: https://www.ycombinator.com/companies/semiotic
-  Requesting company #150: https://www.ycombinator.com/companies/lapis
-  Requesting company #151: https://www.ycombinator.com/companies/efference
-  Requesting company #152: https://www.ycombinator.com/companies/nox-metals
-  Requesting company #153: https://www.ycombinator.com/companies/digipals
-  Requesting company #154: https://www.ycombinator.com/companies/blue
-  Requesting company #155: https://www.ycombinator.com/companies/mixy
-  Requesting company #156: https://www.ycombinator.com/companies/paloma
-  Requesting company #157: https://www.ycombinator.com/companies/uplift-ai
-  Requesting company #158: https://www.ycombinator.com/companies/realroots
-  Requesting company #159: https://www.ycombinator.com/companies/luminal
-  Requesting company #160: https://www.ycombinator.com/companies/freya
-  Requesting company #161: https://www.ycombinator.com/companies/burnt
-  Requesting company #162: https://www.ycombinator.com/companies/avent
-  Requesting company #163: https://www.ycombinator.com/companies/cacao
-  Requesting company #164: https://www.ycombinator.com/companies/veritus-agent
-  Requesting company #165: https://www.ycombinator.com/companies/outrove
-  Requesting company #166: https://www.ycombinator.com/companies/noso-labs
-  Requesting company #167: https://www.ycombinator.com/companies/vulcan-technologies
-  Requesting company #168: https://www.ycombinator.com/companies/spotlight-realty
-  Requesting company #169: https://www.ycombinator.com/companies/interfere
-  Requesting company #170: https://www.ycombinator.com/companies/munify
-  Requesting company #171: https://www.ycombinator.com/companies/rowflow
-  Requesting company #172: https://www.ycombinator.com/companies/tectoai
-  Requesting company #173: https://www.ycombinator.com/companies/duranium
-  Requesting company #174: https://www.ycombinator.com/companies/perspectives-health
-  Requesting company #175: https://www.ycombinator.com/companies/modelence
-  Requesting company #176: https://www.ycombinator.com/companies/magnetic
-  Requesting company #177: https://www.ycombinator.com/companies/fleetline
-  Requesting company #178: https://www.ycombinator.com/companies/clodo
-  Requesting company #179: https://www.ycombinator.com/companies/stagewise
-  Requesting company #180: https://www.ycombinator.com/companies/flywheel-ai
-  Requesting company #181: https://www.ycombinator.com/companies/juxta
-  Requesting company #182: https://www.ycombinator.com/companies/okibi
-  Requesting company #183: https://www.ycombinator.com/companies/dscribe-ai
-  Requesting company #184: https://www.ycombinator.com/companies/kernel
-  Requesting company #185: https://www.ycombinator.com/companies/reacher
-  Requesting company #186: https://www.ycombinator.com/companies/certus-ai
-  Requesting company #187: https://www.ycombinator.com/companies/hera-video
-  Requesting company #188: https://www.ycombinator.com/companies/nottelabs
-  Requesting company #189: https://www.ycombinator.com/companies/pally
-  Requesting company #190: https://www.ycombinator.com/companies/locata
-  Requesting company #191: https://www.ycombinator.com/companies/autoace
-  Requesting company #192: https://www.ycombinator.com/companies/fernstone
-  Requesting company #193: https://www.ycombinator.com/companies/pleom
-  Requesting company #194: https://www.ycombinator.com/companies/convexia
-  Requesting company #195: https://www.ycombinator.com/companies/sigmanticai
-  Requesting company #196: https://www.ycombinator.com/companies/opennote
-  Requesting company #197: https://www.ycombinator.com/companies/sira
-  Requesting company #198: https://www.ycombinator.com/companies/f4
-  Requesting company #199: https://www.ycombinator.com/companies/metis
-  Requesting company #200: https://www.ycombinator.com/companies/tryeden
-  Requesting company #201: https://www.ycombinator.com/companies/altur
-  Requesting company #202: https://www.ycombinator.com/companies/pares-ai
-  Requesting company #203: https://www.ycombinator.com/companies/avelis-health
-  Requesting company #204: https://www.ycombinator.com/companies/nautilus
-  Requesting company #205: https://www.ycombinator.com/companies/humoniq
-  Requesting company #206: https://www.ycombinator.com/companies/palace
-  Requesting company #207: https://www.ycombinator.com/companies/idler
-  Requesting company #208: https://www.ycombinator.com/companies/floot
-  Requesting company #209: https://www.ycombinator.com/companies/alara
-  Requesting company #210: https://www.ycombinator.com/companies/socratix-ai
-  Requesting company #211: https://www.ycombinator.com/companies/minimal-ai
-  Requesting company #212: https://www.ycombinator.com/companies/risely-ai
-  Requesting company #213: https://www.ycombinator.com/companies/omnara
-  Requesting company #214: https://www.ycombinator.com/companies/knowlify
-  Requesting company #215: https://www.ycombinator.com/companies/autosana
-  Requesting company #216: https://www.ycombinator.com/companies/april
-  Requesting company #217: https://www.ycombinator.com/companies/iron-grid
-  Requesting company #218: https://www.ycombinator.com/companies/finto-de
-  Requesting company #219: https://www.ycombinator.com/companies/motives
-  Requesting company #220: https://www.ycombinator.com/companies/relling
-  Requesting company #221: https://www.ycombinator.com/companies/hyprnote
-  Requesting company #222: https://www.ycombinator.com/companies/mcp-use
-  Requesting company #223: https://www.ycombinator.com/companies/novaflow
-  Requesting company #224: https://www.ycombinator.com/companies/perseus-defense
-  Requesting company #225: https://www.ycombinator.com/companies/phases
-  Requesting company #226: https://www.ycombinator.com/companies/solva
-  Requesting company #227: https://www.ycombinator.com/companies/albacore-inc
-  Requesting company #228: https://www.ycombinator.com/companies/riff
-  Requesting company #229: https://www.ycombinator.com/companies/mohi
-  Requesting company #230: https://www.ycombinator.com/companies/mimos
-  Requesting company #231: https://www.ycombinator.com/companies/nozomio
-  Requesting company #232: https://www.ycombinator.com/companies/vibeflow
-  Requesting company #233: https://www.ycombinator.com/companies/comena
-  Requesting company #234: https://www.ycombinator.com/companies/normal
-  Requesting company #235: https://www.ycombinator.com/companies/ghosteye
-  Requesting company #236: https://www.ycombinator.com/companies/channel3
-  Requesting company #237: https://www.ycombinator.com/companies/epicenter
-  Requesting company #238: https://www.ycombinator.com/companies/candytrail
-  Requesting company #239: https://www.ycombinator.com/companies/embedder
-  Requesting company #240: https://www.ycombinator.com/companies/flai
-  Requesting company #241: https://www.ycombinator.com/companies/b-12
-  Requesting company #242: https://www.ycombinator.com/companies/fulcrum
-  Requesting company #243: https://www.ycombinator.com/companies/trace-so
-  Requesting company #244: https://www.ycombinator.com/companies/the-interface
-  Requesting company #245: https://www.ycombinator.com/companies/ironledger-ai
-  Requesting company #246: https://www.ycombinator.com/companies/doe
-  Requesting company #247: https://www.ycombinator.com/companies/parachute
-  Requesting company #248: https://www.ycombinator.com/companies/kalinda
-  Requesting company #249: https://www.ycombinator.com/companies/stellon-labs
-  Requesting company #250: https://www.ycombinator.com/companies/bootloop
-  Requesting company #251: https://www.ycombinator.com/companies/nexa-labs
-  Requesting company #252: https://www.ycombinator.com/companies/agenthub-2
-  Requesting company #253: https://www.ycombinator.com/companies/cocreate
-  Requesting company #254: https://www.ycombinator.com/companies/slashy
-  Requesting company #255: https://www.ycombinator.com/companies/wedge
-  Requesting company #256: https://www.ycombinator.com/companies/careswift
-  Requesting company #257: https://www.ycombinator.com/companies/pangolin
-  Requesting company #258: https://www.ycombinator.com/companies/kestroll
-  Requesting company #259: https://www.ycombinator.com/companies/tesora
-  Requesting company #260: https://www.ycombinator.com/companies/deepaware-ai
-  Requesting company #261: https://www.ycombinator.com/companies/stockline
-  Requesting company #262: https://www.ycombinator.com/companies/sagekit
-  Requesting company #263: https://www.ycombinator.com/companies/keystone
-  Requesting company #264: https://www.ycombinator.com/companies/nori
-  Requesting company #265: https://www.ycombinator.com/companies/deepgrove
-  Requesting company #266: https://www.ycombinator.com/companies/frizzle
-  Requesting company #267: https://www.ycombinator.com/companies/skope
-  Requesting company #268: https://www.ycombinator.com/companies/ondeck-ai
-  Requesting company #269: https://www.ycombinator.com/companies/alter
-  Requesting company #270: https://www.ycombinator.com/companies/imprezia
-  Requesting company #271: https://www.ycombinator.com/companies/lilac
-  Requesting company #272: https://www.ycombinator.com/companies/tryjanet
-  Requesting company #273: https://www.ycombinator.com/companies/cyberdesk
-  Requesting company #274: https://www.ycombinator.com/companies/qualify-bot
-  Requesting company #275: https://www.ycombinator.com/companies/panels
-  Requesting company #276: https://www.ycombinator.com/companies/wafer
-  Requesting company #277: https://www.ycombinator.com/companies/orange-slice
-  Requesting company #278: https://www.ycombinator.com/companies/overdrive-health
-  Requesting company #279: https://www.ycombinator.com/companies/monarcha
-  Requesting company #280: https://www.ycombinator.com/companies/lotas
-  Requesting company #281: https://www.ycombinator.com/companies/design-arena
-  Requesting company #282: https://www.ycombinator.com/companies/effigov
-  Requesting company #283: https://www.ycombinator.com/companies/bitrig
-  Requesting company #284: https://www.ycombinator.com/companies/null-labs
-  Requesting company #285: https://www.ycombinator.com/companies/lark
-  Requesting company #286: https://www.ycombinator.com/companies/topological
-  Requesting company #287: https://www.ycombinator.com/companies/datafruit
-  Requesting company #288: https://www.ycombinator.com/companies/contextfort
-  Requesting company #289: https://www.ycombinator.com/companies/zeroeval
-  Requesting company #290: https://www.ycombinator.com/companies/verne-robotics
-  Requesting company #291: https://www.ycombinator.com/companies/pharmie-ai
-  Requesting company #292: https://www.ycombinator.com/companies/liva-ai
-  Requesting company #293: https://www.ycombinator.com/companies/pond
-  Requesting company #294: https://www.ycombinator.com/companies/ghostship
-  Requesting company #295: https://www.ycombinator.com/companies/shor
-  Requesting company #296: https://www.ycombinator.com/companies/golpo
-  Requesting company #297: https://www.ycombinator.com/companies/async
-  Requesting company #298: https://www.ycombinator.com/companies/lanesurf
-  Requesting company #299: https://www.ycombinator.com/companies/gaus
-  Requesting company #300: https://www.ycombinator.com/companies/blank-bio
-  Requesting company #301: https://www.ycombinator.com/companies/truthsystems
-  Requesting company #302: https://www.ycombinator.com/companies/agentmail
-  Requesting company #303: https://www.ycombinator.com/companies/traceroot-ai
-  Requesting company #304: https://www.ycombinator.com/companies/halluminate
-  Requesting company #305: https://www.ycombinator.com/companies/mangodesk
-  Requesting company #306: https://www.ycombinator.com/companies/the-prompting-company
-  Requesting company #307: https://www.ycombinator.com/companies/acrely
-  Requesting company #308: https://www.ycombinator.com/companies/dedalus-labs
-  Requesting company #309: https://www.ycombinator.com/companies/parametric
-  Requesting company #310: https://www.ycombinator.com/companies/closera
-  Requesting company #311: https://www.ycombinator.com/companies/meteor
-  Requesting company #312: https://www.ycombinator.com/companies/getasap
-  Requesting company #313: https://www.ycombinator.com/companies/adaptional
-  Requesting company #314: https://www.ycombinator.com/companies/prox
-  Requesting company #315: https://www.ycombinator.com/companies/pingo-ai
-  Requesting company #316: https://www.ycombinator.com/companies/fifth-door
-  Requesting company #317: https://www.ycombinator.com/companies/rid
-  Requesting company #318: https://www.ycombinator.com/companies/cohesive
-  Requesting company #319: https://www.ycombinator.com/companies/docket
-  Requesting company #320: https://www.ycombinator.com/companies/sureform
-  Requesting company #321: https://www.ycombinator.com/companies/foundation-industries
-  Requesting company #322: https://www.ycombinator.com/companies/godela
-  Requesting company #323: https://www.ycombinator.com/companies/aegis
-  Requesting company #324: https://www.ycombinator.com/companies/cascade-space
-  Requesting company #325: https://www.ycombinator.com/companies/bond
-  Requesting company #326: https://www.ycombinator.com/companies/blueshoe
-  Requesting company #327: https://www.ycombinator.com/companies/sieveai
-  Requesting company #328: https://www.ycombinator.com/companies/airweave
-  Requesting company #329: https://www.ycombinator.com/companies/theorem-2
-  Requesting company #330: https://www.ycombinator.com/companies/text-ai
-  Requesting company #331: https://www.ycombinator.com/companies/starsling
-  Requesting company #332: https://www.ycombinator.com/companies/wavedash
-  Requesting company #333: https://www.ycombinator.com/companies/oncactus
-  Requesting company #334: https://www.ycombinator.com/companies/linewise
-  Requesting company #335: https://www.ycombinator.com/companies/code-four
-  Requesting company #336: https://www.ycombinator.com/companies/lumari
-  Requesting company #337: https://www.ycombinator.com/companies/mlop
-  Requesting company #338: https://www.ycombinator.com/companies/den
-  Requesting company #339: https://www.ycombinator.com/companies/propolis
-  Requesting company #340: https://www.ycombinator.com/companies/cotool
-  Requesting company #341: https://www.ycombinator.com/companies/delty
-  Requesting company #342: https://www.ycombinator.com/companies/nimbic-ai
-  Requesting company #343: https://www.ycombinator.com/companies/moby-analytics
-  Requesting company #344: https://www.ycombinator.com/companies/rimba
-  Requesting company #345: https://www.ycombinator.com/companies/adentris
-  Requesting company #346: https://www.ycombinator.com/companies/probo
-  Requesting company #347: https://www.ycombinator.com/companies/mindfort
-  Requesting company #348: https://www.ycombinator.com/companies/chrt
-  Requesting company #349: https://www.ycombinator.com/companies/lapel
-  Requesting company #350: https://www.ycombinator.com/companies/mesmer
-  Requesting company #351: https://www.ycombinator.com/companies/relixir
-  Requesting company #352: https://www.ycombinator.com/companies/janus
-  Requesting company #353: https://www.ycombinator.com/companies/synthetic-society
-  Requesting company #354: https://www.ycombinator.com/companies/hemut
-  Requesting company #355: https://www.ycombinator.com/companies/zero
-  Requesting company #356: https://www.ycombinator.com/companies/valuemate
-  Requesting company #357: https://www.ycombinator.com/companies/bramante-biologics
-  Requesting company #358: https://www.ycombinator.com/companies/saffron-health
-  Requesting company #359: https://www.ycombinator.com/companies/scalar-field
-  Requesting company #360: https://www.ycombinator.com/companies/eloquent-ai
-  Requesting company #361: https://www.ycombinator.com/companies/morphoai
-  Requesting company #362: https://www.ycombinator.com/companies/vassar-robotics
-  Requesting company #363: https://www.ycombinator.com/companies/cactus
-  Requesting company #364: https://www.ycombinator.com/companies/boost-robotics
-  Requesting company #365: https://www.ycombinator.com/companies/sygaldry-technologies
-  Requesting company #366: https://www.ycombinator.com/companies/paraquery
-  Requesting company #367: https://www.ycombinator.com/companies/klavis-ai
-  Requesting company #368: https://www.ycombinator.com/companies/third-chair
-  Requesting company #369: https://www.ycombinator.com/companies/vesence
-  Requesting company #370: https://www.ycombinator.com/companies/powermatrix
-  Requesting company #371: https://www.ycombinator.com/companies/jazzberry
-  Requesting company #372: https://www.ycombinator.com/companies/besimple-ai
-  Requesting company #373: https://www.ycombinator.com/companies/alkali
-  Requesting company #374: https://www.ycombinator.com/companies/human-behavior
-  Requesting company #375: https://www.ycombinator.com/companies/qualgent
-  Requesting company #376: https://www.ycombinator.com/companies/nixo
-  Requesting company #377: https://www.ycombinator.com/companies/prism
-  Requesting company #378: https://www.ycombinator.com/companies/novoflow
-  Requesting company #379: https://www.ycombinator.com/companies/theta
-  Requesting company #380: https://www.ycombinator.com/companies/lyrahq
-  Requesting company #381: https://www.ycombinator.com/companies/cleon
-  Requesting company #382: https://www.ycombinator.com/companies/throxy
-  Requesting company #383: https://www.ycombinator.com/companies/lucis
-  Requesting company #384: https://www.ycombinator.com/companies/flott-hq
-  Requesting company #385: https://www.ycombinator.com/companies/crimson
-  Requesting company #386: https://www.ycombinator.com/companies/casco
-  Requesting company #387: https://www.ycombinator.com/companies/nomi
-  Requesting company #388: https://www.ycombinator.com/companies/morphik
-  Requesting company #389: https://www.ycombinator.com/companies/runrl
-  Requesting company #390: https://www.ycombinator.com/companies/ticket-wallet
-  Requesting company #391: https://www.ycombinator.com/companies/kaizen
-  Requesting company #392: https://www.ycombinator.com/companies/habit
-  Requesting company #393: https://www.ycombinator.com/companies/clidey
-  Requesting company #394: https://www.ycombinator.com/companies/opusense-ai
-  Requesting company #395: https://www.ycombinator.com/companies/labric
-  Requesting company #396: https://www.ycombinator.com/companies/photonium
-  Requesting company #397: https://www.ycombinator.com/companies/sixtyfour
-  Requesting company #398: https://www.ycombinator.com/companies/tegore
-  Requesting company #399: https://www.ycombinator.com/companies/clado
-  Requesting company #400: https://www.ycombinator.com/companies/combinely
-  Requesting company #401: https://www.ycombinator.com/companies/voiceos
-  Requesting company #402: https://www.ycombinator.com/companies/chiron
-  Requesting company #403: https://www.ycombinator.com/companies/jeevy-fabrication
-  Requesting company #404: https://www.ycombinator.com/companies/trapeze
-  Requesting company #405: https://www.ycombinator.com/companies/tinfoil
-  Requesting company #406: https://www.ycombinator.com/companies/the-llm-data-company
-  Requesting company #407: https://www.ycombinator.com/companies/refresh
-  Requesting company #408: https://www.ycombinator.com/companies/parsewise
-  Requesting company #409: https://www.ycombinator.com/companies/better-auth
-  Requesting company #410: https://www.ycombinator.com/companies/bluejay
-  Requesting company #411: https://www.ycombinator.com/companies/kestral
-  Requesting company #412: https://www.ycombinator.com/companies/attune
-  Requesting company #413: https://www.ycombinator.com/companies/pgdog
-  Requesting company #414: https://www.ycombinator.com/companies/kirana-ai
-  Requesting company #415: https://www.ycombinator.com/companies/mbodi-ai
-  Requesting company #416: https://www.ycombinator.com/companies/percival
-  Requesting company #417: https://www.ycombinator.com/companies/typeos
-  Requesting company #418: https://www.ycombinator.com/companies/youlearn
-  Requesting company #419: https://www.ycombinator.com/companies/stratify
-  Requesting company #420: https://www.ycombinator.com/companies/sim
-  Requesting company #421: https://www.ycombinator.com/companies/clarm
-  Requesting company #422: https://www.ycombinator.com/companies/beluga-labs
-  Requesting company #423: https://www.ycombinator.com/companies/kaelio
-  Requesting company #424: https://www.ycombinator.com/companies/dolphin
-  Requesting company #425: https://www.ycombinator.com/companies/zeon-systems
-  Requesting company #426: https://www.ycombinator.com/companies/the-robot-learning-company
-  Requesting company #427: https://www.ycombinator.com/companies/helixdb
-  Requesting company #428: https://www.ycombinator.com/companies/chonkie
-  Requesting company #429: https://www.ycombinator.com/companies/almond-2
-  Requesting company #430: https://www.ycombinator.com/companies/claim-health
-  Requesting company #431: https://www.ycombinator.com/companies/capacitive
-  Requesting company #432: https://www.ycombinator.com/companies/acolite
-  Requesting company #433: https://www.ycombinator.com/companies/approval-ai
-  Requesting company #434: https://www.ycombinator.com/companies/auctor
-  Requesting company #435: https://www.ycombinator.com/companies/neoncoral
-  Requesting company #436: https://www.ycombinator.com/companies/galen-ai
-  Requesting company #437: https://www.ycombinator.com/companies/synthiolabs
-  Requesting company #438: https://www.ycombinator.com/companies/cua
-  Requesting company #439: https://www.ycombinator.com/companies/minerva
-  Requesting company #440: https://www.ycombinator.com/companies/groundcontrol
-  Requesting company #441: https://www.ycombinator.com/companies/avallon-ai
-  Requesting company #442: https://www.ycombinator.com/companies/serafis
-  Requesting company #443: https://www.ycombinator.com/companies/bloom-4
-  Requesting company #444: https://www.ycombinator.com/companies/cubic
-  Requesting company #445: https://www.ycombinator.com/companies/notus-autonomous-systems
-  Requesting company #446: https://www.ycombinator.com/companies/golf
-  Requesting company #447: https://www.ycombinator.com/companies/bitboard
-  Requesting company #448: https://www.ycombinator.com/companies/nao-labs
-  Requesting company #449: https://www.ycombinator.com/companies/vybe
-  Requesting company #450: https://www.ycombinator.com/companies/aravolta
-  Requesting company #451: https://www.ycombinator.com/companies/kashikoi
-  Requesting company #452: https://www.ycombinator.com/companies/plexe
-  Requesting company #453: https://www.ycombinator.com/companies/frekil
-  Requesting company #454: https://www.ycombinator.com/companies/chestnut
-  Requesting company #455: https://www.ycombinator.com/companies/red-barn-robotics
-  Requesting company #456: https://www.ycombinator.com/companies/qfex
-  Requesting company #457: https://www.ycombinator.com/companies/blaxel
-  Requesting company #458: https://www.ycombinator.com/companies/mentra
-  Requesting company #459: https://www.ycombinator.com/companies/wayline
-  Requesting company #460: https://www.ycombinator.com/companies/blindpay
-  Requesting company #461: https://www.ycombinator.com/companies/ambral
-  Requesting company #462: https://www.ycombinator.com/companies/vantel
-  Requesting company #463: https://www.ycombinator.com/companies/fira
-  Requesting company #464: https://www.ycombinator.com/companies/assistant-ui
-  Requesting company #465: https://www.ycombinator.com/companies/artifact-2
-  Requesting company #466: https://www.ycombinator.com/companies/axal
-  Requesting company #467: https://www.ycombinator.com/companies/fluidize
-  Requesting company #468: https://www.ycombinator.com/companies/thirdlayer
-  Requesting company #469: https://www.ycombinator.com/companies/trainloop
-  Requesting company #470: https://www.ycombinator.com/companies/tallyhq
-  Requesting company #471: https://www.ycombinator.com/companies/sammy-labs
-  Requesting company #472: https://www.ycombinator.com/companies/instinct
-  Requesting company #473: https://www.ycombinator.com/companies/mercura
-  Requesting company #474: https://www.ycombinator.com/companies/lightbox
-  Requesting company #475: https://www.ycombinator.com/companies/cedar
-  Requesting company #476: https://www.ycombinator.com/companies/browser-use
-  Requesting company #477: https://www.ycombinator.com/companies/tamlabs
-  Requesting company #478: https://www.ycombinator.com/companies/ergo
-  Requesting company #479: https://www.ycombinator.com/companies/copycat
-  Requesting company #480: https://www.ycombinator.com/companies/paratus-health
-  Requesting company #481: https://www.ycombinator.com/companies/atlog
-  Requesting company #482: https://www.ycombinator.com/companies/butter
-  Requesting company #483: https://www.ycombinator.com/companies/bluebook
-  Requesting company #484: https://www.ycombinator.com/companies/tensorpool
-  Requesting company #485: https://www.ycombinator.com/companies/waffle
-  Requesting company #486: https://www.ycombinator.com/companies/dalus
-  Requesting company #487: https://www.ycombinator.com/companies/roark
-  Requesting company #488: https://www.ycombinator.com/companies/rebolt
-  Requesting company #489: https://www.ycombinator.com/companies/spott
-  Requesting company #490: https://www.ycombinator.com/companies/woz
-  Requesting company #491: https://www.ycombinator.com/companies/proception-inc
-  Requesting company #492: https://www.ycombinator.com/companies/demeter
-  Requesting company #493: https://www.ycombinator.com/companies/wildcard
-  Requesting company #494: https://www.ycombinator.com/companies/permitify
-  Requesting company #495: https://www.ycombinator.com/companies/reditus-space
-  Requesting company #496: https://www.ycombinator.com/companies/optifye-ai
-  Requesting company #497: https://www.ycombinator.com/companies/pinch
-  Requesting company #498: https://www.ycombinator.com/companies/retrofit
-  Requesting company #499: https://www.ycombinator.com/companies/archon
-  Requesting company #500: https://www.ycombinator.com/companies/forge-automation
-  Requesting company #501: https://www.ycombinator.com/companies/mastra
-  Requesting company #502: https://www.ycombinator.com/companies/afterquery
-  Requesting company #503: https://www.ycombinator.com/companies/misprint
-  Requesting company #504: https://www.ycombinator.com/companies/fuseai
-  Requesting company #505: https://www.ycombinator.com/companies/miyagi-labs
-  Requesting company #506: https://www.ycombinator.com/companies/artificial-societies
-  Requesting company #507: https://www.ycombinator.com/companies/openintake
-  Requesting company #508: https://www.ycombinator.com/companies/peppr-ai
-  Requesting company #509: https://www.ycombinator.com/companies/infinite
-  Requesting company #510: https://www.ycombinator.com/companies/sennu-ai
-  Requesting company #511: https://www.ycombinator.com/companies/orbital-operations
-  Requesting company #512: https://www.ycombinator.com/companies/mesh-2
-  Requesting company #513: https://www.ycombinator.com/companies/outlit
-  Requesting company #514: https://www.ycombinator.com/companies/tire-swing
-  Requesting company #515: https://www.ycombinator.com/companies/harper
-  Requesting company #516: https://www.ycombinator.com/companies/calltree
-  Requesting company #517: https://www.ycombinator.com/companies/nitrode
-  Requesting company #518: https://www.ycombinator.com/companies/karsa
-  Requesting company #519: https://www.ycombinator.com/companies/exla
-  Requesting company #520: https://www.ycombinator.com/companies/confident-ai
-  Requesting company #521: https://www.ycombinator.com/companies/riviera
-  Requesting company #522: https://www.ycombinator.com/companies/waypoint-transit
-  Requesting company #523: https://www.ycombinator.com/companies/highintent
-  Requesting company #524: https://www.ycombinator.com/companies/agentin-ai
-  Requesting company #525: https://www.ycombinator.com/companies/rejot
-  Requesting company #526: https://www.ycombinator.com/companies/general-trajectory
-  Requesting company #527: https://www.ycombinator.com/companies/solidroad
-  Requesting company #528: https://www.ycombinator.com/companies/trata
-  Requesting company #529: https://www.ycombinator.com/companies/haleum
-  Requesting company #530: https://www.ycombinator.com/companies/lucidic-ai
-  Requesting company #531: https://www.ycombinator.com/companies/mundo-ai
-  Requesting company #532: https://www.ycombinator.com/companies/g-lnk
-  Requesting company #533: https://www.ycombinator.com/companies/strike
-  Requesting company #534: https://www.ycombinator.com/companies/athenahq
-  Requesting company #535: https://www.ycombinator.com/companies/lopus-ai
-  Requesting company #536: https://www.ycombinator.com/companies/cenote
-  Requesting company #537: https://www.ycombinator.com/companies/harbera
-  Requesting company #538: https://www.ycombinator.com/companies/stillwind
-  Requesting company #539: https://www.ycombinator.com/companies/bindwell
-  Requesting company #540: https://www.ycombinator.com/companies/pickle-2
-  Requesting company #541: https://www.ycombinator.com/companies/lucid
-  Requesting company #542: https://www.ycombinator.com/companies/macadamia
-  Requesting company #543: https://www.ycombinator.com/companies/asteroid
-  Requesting company #544: https://www.ycombinator.com/companies/gale
-  Requesting company #545: https://www.ycombinator.com/companies/pave-robotics
-  Requesting company #546: https://www.ycombinator.com/companies/pax-markets
-  Requesting company #547: https://www.ycombinator.com/companies/olive
-  Requesting company #548: https://www.ycombinator.com/companies/hud
-  Requesting company #549: https://www.ycombinator.com/companies/finbar
-  Requesting company #550: https://www.ycombinator.com/companies/cuckoo-labs
-  Requesting company #551: https://www.ycombinator.com/companies/mecha-health
-  Requesting company #552: https://www.ycombinator.com/companies/gradewiz
-  Requesting company #553: https://www.ycombinator.com/companies/healthkey
-  Requesting company #554: https://www.ycombinator.com/companies/operand
-  Requesting company #555: https://www.ycombinator.com/companies/osmosis
-  Requesting company #556: https://www.ycombinator.com/companies/swerve
-  Requesting company #557: https://www.ycombinator.com/companies/mosaic-2
-  Requesting company #558: https://www.ycombinator.com/companies/cifrato
-  Requesting company #559: https://www.ycombinator.com/companies/oki
-  Requesting company #560: https://www.ycombinator.com/companies/zeroentropy
-  Requesting company #561: https://www.ycombinator.com/companies/bezel
-  Requesting company #562: https://www.ycombinator.com/companies/cardamon
-  Requesting company #563: https://www.ycombinator.com/companies/amby-health
-  Requesting company #564: https://www.ycombinator.com/companies/trim
-  Requesting company #565: https://www.ycombinator.com/companies/tergle
-  Requesting company #566: https://www.ycombinator.com/companies/rally-3
-  Requesting company #567: https://www.ycombinator.com/companies/adam
-  Requesting company #568: https://www.ycombinator.com/companies/inversion-semiconductor
-  Requesting company #569: https://www.ycombinator.com/companies/carecycle
-  Requesting company #570: https://www.ycombinator.com/companies/deployparagon
-  Requesting company #571: https://www.ycombinator.com/companies/salespatriot
-  Requesting company #572: https://www.ycombinator.com/companies/maive
-  Requesting company #573: https://www.ycombinator.com/companies/weave-3
-  Requesting company #574: https://www.ycombinator.com/companies/caseflood-ai
-  Requesting company #575: https://www.ycombinator.com/companies/tejas-ai
-  Requesting company #576: https://www.ycombinator.com/companies/trava
-  Requesting company #577: https://www.ycombinator.com/companies/maritime-fusion
-  Requesting company #578: https://www.ycombinator.com/companies/a0-dev
-  Requesting company #579: https://www.ycombinator.com/companies/altrina
-  Requesting company #580: https://www.ycombinator.com/companies/a1base
-  Requesting company #581: https://www.ycombinator.com/companies/verbiflow
-  Requesting company #582: https://www.ycombinator.com/companies/toothy-ai
-  Requesting company #583: https://www.ycombinator.com/companies/rocketable
-  Requesting company #584: https://www.ycombinator.com/companies/contrario
-  Requesting company #585: https://www.ycombinator.com/companies/ovlo
-  Requesting company #586: https://www.ycombinator.com/companies/truffle-ai
-  Requesting company #587: https://www.ycombinator.com/companies/superglue
-  Requesting company #588: https://www.ycombinator.com/companies/conntour
-  Requesting company #589: https://www.ycombinator.com/companies/closure
-  Requesting company #590: https://www.ycombinator.com/companies/promptless
-  Requesting company #591: https://www.ycombinator.com/companies/scout-4
-  Requesting company #592: https://www.ycombinator.com/companies/subtrace
-  Requesting company #593: https://www.ycombinator.com/companies/vocality-health
-  Requesting company #594: https://www.ycombinator.com/companies/astro
-  Requesting company #595: https://www.ycombinator.com/companies/dartboard-energy
-  Requesting company #596: https://www.ycombinator.com/companies/karoo
-  Requesting company #597: https://www.ycombinator.com/companies/awen
-  Requesting company #598: https://www.ycombinator.com/companies/dollyglot
-  Requesting company #599: https://www.ycombinator.com/companies/alice-tech
-  Requesting company #600: https://www.ycombinator.com/companies/stamp
-  Requesting company #601: https://www.ycombinator.com/companies/splash-inc
-  Requesting company #602: https://www.ycombinator.com/companies/orchids
-  Requesting company #603: https://www.ycombinator.com/companies/axiom
-  Requesting company #604: https://www.ycombinator.com/companies/partcl
-  Requesting company #605: https://www.ycombinator.com/companies/steinmetz
-  Requesting company #606: https://www.ycombinator.com/companies/subimage
-  Requesting company #607: https://www.ycombinator.com/companies/hey-telo
-  Requesting company #608: https://www.ycombinator.com/companies/praxim
-  Requesting company #609: https://www.ycombinator.com/companies/excellence-learning
-  Requesting company #610: https://www.ycombinator.com/companies/tweeksio
-  Requesting company #611: https://www.ycombinator.com/companies/flowtel
-  Requesting company #612: https://www.ycombinator.com/companies/leaping-ai
-  Requesting company #613: https://www.ycombinator.com/companies/vetnio
-  Requesting company #614: https://www.ycombinator.com/companies/candor
-  Requesting company #615: https://www.ycombinator.com/companies/bild-ai
-  Requesting company #616: https://www.ycombinator.com/companies/trace
-  Requesting company #617: https://www.ycombinator.com/companies/revise-robotics
-  Requesting company #618: https://www.ycombinator.com/companies/aviro
-  Requesting company #619: https://www.ycombinator.com/companies/enhanced-radar
-  Requesting company #620: https://www.ycombinator.com/companies/edexia
-  Requesting company #621: https://www.ycombinator.com/companies/quantstruct
-  Requesting company #622: https://www.ycombinator.com/companies/asha-health
-  Requesting company #623: https://www.ycombinator.com/companies/apolink
-  Requesting company #624: https://www.ycombinator.com/companies/humanlayer
-  Requesting company #625: https://www.ycombinator.com/companies/loombotic
-  Requesting company #626: https://www.ycombinator.com/companies/roundabout-technologies
-  Requesting company #627: https://www.ycombinator.com/companies/synth-3
-  Requesting company #628: https://www.ycombinator.com/companies/careforce-prev-helpcare-ai
-  Requesting company #629: https://www.ycombinator.com/companies/canvas
-  Requesting company #630: https://www.ycombinator.com/companies/ember
-  Requesting company #631: https://www.ycombinator.com/companies/relvy-ai
-  Requesting company #632: https://www.ycombinator.com/companies/friday
-  Requesting company #633: https://www.ycombinator.com/companies/sre-ai
-  Requesting company #634: https://www.ycombinator.com/companies/ryvn
-  Requesting company #635: https://www.ycombinator.com/companies/melder
-  Requesting company #636: https://www.ycombinator.com/companies/bookmyflight
-  Requesting company #637: https://www.ycombinator.com/companies/foundry
-  Requesting company #638: https://www.ycombinator.com/companies/forerunner-ai
-  Requesting company #639: https://www.ycombinator.com/companies/futureclinic
-  Requesting company #640: https://www.ycombinator.com/companies/edgedive
 
 ================================================================================
-COMPANY: Axial Composites Industries
-URL: https://www.ycombinator.com/companies/axial-composites-industries
+COMPANY: Bluma
+URL: https://www.ycombinator.com/companies/bluma
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/giuseppe-rapisarda2001
-  2. https://www.linkedin.com/in/rollo-tully-5a3306221
-    Processing slug: giuseppe-rapisarda2001, parts: ['giuseppe', 'rapisarda2001']
-      Detected ID part: 'rapisarda2001', stopping. Name parts so far: ['giuseppe']
-    Name parts before filtering: ['giuseppe']
-    Name parts after filtering: ['giuseppe']
-    Extracted name: 'Giuseppe' (from 1 parts)
-    Processing slug: rollo-tully-5a3306221, parts: ['rollo', 'tully', '5a3306221']
-      Detected ID part: '5a3306221', stopping. Name parts so far: ['rollo', 'tully']
-    Name parts before filtering: ['rollo', 'tully']
-    Name parts after filtering: ['rollo', 'tully']
-    Extracted name: 'Rollo Tully' (from 2 parts)
+  1. https://www.linkedin.com/in/wu-alisa
+  2. https://www.linkedin.com/in/stephen-ni
+    Processing slug: wu-alisa, parts: ['wu', 'alisa']
+    Name parts before filtering: ['wu', 'alisa']
+    Name parts after filtering: ['wu', 'alisa']
+    Extracted name: 'Wu Alisa' (from 2 parts)
+    Processing slug: stephen-ni, parts: ['stephen', 'ni']
+    Name parts before filtering: ['stephen', 'ni']
+    Name parts after filtering: ['stephen', 'ni']
+    Extracted name: 'Stephen Ni' (from 2 parts)
 
-FINAL RESULTS for Axial Composites Industries:
-✓ Found 2 founder(s): Giuseppe, Rollo Tully
+FINAL RESULTS for Bluma:
+✓ Found 2 founder(s): Wu Alisa, Stephen Ni
 ================================================================================
 
 
 ================================================================================
-COMPANY: LunaBill
-URL: https://www.ycombinator.com/companies/lunabill
+COMPANY: Stratus Aviation
+URL: https://www.ycombinator.com/companies/stratus-aviation
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/hunterhnguyen
+  2. https://www.linkedin.com/in/mizanrt
+    Processing slug: hunterhnguyen, parts: ['hunterhnguyen']
+    Name parts before filtering: ['hunterhnguyen']
+    Name parts after filtering: ['hunterhnguyen']
+    Extracted name: 'Hunterhnguyen' (from 1 parts)
+    Processing slug: mizanrt, parts: ['mizanrt']
+    Name parts before filtering: ['mizanrt']
+    Name parts after filtering: ['mizanrt']
+    Extracted name: 'Mizanrt' (from 1 parts)
+
+FINAL RESULTS for Stratus Aviation:
+✓ Found 2 founder(s): Hunterhnguyen, Mizanrt
+================================================================================
+
+
+================================================================================
+COMPANY: Forge Robotics
+URL: https://www.ycombinator.com/companies/forge-robotics
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/eoincobbe
+  2. https://www.linkedin.com/in/robert-cormican-a4405990
+    Processing slug: eoincobbe, parts: ['eoincobbe']
+    Name parts before filtering: ['eoincobbe']
+    Name parts after filtering: ['eoincobbe']
+    Extracted name: 'Eoincobbe' (from 1 parts)
+    Processing slug: robert-cormican-a4405990, parts: ['robert', 'cormican', 'a4405990']
+      Detected ID part: 'a4405990', stopping. Name parts so far: ['robert', 'cormican']
+    Name parts before filtering: ['robert', 'cormican']
+    Name parts after filtering: ['robert', 'cormican']
+    Extracted name: 'Robert Cormican' (from 2 parts)
+  Cleaned 'Robert Cormican' -> 'Robert'
+
+FINAL RESULTS for Forge Robotics:
+✓ Found 2 founder(s): Eoincobbe, Robert
+================================================================================
+
+
+================================================================================
+COMPANY: Amera
+URL: https://www.ycombinator.com/companies/amera
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/deepkkapur
+  2. https://www.linkedin.com/in/louise-tanski
+    Processing slug: deepkkapur, parts: ['deepkkapur']
+    Name parts before filtering: ['deepkkapur']
+    Name parts after filtering: ['deepkkapur']
+    Extracted name: 'Deepkkapur' (from 1 parts)
+    Processing slug: louise-tanski, parts: ['louise', 'tanski']
+    Name parts before filtering: ['louise', 'tanski']
+    Name parts after filtering: ['louise', 'tanski']
+    Extracted name: 'Louise Tanski' (from 2 parts)
+
+FINAL RESULTS for Amera:
+✓ Found 2 founder(s): Deepkkapur, Louise Tanski
+================================================================================
+
+
+================================================================================
+COMPANY: DiligenceSquared Inc.
+URL: https://www.ycombinator.com/companies/diligencesquared-inc
 LinkedIn links found: 3
-  1. https://www.linkedin.com/in/daviddaytw
-  2. https://www.linkedin.com/in/suhailparry
-  3. https://www.linkedin.com/in/yashraj22
-    Processing slug: daviddaytw, parts: ['daviddaytw']
-    Name parts before filtering: ['daviddaytw']
-    Name parts after filtering: ['daviddaytw']
-    Extracted name: 'Daviddaytw' (from 1 parts)
-    Processing slug: suhailparry, parts: ['suhailparry']
-    Name parts before filtering: ['suhailparry']
-    Name parts after filtering: ['suhailparry']
-    Extracted name: 'Suhailparry' (from 1 parts)
-    Processing slug: yashraj22, parts: ['yashraj22']
-    Name parts before filtering: ['yashraj22']
-    Name parts after filtering: ['yashraj22']
-    Extracted name: 'Yashraj22' (from 1 parts)
+  1. https://www.linkedin.com/in/frederik-kofoed-hansen
+  2. https://www.linkedin.com/in/søren-biltoft-knudsen-58010932
+  3. https://www.linkedin.com/in/harshil-rastogi-3a754b65
+    Processing slug: frederik-kofoed-hansen, parts: ['frederik', 'kofoed', 'hansen']
+    Name parts before filtering: ['frederik', 'kofoed', 'hansen']
+    Name parts after filtering: ['frederik', 'kofoed', 'hansen']
+    Extracted name: 'Frederik Kofoed Hansen' (from 3 parts)
+    Processing slug: søren-biltoft-knudsen-58010932, parts: ['søren', 'biltoft', 'knudsen', '58010932']
+      Detected ID part: '58010932', stopping. Name parts so far: ['søren', 'biltoft', 'knudsen']
+    Name parts before filtering: ['søren', 'biltoft', 'knudsen']
+    Name parts after filtering: ['søren', 'biltoft', 'knudsen']
+    Extracted name: 'Søren Biltoft Knudsen' (from 3 parts)
+    Processing slug: harshil-rastogi-3a754b65, parts: ['harshil', 'rastogi', '3a754b65']
+      Detected ID part: '3a754b65', stopping. Name parts so far: ['harshil', 'rastogi']
+    Name parts before filtering: ['harshil', 'rastogi']
+    Name parts after filtering: ['harshil', 'rastogi']
+    Extracted name: 'Harshil Rastogi' (from 2 parts)
 
-FINAL RESULTS for LunaBill:
-✓ Found 3 founder(s): Daviddaytw, Suhailparry, Yashraj22
+FINAL RESULTS for DiligenceSquared Inc.:
+✓ Found 3 founder(s): Frederik Kofoed Hansen, Søren Biltoft, Harshil
 ================================================================================
 
 
@@ -745,6 +557,53 @@ FINAL RESULTS for Velvet:
 
 
 ================================================================================
+COMPANY: Axial Composites Industries
+URL: https://www.ycombinator.com/companies/axial-composites-industries
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/giuseppe-rapisarda2001
+  2. https://www.linkedin.com/in/rollo-tully-5a3306221
+    Processing slug: giuseppe-rapisarda2001, parts: ['giuseppe', 'rapisarda2001']
+      Detected ID part: 'rapisarda2001', stopping. Name parts so far: ['giuseppe']
+    Name parts before filtering: ['giuseppe']
+    Name parts after filtering: ['giuseppe']
+    Extracted name: 'Giuseppe' (from 1 parts)
+    Processing slug: rollo-tully-5a3306221, parts: ['rollo', 'tully', '5a3306221']
+      Detected ID part: '5a3306221', stopping. Name parts so far: ['rollo', 'tully']
+    Name parts before filtering: ['rollo', 'tully']
+    Name parts after filtering: ['rollo', 'tully']
+    Extracted name: 'Rollo Tully' (from 2 parts)
+
+FINAL RESULTS for Axial Composites Industries:
+✓ Found 2 founder(s): Giuseppe, Rollo Tully
+================================================================================
+
+
+================================================================================
+COMPANY: LunaBill
+URL: https://www.ycombinator.com/companies/lunabill
+LinkedIn links found: 3
+  1. https://www.linkedin.com/in/suhailparry
+  2. https://www.linkedin.com/in/daviddaytw
+  3. https://www.linkedin.com/in/yashraj22
+    Processing slug: suhailparry, parts: ['suhailparry']
+    Name parts before filtering: ['suhailparry']
+    Name parts after filtering: ['suhailparry']
+    Extracted name: 'Suhailparry' (from 1 parts)
+    Processing slug: daviddaytw, parts: ['daviddaytw']
+    Name parts before filtering: ['daviddaytw']
+    Name parts after filtering: ['daviddaytw']
+    Extracted name: 'Daviddaytw' (from 1 parts)
+    Processing slug: yashraj22, parts: ['yashraj22']
+    Name parts before filtering: ['yashraj22']
+    Name parts after filtering: ['yashraj22']
+    Extracted name: 'Yashraj22' (from 1 parts)
+
+FINAL RESULTS for LunaBill:
+✓ Found 3 founder(s): Suhailparry, Daviddaytw, Yashraj22
+================================================================================
+
+
+================================================================================
 COMPANY: Claybird
 URL: https://www.ycombinator.com/companies/claybird
 LinkedIn links found: 2
@@ -768,19 +627,19 @@ FINAL RESULTS for Claybird:
 COMPANY: Fastshot
 URL: https://www.ycombinator.com/companies/fastshot
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/dzhuraeva
-  2. https://www.linkedin.com/in/fatkhi
-    Processing slug: dzhuraeva, parts: ['dzhuraeva']
-    Name parts before filtering: ['dzhuraeva']
-    Name parts after filtering: ['dzhuraeva']
-    Extracted name: 'Dzhuraeva' (from 1 parts)
+  1. https://www.linkedin.com/in/fatkhi
+  2. https://www.linkedin.com/in/dzhuraeva
     Processing slug: fatkhi, parts: ['fatkhi']
     Name parts before filtering: ['fatkhi']
     Name parts after filtering: ['fatkhi']
     Extracted name: 'Fatkhi' (from 1 parts)
+    Processing slug: dzhuraeva, parts: ['dzhuraeva']
+    Name parts before filtering: ['dzhuraeva']
+    Name parts after filtering: ['dzhuraeva']
+    Extracted name: 'Dzhuraeva' (from 1 parts)
 
 FINAL RESULTS for Fastshot:
-✓ Found 2 founder(s): Dzhuraeva, Fatkhi
+✓ Found 2 founder(s): Fatkhi, Dzhuraeva
 ================================================================================
 
 
@@ -902,106 +761,77 @@ FINAL RESULTS for Moss:
 COMPANY: Bear
 URL: https://www.ycombinator.com/companies/bear
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/siddhantpaliwal
-  2. https://www.linkedin.com/in/janaksunil
-    Processing slug: siddhantpaliwal, parts: ['siddhantpaliwal']
-    Name parts before filtering: ['siddhantpaliwal']
-    Name parts after filtering: ['siddhantpaliwal']
-    Extracted name: 'Siddhantpaliwal' (from 1 parts)
+  1. https://www.linkedin.com/in/janaksunil
+  2. https://www.linkedin.com/in/siddhantpaliwal
     Processing slug: janaksunil, parts: ['janaksunil']
     Name parts before filtering: ['janaksunil']
     Name parts after filtering: ['janaksunil']
     Extracted name: 'Janaksunil' (from 1 parts)
+    Processing slug: siddhantpaliwal, parts: ['siddhantpaliwal']
+    Name parts before filtering: ['siddhantpaliwal']
+    Name parts after filtering: ['siddhantpaliwal']
+    Extracted name: 'Siddhantpaliwal' (from 1 parts)
 
 FINAL RESULTS for Bear:
-✓ Found 2 founder(s): Siddhantpaliwal, Janaksunil
+✓ Found 2 founder(s): Janaksunil, Siddhantpaliwal
 ================================================================================
 
+  Requesting company #143: https://www.ycombinator.com/companies/structured-ai
+  Requesting company #144: https://www.ycombinator.com/companies/uplane
+  Requesting company #145: https://www.ycombinator.com/companies/aircaps
+  Requesting company #146: https://www.ycombinator.com/companies/brickanta
+  Requesting company #147: https://www.ycombinator.com/companies/f2
+  Requesting company #148: https://www.ycombinator.com/companies/remedy
+  Requesting company #149: https://www.ycombinator.com/companies/semiotic
+  Requesting company #150: https://www.ycombinator.com/companies/lapis
+  Requesting company #151: https://www.ycombinator.com/companies/efference
+  Requesting company #152: https://www.ycombinator.com/companies/nox-metals
+  Requesting company #153: https://www.ycombinator.com/companies/digipals
+  Requesting company #154: https://www.ycombinator.com/companies/blue
+  Requesting company #155: https://www.ycombinator.com/companies/mixy
+  Requesting company #156: https://www.ycombinator.com/companies/paloma
+  Requesting company #157: https://www.ycombinator.com/companies/uplift-ai
+  Requesting company #158: https://www.ycombinator.com/companies/realroots
+  Requesting company #159: https://www.ycombinator.com/companies/luminal
+  Requesting company #160: https://www.ycombinator.com/companies/freya
+  Requesting company #161: https://www.ycombinator.com/companies/burnt
+  Requesting company #162: https://www.ycombinator.com/companies/avent
+  Requesting company #163: https://www.ycombinator.com/companies/cacao
+  Requesting company #164: https://www.ycombinator.com/companies/veritus-agent
+  Requesting company #165: https://www.ycombinator.com/companies/outrove
+  Requesting company #166: https://www.ycombinator.com/companies/noso-labs
+  Requesting company #167: https://www.ycombinator.com/companies/vulcan-technologies
+  Requesting company #168: https://www.ycombinator.com/companies/spotlight-realty
+  Requesting company #169: https://www.ycombinator.com/companies/interfere
+  Requesting company #170: https://www.ycombinator.com/companies/munify
+  Requesting company #171: https://www.ycombinator.com/companies/rowflow
+  Requesting company #172: https://www.ycombinator.com/companies/tectoai
+  Requesting company #173: https://www.ycombinator.com/companies/duranium
+  Requesting company #174: https://www.ycombinator.com/companies/perspectives-health
+  Requesting company #175: https://www.ycombinator.com/companies/modelence
+  Requesting company #176: https://www.ycombinator.com/companies/magnetic
+  Requesting company #177: https://www.ycombinator.com/companies/fleetline
+  Requesting company #178: https://www.ycombinator.com/companies/clodo
 
 ================================================================================
-COMPANY: Fixpoint
-URL: https://www.ycombinator.com/companies/fixpoint
-LinkedIn links found: 4
-  1. https://linkedin.com/in/jakub-cichon-14016a3b
-  2. https://linkedin.com/in/dbmikus
-  3. https://www.linkedin.com/in/jakub-c-14016a3b
-  4. https://www.linkedin.com/in/dbmikus
-    Processing slug: jakub-cichon-14016a3b, parts: ['jakub', 'cichon', '14016a3b']
-      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'cichon']
-    Name parts before filtering: ['jakub', 'cichon']
-    Name parts after filtering: ['jakub', 'cichon']
-    Extracted name: 'Jakub Cichon' (from 2 parts)
-    Processing slug: dbmikus, parts: ['dbmikus']
-    Name parts before filtering: ['dbmikus']
-    Name parts after filtering: ['dbmikus']
-    Extracted name: 'Dbmikus' (from 1 parts)
-    Processing slug: jakub-c-14016a3b, parts: ['jakub', 'c', '14016a3b']
-      Detected ID part: '14016a3b', stopping. Name parts so far: ['jakub', 'c']
-    Name parts before filtering: ['jakub', 'c']
-    Name parts after filtering: ['jakub', 'c']
-    Extracted name: 'Jakub C' (from 2 parts)
-    Processing slug: dbmikus, parts: ['dbmikus']
-    Name parts before filtering: ['dbmikus']
-    Name parts after filtering: ['dbmikus']
-    Extracted name: 'Dbmikus' (from 1 parts)
-
-FINAL RESULTS for Fixpoint:
-✓ Found 3 founder(s): Jakub Cichon, Dbmikus, Jakub C
-================================================================================
-
-
-================================================================================
-COMPANY: Openroll
-URL: https://www.ycombinator.com/companies/openroll
+COMPANY: Castari
+URL: https://www.ycombinator.com/companies/castari
 LinkedIn links found: 2
-  1. https://www.linkedin.com/in/lindellmattias
-  2. https://www.linkedin.com/in/porsev-aslan
-    Processing slug: lindellmattias, parts: ['lindellmattias']
-    Name parts before filtering: ['lindellmattias']
-    Name parts after filtering: ['lindellmattias']
-    Extracted name: 'Lindellmattias' (from 1 parts)
-    Processing slug: porsev-aslan, parts: ['porsev', 'aslan']
-    Name parts before filtering: ['porsev', 'aslan']
-    Name parts after filtering: ['porsev', 'aslan']
-    Extracted name: 'Porsev Aslan' (from 2 parts)
+  1. https://linkedin.com/in/jacob-c-wright
+  2. https://www.linkedin.com/in/cambree-bernkopf-3385b0250
+    Processing slug: jacob-c-wright, parts: ['jacob', 'c', 'wright']
+    Name parts before filtering: ['jacob', 'c', 'wright']
+    Name parts after filtering: ['jacob', 'c', 'wright']
+    Extracted name: 'Jacob C Wright' (from 3 parts)
+    Processing slug: cambree-bernkopf-3385b0250, parts: ['cambree', 'bernkopf', '3385b0250']
+      Detected ID part: '3385b0250', stopping. Name parts so far: ['cambree', 'bernkopf']
+    Name parts before filtering: ['cambree', 'bernkopf']
+    Name parts after filtering: ['cambree', 'bernkopf']
+    Extracted name: 'Cambree Bernkopf' (from 2 parts)
+  Cleaned 'Cambree Bernkopf' -> 'Cambree'
 
-FINAL RESULTS for Openroll:
-✓ Found 2 founder(s): Lindellmattias, Porsev Aslan
-================================================================================
-
-
-================================================================================
-COMPANY: Rivet
-URL: https://www.ycombinator.com/companies/rivet-design
-LinkedIn links found: 1
-  1. https://www.linkedin.com/in/gormansam
-    Processing slug: gormansam, parts: ['gormansam']
-    Name parts before filtering: ['gormansam']
-    Name parts after filtering: ['gormansam']
-    Extracted name: 'Gormansam' (from 1 parts)
-
-FINAL RESULTS for Rivet:
-✓ Found 1 founder(s): Gormansam
-================================================================================
-
-
-================================================================================
-COMPANY: item
-URL: https://www.ycombinator.com/companies/item
-LinkedIn links found: 2
-  1. https://linkedin.com/in/akguthal
-  2. https://linkedin.com/in/asantanilla
-    Processing slug: akguthal, parts: ['akguthal']
-    Name parts before filtering: ['akguthal']
-    Name parts after filtering: ['akguthal']
-    Extracted name: 'Akguthal' (from 1 parts)
-    Processing slug: asantanilla, parts: ['asantanilla']
-    Name parts before filtering: ['asantanilla']
-    Name parts after filtering: ['asantanilla']
-    Extracted name: 'Asantanilla' (from 1 parts)
-
-FINAL RESULTS for item:
-✓ Found 2 founder(s): Akguthal, Asantanilla
+FINAL RESULTS for Castari:
+✓ Found 2 founder(s): Jacob C Wright, Cambree
 ================================================================================
 
 
@@ -1025,5 +855,208 @@ FINAL RESULTS for Rovi Health:
 ================================================================================
 
 
-=== END OF LOG ===
-Ended: 2025-11-28 18:19:02
+================================================================================
+COMPANY: Miniswap
+URL: https://www.ycombinator.com/companies/miniswap
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/zak-singh
+  2. https://www.linkedin.com/in/will-h-48a38bbb
+    Processing slug: zak-singh, parts: ['zak', 'singh']
+    Name parts before filtering: ['zak', 'singh']
+    Name parts after filtering: ['zak', 'singh']
+    Extracted name: 'Zak Singh' (from 2 parts)
+    Processing slug: will-h-48a38bbb, parts: ['will', 'h', '48a38bbb']
+      Detected ID part: '48a38bbb', stopping. Name parts so far: ['will', 'h']
+    Name parts before filtering: ['will', 'h']
+    Name parts after filtering: ['will', 'h']
+    Extracted name: 'Will H' (from 2 parts)
+
+FINAL RESULTS for Miniswap:
+✓ Found 2 founder(s): Zak Singh, Will H
+================================================================================
+
+
+================================================================================
+COMPANY: Freeport Markets
+URL: https://www.ycombinator.com/companies/freeport-markets
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/lihong062
+  2. https://www.linkedin.com/in/bryan1738
+    Processing slug: lihong062, parts: ['lihong062']
+      Detected ID part: 'lihong062', stopping. Name parts so far: []
+    Name parts before filtering: []
+    Name parts after filtering: []
+    Extracted name: 'None' (from 0 parts)
+    Processing slug: bryan1738, parts: ['bryan1738']
+      Detected ID part: 'bryan1738', stopping. Name parts so far: []
+    Name parts before filtering: []
+    Name parts after filtering: []
+    Extracted name: 'None' (from 0 parts)
+
+FINAL RESULTS for Freeport Markets:
+✗ NO FOUNDER NAMES FOUND
+================================================================================
+
+
+================================================================================
+COMPANY: Boom AI
+URL: https://www.ycombinator.com/companies/boom-ai
+LinkedIn links found: 3
+  1. https://www.linkedin.com/in/juancasian
+  2. https://www.linkedin.com/in/sergiogarciaglz
+  3. https://www.linkedin.com/in/josecarlostoscano
+    Processing slug: juancasian, parts: ['juancasian']
+    Name parts before filtering: ['juancasian']
+    Name parts after filtering: ['juancasian']
+    Extracted name: 'Juancasian' (from 1 parts)
+    Processing slug: sergiogarciaglz, parts: ['sergiogarciaglz']
+    Name parts before filtering: ['sergiogarciaglz']
+    Name parts after filtering: ['sergiogarciaglz']
+    Extracted name: 'Sergiogarciaglz' (from 1 parts)
+    Processing slug: josecarlostoscano, parts: ['josecarlostoscano']
+    Name parts before filtering: ['josecarlostoscano']
+    Name parts after filtering: ['josecarlostoscano']
+    Extracted name: 'Josecarlostoscano' (from 1 parts)
+
+FINAL RESULTS for Boom AI:
+✓ Found 3 founder(s): Juancasian, Sergiogarciaglz, Josecarlostoscano
+================================================================================
+
+
+================================================================================
+COMPANY: Telemetron
+URL: https://www.ycombinator.com/companies/telemetron-ai
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/shivanijpatel
+  2. https://www.linkedin.com/in/hamza-s-892a94103
+    Processing slug: shivanijpatel, parts: ['shivanijpatel']
+    Name parts before filtering: ['shivanijpatel']
+    Name parts after filtering: ['shivanijpatel']
+    Extracted name: 'Shivanijpatel' (from 1 parts)
+    Processing slug: hamza-s-892a94103, parts: ['hamza', 's', '892a94103']
+      Detected ID part: '892a94103', stopping. Name parts so far: ['hamza', 's']
+    Name parts before filtering: ['hamza', 's']
+    Name parts after filtering: ['hamza', 's']
+    Extracted name: 'Hamza S' (from 2 parts)
+
+FINAL RESULTS for Telemetron:
+✓ Found 2 founder(s): Shivanijpatel, Hamza S
+================================================================================
+
+
+================================================================================
+COMPANY: The Hog
+URL: https://www.ycombinator.com/companies/the-hog
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/hudsonliao
+  2. https://linkedin.com/in/paulonasc
+    Processing slug: hudsonliao, parts: ['hudsonliao']
+    Name parts before filtering: ['hudsonliao']
+    Name parts after filtering: ['hudsonliao']
+    Extracted name: 'Hudsonliao' (from 1 parts)
+    Processing slug: paulonasc, parts: ['paulonasc']
+    Name parts before filtering: ['paulonasc']
+    Name parts after filtering: ['paulonasc']
+    Extracted name: 'Paulonasc' (from 1 parts)
+
+FINAL RESULTS for The Hog:
+✓ Found 2 founder(s): Hudsonliao, Paulonasc
+================================================================================
+
+
+================================================================================
+COMPANY: Lightberry
+URL: https://www.ycombinator.com/companies/lightberry
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/attarali
+  2. https://www.linkedin.com/in/stephankoe
+    Processing slug: attarali, parts: ['attarali']
+    Name parts before filtering: ['attarali']
+    Name parts after filtering: ['attarali']
+    Extracted name: 'Attarali' (from 1 parts)
+    Processing slug: stephankoe, parts: ['stephankoe']
+    Name parts before filtering: ['stephankoe']
+    Name parts after filtering: ['stephankoe']
+    Extracted name: 'Stephankoe' (from 1 parts)
+
+FINAL RESULTS for Lightberry:
+✓ Found 2 founder(s): Attarali, Stephankoe
+================================================================================
+
+
+================================================================================
+COMPANY: Metorial
+URL: https://www.ycombinator.com/companies/metorial
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/karim-rahme
+  2. https://www.linkedin.com/in/tobias-herber
+    Processing slug: karim-rahme, parts: ['karim', 'rahme']
+    Name parts before filtering: ['karim', 'rahme']
+    Name parts after filtering: ['karim', 'rahme']
+    Extracted name: 'Karim Rahme' (from 2 parts)
+    Processing slug: tobias-herber, parts: ['tobias', 'herber']
+    Name parts before filtering: ['tobias', 'herber']
+    Name parts after filtering: ['tobias', 'herber']
+    Extracted name: 'Tobias Herber' (from 2 parts)
+
+FINAL RESULTS for Metorial:
+✓ Found 2 founder(s): Karim Rahme, Tobias Herber
+================================================================================
+
+
+================================================================================
+COMPANY: Arcten
+URL: https://www.ycombinator.com/companies/arcten
+LinkedIn links found: 2
+  1. https://linkedin.com/in/armeetjatyani
+  2. https://www.linkedin.com/in/michael-nguyen-jr-02a576354
+    Processing slug: armeetjatyani, parts: ['armeetjatyani']
+    Name parts before filtering: ['armeetjatyani']
+    Name parts after filtering: ['armeetjatyani']
+    Extracted name: 'Armeetjatyani' (from 1 parts)
+    Processing slug: michael-nguyen-jr-02a576354, parts: ['michael', 'nguyen', 'jr', '02a576354']
+      Detected ID part: '02a576354', stopping. Name parts so far: ['michael', 'nguyen', 'jr']
+    Name parts before filtering: ['michael', 'nguyen', 'jr']
+    Name parts after filtering: ['michael', 'nguyen', 'jr']
+    Extracted name: 'Michael Nguyen Jr' (from 3 parts)
+
+FINAL RESULTS for Arcten:
+✓ Found 2 founder(s): Armeetjatyani, Michael Nguyen Jr
+================================================================================
+
+
+================================================================================
+COMPANY: Denki
+URL: https://www.ycombinator.com/companies/denki
+LinkedIn links found: 2
+  1. https://www.linkedin.com/in/felipe-jin-li-a42380132
+  2. https://www.linkedin.com/in/david-jin-li
+    Processing slug: felipe-jin-li-a42380132, parts: ['felipe', 'jin', 'li', 'a42380132']
+      Detected ID part: 'a42380132', stopping. Name parts so far: ['felipe', 'jin', 'li']
+    Name parts before filtering: ['felipe', 'jin', 'li']
+    Name parts after filtering: ['felipe', 'jin', 'li']
+    Extracted name: 'Felipe Jin Li' (from 3 parts)
+    Processing slug: david-jin-li, parts: ['david', 'jin', 'li']
+    Name parts before filtering: ['david', 'jin', 'li']
+    Name parts after filtering: ['david', 'jin', 'li']
+    Extracted name: 'David Jin Li' (from 3 parts)
+
+FINAL RESULTS for Denki:
+✓ Found 2 founder(s): Felipe Jin Li, David Jin Li
+================================================================================
+
+
+================================================================================
+COMPANY: Waffer
+URL: https://www.ycombinator.com/companies/waffer
+LinkedIn links found: 1
+  1. https://www.linkedin.com/in/ragavsachdeva
+    Processing slug: ragavsachdeva, parts: ['ragavsachdeva']
+    Name parts before filtering: ['ragavsachdeva']
+    Name parts after filtering: ['ragavsachdeva']
+    Extracted name: 'Ragavsachdeva' (from 1 parts)
+
+FINAL RESULTS for Waffer:
+✓ Found 1 founder(s): Ragavsachdeva
+================================================================================
+

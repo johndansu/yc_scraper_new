@@ -10,7 +10,7 @@ class YcCompaniesSpider(scrapy.Spider):
     allowed_domains = ['ycombinator.com']
     
     start_urls = [
-        'https://www.ycombinator.com/companies?batch=Fall%202024&batch=Winter%202024&batch=Summer%202024&batch=Winter%202025&batch=Spring%202025&batch=Summer%202025&batch=Fall%202025&batch=Winter%202026'
+        'https://www.ycombinator.com/companies'  # Scrape ALL companies (no batch filter)
     ]
     
     def __init__(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class YcCompaniesSpider(scrapy.Spider):
         return spider
     
     def _init_debug_log(self):
-        """Initialize the debug log file"""
+        """Initialize the debug log file with real-time updates"""
         if hasattr(self, 'debug_log') and self.debug_log:
             return  # Already initialized
         
@@ -32,11 +32,20 @@ class YcCompaniesSpider(scrapy.Spider):
         debug_path = os.path.abspath(debug_file)
         
         try:
-            self.debug_log = open(debug_file, 'w', encoding='utf-8')
-            self.debug_log.write(f"=== FOUNDER EXTRACTION DEBUG LOG ===\n")
-            self.debug_log.write(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            self.debug_log.write(f"Debug log location: {debug_path}\n\n")
+            # Open in write mode with unbuffered line mode for instant updates
+            # Using buffering=1 for line buffering (flushes on newline)
+            import sys
+            self.debug_log = open(debug_file, 'w', encoding='utf-8', buffering=1)
+            
+            # Write header with immediate flush
+            header = f"=== FOUNDER EXTRACTION DEBUG LOG ===\n"
+            header += f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            header += f"Debug log location: {debug_path}\n\n"
+            
+            self.debug_log.write(header)
             self.debug_log.flush()
+            os.fsync(self.debug_log.fileno())  # Force write to disk
+            
             print(f"\n{'='*60}")
             print(f"DEBUG LOG FILE CREATED!")
             print(f"Location: {debug_path}")
@@ -46,12 +55,26 @@ class YcCompaniesSpider(scrapy.Spider):
             import io
             self.debug_log = io.StringIO()
     
+    def _write_debug(self, message):
+        """Helper method to write to debug log with guaranteed flush"""
+        try:
+            if hasattr(self, 'debug_log') and self.debug_log:
+                self.debug_log.write(message)
+                self.debug_log.flush()
+                # Force OS-level flush to ensure data is written to disk
+                try:
+                    os.fsync(self.debug_log.fileno())
+                except:
+                    pass  # fsync may not be available on all systems
+        except:
+            pass  # Silently fail if debug log is unavailable
+    
     def closed(self, reason):
         """Called when spider closes"""
         if hasattr(self, 'debug_log') and self.debug_log:
             try:
-                self.debug_log.write(f"\n=== END OF LOG ===\n")
-                self.debug_log.write(f"Ended: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                self._write_debug(f"\n=== END OF LOG ===\n")
+                self._write_debug(f"Ended: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 self.debug_log.close()
             except:
                 pass
@@ -156,13 +179,8 @@ class YcCompaniesSpider(scrapy.Spider):
         self.logger.info(f'Found {len(all_companies)} potential company links')
         
         # Debug log
-        try:
-            if hasattr(self, 'debug_log') and self.debug_log:
-                self.debug_log.write(f"\nPARSING MAIN PAGE: {response.url}\n")
-                self.debug_log.write(f"Found {len(all_companies)} potential company links\n")
-                self.debug_log.flush()
-        except:
-            pass
+        self._write_debug(f"\nPARSING MAIN PAGE: {response.url}\n")
+        self._write_debug(f"Found {len(all_companies)} potential company links\n")
         
         processed_urls = set()
         company_count = 0
@@ -191,10 +209,7 @@ class YcCompaniesSpider(scrapy.Spider):
                 # Follow link to get full details
                 company_count += 1
                 try:
-                    if hasattr(self, 'debug_log') and self.debug_log:
-                        self.debug_log.write(f"  Requesting company #{company_count}: {full_url}\n")
-                        if company_count <= 5:  # Only flush first 5
-                            self.debug_log.flush()
+                    self._write_debug(f"  Requesting company #{company_count}: {full_url}\n")
                 except:
                     pass
                 
@@ -224,13 +239,9 @@ class YcCompaniesSpider(scrapy.Spider):
         company_name = item.get('company_name', 'Unknown')
         
         # Write to debug log
-        try:
-            self.debug_log.write(f"\n{'='*80}\n")
-            self.debug_log.write(f"COMPANY: {company_name}\n")
-            self.debug_log.write(f"URL: {response.url}\n")
-            self.debug_log.flush()
-        except:
-            pass
+        self._write_debug(f"\n{'='*80}\n")
+        self._write_debug(f"COMPANY: {company_name}\n")
+        self._write_debug(f"URL: {response.url}\n")
         
         # Extract company website - look for the actual company website link
         # Exclude YC, social media, and other common non-company links
@@ -286,14 +297,10 @@ class YcCompaniesSpider(scrapy.Spider):
                 seen_urls.add(normalized)
                 unique_linkedin_urls.append(normalized)
         
-        try:
-            self.debug_log.write(f"LinkedIn links found: {len(unique_linkedin_urls)}\n")
-            if unique_linkedin_urls:
-                for i, url in enumerate(unique_linkedin_urls[:5], 1):
-                    self.debug_log.write(f"  {i}. {url}\n")
-            self.debug_log.flush()
-        except:
-            pass
+        self._write_debug(f"LinkedIn links found: {len(unique_linkedin_urls)}\n")
+        if unique_linkedin_urls:
+            for i, url in enumerate(unique_linkedin_urls[:5], 1):
+                self._write_debug(f"  {i}. {url}\n")
         
         # PRIMARY METHOD: Extract names from LinkedIn URL slugs
         # LinkedIn URLs like "linkedin.com/in/emre-kaplaner-7b3a3b15b/" contain the name in the slug
@@ -309,11 +316,7 @@ class YcCompaniesSpider(scrapy.Spider):
                 name_parts = []
                 
                 # Debug: log the slug parts
-                try:
-                    self.debug_log.write(f"    Processing slug: {slug}, parts: {slug_parts}\n")
-                    self.debug_log.flush()
-                except:
-                    pass
+                self._write_debug(f"    Processing slug: {slug}, parts: {slug_parts}\n")
                 
                 # Work forwards and stop when we hit an ID-like part
                 for part in slug_parts:
@@ -357,21 +360,13 @@ class YcCompaniesSpider(scrapy.Spider):
                     
                     if is_id:
                         # Found an ID, stop collecting (everything before this is the name)
-                        try:
-                            self.debug_log.write(f"      Detected ID part: '{part}', stopping. Name parts so far: {name_parts}\n")
-                            self.debug_log.flush()
-                        except:
-                            pass
+                        self._write_debug(f"      Detected ID part: '{part}', stopping. Name parts so far: {name_parts}\n")
                         break
                     else:
                         name_parts.append(part)
                 
                 # Debug: log name parts before filtering
-                try:
-                    self.debug_log.write(f"    Name parts before filtering: {name_parts}\n")
-                    self.debug_log.flush()
-                except:
-                    pass
+                self._write_debug(f"    Name parts before filtering: {name_parts}\n")
                 
                 # Filter out very short single-character parts unless it's a middle initial
                 if len(name_parts) > 1:
@@ -389,11 +384,7 @@ class YcCompaniesSpider(scrapy.Spider):
                     name_parts = filtered_parts if filtered_parts else name_parts
                 
                 # Debug: log name parts after filtering
-                try:
-                    self.debug_log.write(f"    Name parts after filtering: {name_parts}\n")
-                    self.debug_log.flush()
-                except:
-                    pass
+                self._write_debug(f"    Name parts after filtering: {name_parts}\n")
                 
                 # Need at least 2 parts for a full name, but accept single if it looks like a name
                 if len(name_parts) >= 2:
@@ -406,31 +397,22 @@ class YcCompaniesSpider(scrapy.Spider):
                     name = None
                 
                 # Debug: log final name
-                try:
-                    self.debug_log.write(f"    Extracted name: '{name}' (from {len(name_parts)} parts)\n")
-                    self.debug_log.flush()
-                except:
-                    pass
+                self._write_debug(f"    Extracted name: '{name}' (from {len(name_parts)} parts)\n")
                 
                 # Validate and clean the name
                 if name:
-                    # Remove any trailing alphanumeric IDs that might have slipped through
-                    # Only remove if it's clearly an ID (has digits and is at the end)
                     original_name = name
-                    # Remove trailing IDs: patterns like "Name 7b3a3b15b" or "Name 1234567"
-                    name = re.sub(r'\s+[a-z]*\d+[a-z\d]{6,}$', '', name, flags=re.IGNORECASE)  # Trailing ID with 6+ chars after digit
-                    name = re.sub(r'\s+\d{7,}$', '', name)  # Trailing 7+ digit IDs
-                    # Only remove if the trailing part has significant digits
-                    name = re.sub(r'\s+[a-z\d]{8,}$', '', name, flags=re.IGNORECASE)  # Only if trailing part is 8+ chars (likely ID)
+                    # ONLY remove trailing numbers from the LAST word (e.g., "Jha37" -> "Jha")
+                    # Don't touch multi-word names - they're likely correct
+                    words = name.split()
+                    if len(words) == 1 and any(c.isdigit() for c in words[0]):
+                        # Single word with digits - remove trailing digits
+                        name = re.sub(r'(\w+)\d{2,}$', r'\1', name)
                     name = name.strip()
                     
                     # Debug: log if name was modified
                     if name != original_name:
-                        try:
-                            self.debug_log.write(f"  Cleaned '{original_name}' -> '{name}'\n")
-                            self.debug_log.flush()
-                        except:
-                            pass
+                        self._write_debug(f"  Cleaned '{original_name}' -> '{name}'\n")
                     
                     if self._is_valid_name(name, founders_names):
                         founders_names.append(name)
@@ -447,7 +429,7 @@ class YcCompaniesSpider(scrapy.Spider):
                                     twitter = container[0].css('a[href*="twitter.com/"], a[href*="x.com/"]::attr(href)').get()
                                     if twitter and 'ycombinator' not in twitter.lower() and twitter not in founders_twitter:
                                         founders_twitter.append(twitter)
-                                break
+                                    break
         
         # FALLBACK: If we have LinkedIn links but fewer names, try HTML extraction for missing ones
         if len(founders_linkedin) > len(founders_names):
@@ -456,8 +438,8 @@ class YcCompaniesSpider(scrapy.Spider):
                 if linkedin_url in founders_linkedin:
                     # Already have a name for this URL
                     continue
-                
-                # Find the LinkedIn link element
+                    
+                    # Find the LinkedIn link element
                 slug_match = re.search(r'linkedin\.com/in/([^/?]+)', linkedin_url, re.IGNORECASE)
                 if not slug_match:
                     continue
@@ -507,32 +489,19 @@ class YcCompaniesSpider(scrapy.Spider):
         # Final cleanup - remove @ycombinator from Twitter if somehow included
         founders_twitter = [t for t in founders_twitter if t and 'ycombinator' not in t.lower()]
         
-        # Final cleanup of founder names - remove any trailing IDs that slipped through
+        # Final cleanup of founder names - REMOVED aggressive cleanup that was truncating valid names
+        # Only remove trailing digits from single words (e.g., "Jha37" -> "Jha")
         cleaned_names = []
         for name in founders_names:
             if not name:
                 continue
-            # Remove trailing alphanumeric IDs (more aggressive patterns)
-            cleaned = re.sub(r'\s+[a-z0-9]{7,}$', '', name, flags=re.IGNORECASE)
-            # Remove trailing numeric IDs (6+ digits)
-            cleaned = re.sub(r'\s+\d{6,}$', '', cleaned)
-            # Remove patterns like "word 123abc456" (alphanumeric with numbers)
-            cleaned = re.sub(r'\s+[a-z]*\d+[a-z\d]{5,}$', '', cleaned, flags=re.IGNORECASE)
-            cleaned = re.sub(r'\s+\d+[a-z]+\d*[a-z\d]{4,}$', '', cleaned, flags=re.IGNORECASE)
-            # Remove any remaining trailing spaces
-            cleaned = cleaned.strip()
-            # Check if the last word looks like an ID and remove it (but be careful not to remove valid names)
+            cleaned = name.strip()
+            # Only remove trailing digits from single-word names with digits
             words = cleaned.split()
-            if len(words) > 1:  # Only remove last word if there are multiple words
-                last_word = words[-1]
-                # If last word looks like an ID (8+ chars with mix of digits and letters), remove it
-                if (len(last_word) >= 8 and any(c.isdigit() for c in last_word) and 
-                    any(c.isalpha() for c in last_word)):
-                    digit_count = sum(1 for c in last_word if c.isdigit())
-                    # Only remove if it's clearly an ID (50%+ digits in an 8+ char string)
-                    if digit_count / len(last_word) > 0.5:
-                        words = words[:-1]
-                        cleaned = ' '.join(words).strip()
+            if len(words) == 1 and any(c.isdigit() for c in words[0]):
+                # Single word with digits - remove trailing 2+ digits
+                cleaned = re.sub(r'(\w+)\d{2,}$', r'\1', cleaned).strip()
+            
             if cleaned and cleaned not in cleaned_names:
                 cleaned_names.append(cleaned)
         
@@ -544,16 +513,12 @@ class YcCompaniesSpider(scrapy.Spider):
         item['founders_twitter'] = ', '.join(set(founders_twitter)) if founders_twitter else ''
         
         # Final debug summary
-        try:
-            self.debug_log.write(f"\nFINAL RESULTS for {company_name}:\n")
-            if founders_names:
-                self.debug_log.write(f"✓ Found {len(founders_names)} founder(s): {', '.join(founders_names)}\n")
-            else:
-                self.debug_log.write(f"✗ NO FOUNDER NAMES FOUND\n")
-            self.debug_log.write(f"{'='*80}\n\n")
-            self.debug_log.flush()
-        except:
-            pass
+        self._write_debug(f"\nFINAL RESULTS for {company_name}:\n")
+        if founders_names:
+            self._write_debug(f"✓ Found {len(founders_names)} founder(s): {', '.join(founders_names)}\n")
+        else:
+            self._write_debug(f"✗ NO FOUNDER NAMES FOUND\n")
+        self._write_debug(f"{'='*80}\n\n")
         
         # Always yield if we have a company name, even if no founders were found
         if item.get('company_name'):

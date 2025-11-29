@@ -3,6 +3,7 @@ from yc_scraper.items import YcCompanyItem
 import re
 import os
 from datetime import datetime
+import io
 
 
 class YcCompaniesSpider(scrapy.Spider):
@@ -10,74 +11,33 @@ class YcCompaniesSpider(scrapy.Spider):
     allowed_domains = ['ycombinator.com']
     
     start_urls = [
-        'https://www.ycombinator.com/companies'  # Scrape ALL companies (no batch filter)
+        # Start with base companies page - we'll filter by year on individual pages
+        'https://www.ycombinator.com/companies'
     ]
     
     def __init__(self, *args, **kwargs):
         super(YcCompaniesSpider, self).__init__(*args, **kwargs)
-        self._init_debug_log()
+        self.processed_count = 0
+        self.skipped_count = 0
+        # Skip debug logging for speed - only log errors
+        self.enable_debug = False  # Disable debug logging for maximum speed
     
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
         spider = super(YcCompaniesSpider, cls).from_crawler(crawler, *args, **kwargs)
-        spider._init_debug_log()
         return spider
     
-    def _init_debug_log(self):
-        """Initialize the debug log file with real-time updates"""
-        if hasattr(self, 'debug_log') and self.debug_log:
-            return  # Already initialized
-        
-        debug_file = 'founder_debug_log.txt'
-        debug_path = os.path.abspath(debug_file)
-        
-        try:
-            # Open in write mode with unbuffered line mode for instant updates
-            # Using buffering=1 for line buffering (flushes on newline)
-            import sys
-            self.debug_log = open(debug_file, 'w', encoding='utf-8', buffering=1)
-            
-            # Write header with immediate flush
-            header = f"=== FOUNDER EXTRACTION DEBUG LOG ===\n"
-            header += f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-            header += f"Debug log location: {debug_path}\n\n"
-            
-            self.debug_log.write(header)
-            self.debug_log.flush()
-            os.fsync(self.debug_log.fileno())  # Force write to disk
-            
-            print(f"\n{'='*60}")
-            print(f"DEBUG LOG FILE CREATED!")
-            print(f"Location: {debug_path}")
-            print(f"{'='*60}\n")
-        except Exception as e:
-            print(f"ERROR: Could not create debug log file: {e}")
-            import io
-            self.debug_log = io.StringIO()
-    
     def _write_debug(self, message):
-        """Helper method to write to debug log with guaranteed flush"""
-        try:
-            if hasattr(self, 'debug_log') and self.debug_log:
-                self.debug_log.write(message)
-                self.debug_log.flush()
-                # Force OS-level flush to ensure data is written to disk
-                try:
-                    os.fsync(self.debug_log.fileno())
-                except:
-                    pass  # fsync may not be available on all systems
-        except:
-            pass  # Silently fail if debug log is unavailable
+        """Helper method to write to debug log - disabled for speed"""
+        if not getattr(self, 'enable_debug', False):
+            return  # Skip debug logging for maximum speed
+        # Only log critical errors, not regular processing
     
     def closed(self, reason):
         """Called when spider closes"""
-        if hasattr(self, 'debug_log') and self.debug_log:
-            try:
-                self._write_debug(f"\n=== END OF LOG ===\n")
-                self._write_debug(f"Ended: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                self.debug_log.close()
-            except:
-                pass
+        print(f"\n=== Scraping Complete ===")
+        print(f"Processed: {getattr(self, 'processed_count', 0)} companies (2024+)")
+        print(f"Skipped: {getattr(self, 'skipped_count', 0)} companies (pre-2024)")
 
     def _is_valid_name(self, text, existing_names):
         """Validate if extracted text is a plausible founder name"""
@@ -136,96 +96,198 @@ class YcCompaniesSpider(scrapy.Spider):
         
         return True
 
+    def _extract_batch_from_listing_card(self, element):
+        """Try to extract batch/year info from a company card on the listing page - FAST"""
+        # Get minimal text for speed
+        card_text = ' '.join(element.css('::text').getall())
+        card_text = ' '.join(card_text.split())  # Normalize whitespace
+        
+        # Look for batch patterns - prioritize 2024+ patterns first
+        batch_patterns = [
+            r'(W|S)(2[4-9]|[3-9][0-9])',  # W24, S24, W25, etc.
+            r'20(2[4-9]|[3-9][0-9])',  # 2024, 2025, etc. (check years first)
+            r'(Winter|Summer|Fall|Spring)\s+20(2[4-9]|[3-9][0-9])',  # Winter 2024, etc.
+        ]
+        
+        for pattern in batch_patterns:
+            match = re.search(pattern, card_text, re.IGNORECASE)
+            if match:
+                batch = match.group(0).upper()
+                # Quick check - if it's clearly pre-2024, return early
+                if re.search(r'(W|S)(1[0-9]|2[0-3])', batch) or re.search(r'20(1[0-9]|2[0-3])', batch):
+                    return 'PRE_2024'  # Signal it's pre-2024
+                # Check if it's 2024+
+                if re.search(r'(W|S)(2[4-9]|[3-9][0-9])', batch) or re.search(r'20(2[4-9]|[3-9][0-9])', batch):
+                    return batch
+        return None
+    
     def parse(self, response):
-        """Parse the Y Combinator companies page"""
+        """Parse the Y Combinator companies page - FAST with 2024+ filtering"""
         self.logger.info(f'Parsing page: {response.url}')
+        print(f'Parsing companies listing page...')
         
-        # Y Combinator uses specific structure - try multiple selectors
-        # Common patterns: links to /companies/, divs with company info
-        company_links = response.css('a[href*="/companies/"]:not([href*="/companies?"])')
-        
-        # Also try to find company cards/items with broader selectors
-        company_cards = response.css(
-            '[class*="CompanyCard"], [class*="company-card"], '
-            '[data-testid*="company"], [class*="Company"], '
-            'a[href^="/companies/"]'
-        )
-        
-        # Combine both approaches and remove duplicates
+        # Try multiple selector strategies - the page structure may vary
         all_companies = []
         seen_urls = set()
         
-        for element in list(company_links) + list(company_cards):
-            href = element.css('::attr(href)').get() or ''
-            # Normalize URL
-            if '/companies/' in href:
-                # Extract just the company slug part for deduplication
-                company_slug = href.split('/companies/')[-1].split('?')[0].split('#')[0]
-                if company_slug and company_slug not in seen_urls and company_slug != 'companies':
-                    seen_urls.add(company_slug)
-                    all_companies.append(element)
+        # Strategy 1: CSS selector - FAST
+        company_links = response.css('a[href*="/companies/"]')
         
-        if not all_companies:
-            # Fallback: try to find any link containing company info (more broadly)
-            all_links = response.css('a[href*="companies"]')
-            for element in all_links:
-                href = element.css('::attr(href)').get() or ''
-                if '/companies/' in href and 'companies?' not in href:
-                    company_slug = href.split('/companies/')[-1].split('?')[0].split('#')[0]
+        for element in company_links:
+            href = element.css('::attr(href)').get() or ''
+            if href and '/companies/' in href and 'companies?' not in href:
+                parts = href.split('/companies/')
+                if len(parts) > 1:
+                    company_slug = parts[-1].split('?')[0].split('#')[0].strip()
                     if company_slug and company_slug not in seen_urls and company_slug != 'companies':
                         seen_urls.add(company_slug)
                         all_companies.append(element)
         
-        self.logger.info(f'Found {len(all_companies)} potential company links')
+        # Strategy 2: XPath fallback if CSS didn't work
+        if not all_companies:
+            xpath_links = response.xpath('//a[contains(@href, "/companies/") and not(contains(@href, "companies?"))]')
+            for element in xpath_links:
+                href = element.xpath('./@href').get() or ''
+                if href:
+                    parts = href.split('/companies/')
+                    if len(parts) > 1:
+                        company_slug = parts[-1].split('?')[0].split('#')[0].strip()
+                        if company_slug and company_slug not in seen_urls and company_slug != 'companies':
+                            seen_urls.add(company_slug)
+                            all_companies.append(element)
         
-        # Debug log
-        self._write_debug(f"\nPARSING MAIN PAGE: {response.url}\n")
-        self._write_debug(f"Found {len(all_companies)} potential company links\n")
+        print(f'Found {len(all_companies)} company links - filtering to 2024+ only...')
         
         processed_urls = set()
         company_count = 0
+        filtered_count = 0
         
         for element in all_companies:
             # Get company detail page URL
-            company_link = element.css('::attr(href)').get()
+            company_link = element.css('::attr(href)').get() or element.xpath('./@href').get()
             if not company_link:
                 continue
+            
+            if not company_link.startswith('http'):
+                company_link = response.urljoin(company_link)
                 
             if '/companies/' in company_link and company_link not in processed_urls:
+                # Extract batch from card - FAST filter
+                batch_from_card = self._extract_batch_from_listing_card(element)
+                
+                # STRICT 2024+ FILTERING: Skip immediately if pre-2024
+                if batch_from_card == 'PRE_2024':
+                    filtered_count += 1
+                    continue
+                
+                # If we have batch info and it's 2024+, proceed
+                # If no batch info, we'll check on detail page
                 full_url = response.urljoin(company_link)
                 processed_urls.add(company_link)
                 
-                # Extract basic info from listing if available
-                company_name = (
-                    element.css('h3::text, h2::text, h4::text').get() or
-                    element.css('[class*="name"]::text, [class*="Name"]::text').get() or
-                    element.css('::text').get()
-                )
+                company_count += 1
+                if company_count % 50 == 0:
+                    print(f'Queued {company_count} companies for processing (filtered {filtered_count} pre-2024)...')
                 
                 item = YcCompanyItem()
-                if company_name:
-                    item['company_name'] = company_name.strip()
-                
-                # Follow link to get full details
-                company_count += 1
-                try:
-                    self._write_debug(f"  Requesting company #{company_count}: {full_url}\n")
-                except:
-                    pass
-                
                 yield scrapy.Request(
                     full_url,
                     callback=self.parse_company_detail,
-                    meta={'item': item}
+                    meta={'item': item, 'batch_from_card': batch_from_card},
+                    dont_filter=False,
+                    priority=1 if batch_from_card and batch_from_card != 'PRE_2024' else 0
                 )
+        
+        print(f'Total: {company_count} companies queued, {filtered_count} filtered out on listing page')
+
+    def _extract_batch_year(self, response):
+        """Extract the batch/year information from the company page - FAST"""
+        # FAST: Check page text first (regex is faster than CSS)
+        page_text = response.text[:50000]  # Only check first 50k chars for speed
+        
+        # Look for batch patterns - prioritize 2024+ patterns first
+        batch_patterns = [
+            r'(W|S)(2[4-9]|[3-9][0-9])',  # W24, S24, W25, etc. (2024+ first)
+            r'20(2[4-9]|[3-9][0-9])',  # Years 2024-2099
+            r'(W|S)(1[0-9]|2[0-3])',  # Pre-2024 batches (for rejection)
+            r'20(0[0-9]|1[0-9]|2[0-3])',  # Pre-2024 years (for rejection)
+        ]
+        
+        for pattern in batch_patterns:
+            match = re.search(pattern, page_text, re.IGNORECASE)
+            if match:
+                return match.group(0).upper()
+        
+        # Fallback: Try CSS selectors (slower, but more thorough)
+        batch_selectors = [
+            '[class*="batch"]::text',
+            '[data-batch]::attr(data-batch)',
+        ]
+        
+        for selector in batch_selectors[:2]:  # Only try first 2 for speed
+            try:
+                batch_elements = response.css(selector).getall()
+                for elem in batch_elements[:1]:  # Only check first match
+                    if elem:
+                        return elem.strip().upper()
+            except:
+                continue
+        
+        return ''
+    
+    def _is_2024_or_later(self, batch_text):
+        """Check if the batch is from 2024 or later - STRICT FILTERING"""
+        if not batch_text:
+            return False  # STRICT: If we can't determine, skip it (2024+ only)
+        
+        batch_text = batch_text.upper()
+        
+        # Check for explicit pre-2024 years first (faster rejection)
+        if re.search(r'20(0[0-9]|1[0-9]|2[0-3])', batch_text):
+            return False
+        
+        # Check for pre-2024 batch codes
+        if re.search(r'(W|S)(0[0-9]|1[0-9]|2[0-3])', batch_text):
+            return False
+        
+        # Check for explicit 2024+ years
+        year_match = re.search(r'20(2[4-9]|[3-9][0-9])', batch_text)
+        if year_match:
+            year = int(year_match.group(0))
+            return year >= 2024
+        
+        # Check for 2024+ batch codes (W24 = Winter 2024, S24 = Summer 2024, etc.)
+        if re.search(r'(W|S)(2[4-9]|[3-9][0-9])', batch_text):
+            return True
+        
+        # STRICT: If we can't determine, skip it
+        return False
 
     def parse_company_detail(self, response):
-        """Parse individual company detail page for more information"""
+        """Parse individual company detail page - FAST with 2024+ filtering"""
         item = response.meta.get('item', YcCompanyItem())
+        batch_from_card = response.meta.get('batch_from_card')
         
-        # Initialize debug log if not already done
-        if not hasattr(self, 'debug_log') or self.debug_log is None:
-            self._init_debug_log()
+        # EARLY FILTERING: Check batch before processing - FAST
+        # If we already know it's pre-2024 from listing, skip immediately
+        if batch_from_card == 'PRE_2024':
+            self.skipped_count += 1
+            return
+        
+        # Extract batch from page quickly and filter
+        batch_text = self._extract_batch_year(response)
+        if batch_text and not self._is_2024_or_later(batch_text):
+            self.skipped_count += 1
+            if self.skipped_count % 100 == 0:
+                print(f'Skipped {self.skipped_count} pre-2024 companies...')
+            return  # Skip pre-2024 companies immediately
+        
+        # If no batch found and we couldn't determine from card, skip for strict filtering
+        if not batch_text and not batch_from_card:
+            self.skipped_count += 1
+            return  # Strict: only include companies where we can confirm 2024+
+        
+        self.processed_count += 1
         
         # Extract company name if not already set
         if not item.get('company_name'):
@@ -237,11 +299,6 @@ class YcCompaniesSpider(scrapy.Spider):
                 item['company_name'] = company_name.strip().replace(' | Y Combinator', '').strip()
         
         company_name = item.get('company_name', 'Unknown')
-        
-        # Write to debug log
-        self._write_debug(f"\n{'='*80}\n")
-        self._write_debug(f"COMPANY: {company_name}\n")
-        self._write_debug(f"URL: {response.url}\n")
         
         # Extract company website - look for the actual company website link
         # Exclude YC, social media, and other common non-company links
@@ -297,10 +354,7 @@ class YcCompaniesSpider(scrapy.Spider):
                 seen_urls.add(normalized)
                 unique_linkedin_urls.append(normalized)
         
-        self._write_debug(f"LinkedIn links found: {len(unique_linkedin_urls)}\n")
-        if unique_linkedin_urls:
-            for i, url in enumerate(unique_linkedin_urls[:5], 1):
-                self._write_debug(f"  {i}. {url}\n")
+        # Removed debug logging for speed
         
         # PRIMARY METHOD: Extract names from LinkedIn URL slugs
         # LinkedIn URLs like "linkedin.com/in/emre-kaplaner-7b3a3b15b/" contain the name in the slug
@@ -314,9 +368,6 @@ class YcCompaniesSpider(scrapy.Spider):
                 
                 slug_parts = slug.split('-')
                 name_parts = []
-                
-                # Debug: log the slug parts
-                self._write_debug(f"    Processing slug: {slug}, parts: {slug_parts}\n")
                 
                 # Work forwards and stop when we hit an ID-like part
                 for part in slug_parts:
@@ -360,13 +411,9 @@ class YcCompaniesSpider(scrapy.Spider):
                     
                     if is_id:
                         # Found an ID, stop collecting (everything before this is the name)
-                        self._write_debug(f"      Detected ID part: '{part}', stopping. Name parts so far: {name_parts}\n")
                         break
                     else:
                         name_parts.append(part)
-                
-                # Debug: log name parts before filtering
-                self._write_debug(f"    Name parts before filtering: {name_parts}\n")
                 
                 # Filter out very short single-character parts unless it's a middle initial
                 if len(name_parts) > 1:
@@ -383,9 +430,6 @@ class YcCompaniesSpider(scrapy.Spider):
                             filtered_parts.append(part)
                     name_parts = filtered_parts if filtered_parts else name_parts
                 
-                # Debug: log name parts after filtering
-                self._write_debug(f"    Name parts after filtering: {name_parts}\n")
-                
                 # Need at least 2 parts for a full name, but accept single if it looks like a name
                 if len(name_parts) >= 2:
                     name = ' '.join(part.capitalize() for part in name_parts)
@@ -395,9 +439,6 @@ class YcCompaniesSpider(scrapy.Spider):
                     name = name_parts[0].capitalize()
                 else:
                     name = None
-                
-                # Debug: log final name
-                self._write_debug(f"    Extracted name: '{name}' (from {len(name_parts)} parts)\n")
                 
                 # Validate and clean the name
                 if name:
@@ -409,10 +450,6 @@ class YcCompaniesSpider(scrapy.Spider):
                         # Single word with digits - remove trailing digits
                         name = re.sub(r'(\w+)\d{2,}$', r'\1', name)
                     name = name.strip()
-                    
-                    # Debug: log if name was modified
-                    if name != original_name:
-                        self._write_debug(f"  Cleaned '{original_name}' -> '{name}'\n")
                     
                     if self._is_valid_name(name, founders_names):
                         founders_names.append(name)
@@ -512,13 +549,9 @@ class YcCompaniesSpider(scrapy.Spider):
         item['founders_linkedin'] = ', '.join(set(founders_linkedin)) if founders_linkedin else ''
         item['founders_twitter'] = ', '.join(set(founders_twitter)) if founders_twitter else ''
         
-        # Final debug summary
-        self._write_debug(f"\nFINAL RESULTS for {company_name}:\n")
-        if founders_names:
-            self._write_debug(f"✓ Found {len(founders_names)} founder(s): {', '.join(founders_names)}\n")
-        else:
-            self._write_debug(f"✗ NO FOUNDER NAMES FOUND\n")
-        self._write_debug(f"{'='*80}\n\n")
+        # Print progress every 50 companies
+        if self.processed_count % 50 == 0:
+            print(f'Processed {self.processed_count} companies (2024+), skipped {self.skipped_count} pre-2024...')
         
         # Always yield if we have a company name, even if no founders were found
         if item.get('company_name'):

@@ -116,38 +116,35 @@ class SeleniumMiddleware:
             spider.logger.info(f'Processing listing page {request.url} with Selenium')
             try:
                 self.driver.set_page_load_timeout(30)  # 30 second timeout
+                spider.logger.info(f'Loading URL: {request.url}')
+                print(f'Loading URL: {request.url}')
                 self.driver.get(request.url)
                 
-                # Wait for content to load (reduced from 1s)
-                time.sleep(0.5)
+                # Minimal wait for content to load
+                time.sleep(0.2)  # Reduced wait for speed
                 
-                # Scroll to load more content (infinite scroll) - OPTIMIZED for speed
-                spider.logger.info('Starting infinite scroll to load all companies...')
+                # Scroll to load more content (infinite scroll) - SUPER FAST
                 last_height = self.driver.execute_script("return document.body.scrollHeight")
                 scroll_attempts = 0
-                max_scrolls = 50  # Reduced from 100 - more efficient stopping
+                max_scrolls = 100  # More scrolls to ensure we get all companies
                 no_change_count = 0
                 last_company_count = 0
                 start_time = time.time()
-                max_scroll_time = 120  # Max 2 minutes for scrolling
+                max_scroll_time = 90  # 90 seconds max for scrolling
                 
                 while scroll_attempts < max_scrolls and (time.time() - start_time) < max_scroll_time:
-                    # Scroll down
-                    self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(0.3)  # Reduced from 1.5s to 0.3s for faster scrolling
+                    # Scroll down faster - use smooth scroll with larger jumps
+                    self.driver.execute_script("window.scrollBy(0, window.innerHeight * 2);")
+                    time.sleep(0.05)  # Reduced delay for maximum speed
                     
-                    # Check company count every 3 scrolls (not every scroll - saves time)
-                    if scroll_attempts % 3 == 0:
+                    # Check company count every 10 scrolls (less frequent checks = faster)
+                    if scroll_attempts % 10 == 0:
                         try:
-                            script = """
-                            var links = document.querySelectorAll('a[href*="/companies/"]:not([href*="/companies?"])');
-                            var hrefs = Array.from(links).map(l => l.href).filter(h => h && h.includes('/companies/') && !h.includes('companies?'));
-                            return new Set(hrefs).size;
-                            """
+                            script = "return document.querySelectorAll('a[href*=\"/companies/\"]:not([href*=\"/companies?\"])').length;"
                             current_company_count = self.driver.execute_script(script)
                             
                             if current_company_count and current_company_count > last_company_count:
-                                spider.logger.info(f'Loaded {current_company_count} companies so far...')
+                                print(f'Loaded {current_company_count} companies...')
                                 last_company_count = current_company_count
                                 no_change_count = 0
                             else:
@@ -155,23 +152,36 @@ class SeleniumMiddleware:
                         except:
                             pass
                     
-                    # Check scroll height
-                    new_height = self.driver.execute_script("return document.body.scrollHeight")
-                    if new_height == last_height:
-                        no_change_count += 1
-                        if no_change_count >= 3:  # Reduced from 5 to 3 - stop faster
-                            spider.logger.info(f'No new content after {no_change_count} scrolls, stopping')
-                            break
-                    else:
-                        no_change_count = 0
-                        last_height = new_height
+                    # Check scroll height less frequently
+                    if scroll_attempts % 3 == 0:
+                        new_height = self.driver.execute_script("return document.body.scrollHeight")
+                        if new_height == last_height:
+                            no_change_count += 1
+                            if no_change_count >= 5:  # Require more consistent no-change for exit
+                                break
+                        else:
+                            no_change_count = 0
+                            last_height = new_height
                     
                     scroll_attempts += 1
                 
                 spider.logger.info(f'Finished scrolling after {scroll_attempts} attempts ({int(time.time() - start_time)}s), found {last_company_count} companies')
+                print(f'Finished scrolling after {scroll_attempts} attempts ({int(time.time() - start_time)}s), found {last_company_count} companies')
                 
                 # Get page source after scrolling
                 body = self.driver.page_source
+                
+                # Debug: Check if page has content
+                if len(body) < 1000:
+                    spider.logger.warning(f'Page source is very short ({len(body)} chars) - may not have loaded')
+                    print(f'WARNING: Page source is very short ({len(body)} chars) - may not have loaded')
+                else:
+                    # Check if we can find company links in the page source
+                    import re
+                    company_link_count = len(re.findall(r'/companies/[^"\'<>?\s]+', body))
+                    spider.logger.info(f'Found {company_link_count} company links in page source')
+                    print(f'Found {company_link_count} company links in page source')
+                
                 return HtmlResponse(url=request.url, body=body, encoding='utf-8', request=request)
             except Exception as e:
                 spider.logger.error(f'Error processing request with Selenium: {e}')

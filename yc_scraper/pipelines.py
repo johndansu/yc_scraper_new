@@ -9,6 +9,10 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill
 from openpyxl.utils import get_column_letter
 import re
+import os
+import shutil
+import tempfile
+import gc
 
 
 class ExcelExportPipeline:
@@ -18,57 +22,82 @@ class ExcelExportPipeline:
         self.items = []
         self.original_urls = []  # Store original URLs for hyperlinks
         self.output_file = 'yc_companies.xlsx'
-        self.write_every = 10  # Write to Excel every 10 items for real-time updates
+        self.write_every = 50  # Write every 50 items for better speed
         self.last_write_count = 0
+        self.skip_formatting_during_scrape = True  # Skip formatting during scrape, format once at end
+        
+        # Check if Excel file is writable
+        if os.path.exists(self.output_file):
+            try:
+                # Try to open in append mode to check if it's locked
+                test_file = open(self.output_file, 'r+b')
+                test_file.close()
+                print("ExcelExportPipeline initialized - Excel file is writable")
+            except PermissionError:
+                print(f"WARNING: {self.output_file} may be open in Excel! Close it for updates to work.")
+            except Exception as e:
+                print(f"ExcelExportPipeline initialized - file check: {e}")
+        else:
+            print("ExcelExportPipeline initialized - will create new Excel file")
+        
+        print("ExcelExportPipeline: Will write every item for real-time updates")
 
     def process_item(self, item, spider):
-        adapter = ItemAdapter(item)
-        
-        # Clean and format each field
-        company_name = adapter.get('company_name', '').strip()
-        
-        # Format company website to short format (www.example.com)
-        company_website_raw = adapter.get('company_website', '').strip()
-        company_website = self._format_website(company_website_raw)
-        
-        # Clean founder names - remove any URLs, keep only text
-        founders_name_raw = adapter.get('founders_name', '').strip()
-        founders_name = self._clean_founder_names(founders_name_raw)
-        
-        # Format LinkedIn links to short format
-        founders_linkedin_raw = adapter.get('founders_linkedin', '').strip()
-        founders_linkedin = self._format_linkedin(founders_linkedin_raw)
-        
-        # Format Twitter links to short format
-        founders_twitter_raw = adapter.get('founders_twitter', '').strip()
-        founders_twitter = self._format_twitter(founders_twitter_raw)
-        
-        item_dict = {
-            'company_name': company_name,
-            'company_website': company_website,
-            'founders_name': founders_name,
-            'founders_linkedin': founders_linkedin,
-            'founders_twitter': founders_twitter
-        }
-        self.items.append(item_dict)
-        
-        # Store original URLs for hyperlink creation
-        self.original_urls.append({
-            'company_website': company_website_raw,
-            'founders_linkedin': founders_linkedin_raw,
-            'founders_twitter': founders_twitter_raw
-        })
-        
-        # Incremental write - update Excel every N items
-        if len(self.items) - self.last_write_count >= self.write_every:
-            self._write_excel_incremental(spider)
-            self.last_write_count = len(self.items)
-        
-        return item
+        try:
+            adapter = ItemAdapter(item)
+            
+            # Clean and format each field
+            company_name = adapter.get('company_name', '').strip()
+            
+            # Format company website to short format (www.example.com)
+            company_website_raw = adapter.get('company_website', '').strip()
+            company_website = self._format_website(company_website_raw)
+            
+            # Clean founder names - remove any URLs, keep only text
+            founders_name_raw = adapter.get('founders_name', '').strip()
+            founders_name = self._clean_founder_names(founders_name_raw)
+            
+            # Format LinkedIn links to short format
+            founders_linkedin_raw = adapter.get('founders_linkedin', '').strip()
+            founders_linkedin = self._format_linkedin(founders_linkedin_raw)
+            
+            # Format Twitter links to short format
+            founders_twitter_raw = adapter.get('founders_twitter', '').strip()
+            founders_twitter = self._format_twitter(founders_twitter_raw)
+            
+            item_dict = {
+                'company_name': company_name,
+                'company_website': company_website,
+                'founders_name': founders_name,
+                'founders_linkedin': founders_linkedin,
+                'founders_twitter': founders_twitter
+            }
+            self.items.append(item_dict)
+            
+            # Store original URLs for hyperlink creation
+            self.original_urls.append({
+                'company_website': company_website_raw,
+                'founders_linkedin': founders_linkedin_raw,
+                'founders_twitter': founders_twitter_raw
+            })
+            
+            # Incremental write - update Excel every N items
+            if len(self.items) - self.last_write_count >= self.write_every:
+                self._write_excel_incremental(spider)
+                self.last_write_count = len(self.items)
+            
+            return item
+        except Exception as e:
+            print(f"PIPELINE ERROR: {e}")
+            import traceback
+            traceback.print_exc()
+            spider.logger.error(f'Error in process_item: {e}')
+            return item  # Return item anyway to continue
 
     def _write_excel_incremental(self, spider):
         """Write current items to Excel file incrementally"""
         if not self.items:
+            print("PIPELINE: No items to write")
             return
         
         try:
@@ -99,14 +128,31 @@ class ExcelExportPipeline:
             df = df[[col for col in column_order if col in df.columns]]
             
             # Write to Excel (will overwrite existing file)
-            df.to_excel(self.output_file, index=False, engine='openpyxl')
+            try:
+                df.to_excel(self.output_file, index=False, engine='openpyxl')
+                print(f'Saved {len(self.items)} companies to {self.output_file}')
+            except PermissionError as pe:
+                error_msg = f"Cannot write Excel file - it may be open in Excel! Close {self.output_file} and try again. Error: {pe}"
+                print(f"PIPELINE ERROR: {error_msg}")
+                spider.logger.error(error_msg)
+            except Exception as e:
+                error_msg = f'Error writing Excel: {e}'
+                print(f"PIPELINE ERROR: {error_msg}")
+                spider.logger.error(error_msg)
+                import traceback
+                traceback.print_exc()
             
-            # Format the Excel file
-            self._format_excel_file(self.output_file)
+            # Skip formatting during scraping for maximum speed
+            # Formatting will be done once at the end
             
-            spider.logger.info(f'📊 Progress: Saved {len(self.items)} companies to {self.output_file}')
+            spider.logger.info(f'Progress: Saved {len(self.items)} companies to {self.output_file}')
+            print(f'SUCCESS: Saved {len(self.items)} companies to {self.output_file}')
         except Exception as e:
-            spider.logger.error(f'Error writing Excel incrementally: {e}')
+            error_msg = f'Error writing Excel incrementally: {e}'
+            spider.logger.error(error_msg)
+            print(f'PIPELINE ERROR: {error_msg}')
+            import traceback
+            traceback.print_exc()
             # Don't raise - continue scraping even if Excel write fails
     
     def close_spider(self, spider):
@@ -117,6 +163,15 @@ class ExcelExportPipeline:
         
         # Final write with all items (in case there are any remaining)
         self._write_excel_incremental(spider)
+        
+        # Format Excel file once at the end (better than formatting during scraping)
+        print(f'Formatting Excel file...')
+        try:
+            self._format_excel_file(self.output_file)
+            print(f'Excel file formatted successfully')
+        except Exception as e:
+            print(f'Warning: Excel formatting skipped due to error: {e}')
+            spider.logger.warning(f'Excel formatting skipped: {e}')
         
         spider.logger.info(f'✅ Final export complete: {len(self.items)} companies saved to {self.output_file}')
     
@@ -248,6 +303,10 @@ class ExcelExportPipeline:
     def _format_excel_file(self, filename):
         """Format the Excel file with headers, hyperlinks, and column widths"""
         try:
+            # Skip formatting if file doesn't exist or is locked
+            import os
+            if not os.path.exists(filename):
+                return
             wb = load_workbook(filename)
             ws = wb.active
             

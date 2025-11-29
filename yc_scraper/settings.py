@@ -18,15 +18,16 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.1  # Minimal delay for maximum speed
-RANDOMIZE_DOWNLOAD_DELAY = 0.05
+DOWNLOAD_DELAY = 0  # No delay for maximum speed
+RANDOMIZE_DOWNLOAD_DELAY = 0
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 16  # Maximum concurrency for fastest scraping
-CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 100  # Maximum concurrency for fastest scraping
+CONCURRENT_REQUESTS_PER_IP = 100
+CONCURRENT_REQUESTS = 100  # Global concurrent requests limit
 
 # Add timeout to prevent hanging
-DOWNLOAD_TIMEOUT = 30  # 30 second timeout per request
+DOWNLOAD_TIMEOUT = 15  # 15 second timeout per request (faster failure = faster scraping)
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True

@@ -22,12 +22,12 @@ DOWNLOAD_DELAY = 0  # No delay for maximum speed
 RANDOMIZE_DOWNLOAD_DELAY = 0
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 100  # Maximum concurrency for fastest scraping
-CONCURRENT_REQUESTS_PER_IP = 100
-CONCURRENT_REQUESTS = 100  # Global concurrent requests limit
+CONCURRENT_REQUESTS_PER_DOMAIN = 200  # MAXIMUM concurrency - SUPER FAST
+CONCURRENT_REQUESTS_PER_IP = 200
+CONCURRENT_REQUESTS = 200  # Global concurrent requests limit - MAXIMUM SPEED
 
 # Add timeout to prevent hanging
-DOWNLOAD_TIMEOUT = 15  # 15 second timeout per request (faster failure = faster scraping)
+DOWNLOAD_TIMEOUT = 10  # 10 second timeout - faster failure = faster scraping
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True
@@ -52,7 +52,7 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     'yc_scraper.middlewares.YcScraperDownloaderMiddleware': 543,
-    'yc_scraper.middlewares.SeleniumMiddleware': 544,
+    'yc_scraper.middlewares.PlaywrightMiddleware': 544,
 }
 
 # Enable or disable extensions
@@ -69,5 +69,7 @@ ITEM_PIPELINES = {
 
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
-TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'
+# Use SelectReactor instead of AsyncioReactor to work with Playwright sync API
+# This avoids the "Playwright Sync API inside asyncio loop" error
+TWISTED_REACTOR = 'twisted.internet.selectreactor.SelectReactor'
 

@@ -156,15 +156,39 @@ class YcCompaniesSpider(scrapy.Spider):
                             seen_urls.add(company_slug)
                             all_companies.append(element)
         
-        print(f'Found {len(all_companies)} company links - filtering to 2024+ only...')
+        # Strategy 3: Regex fallback - extract from HTML directly (ALWAYS use this - most reliable)
+        html_text = response.text
+        # Find all /companies/ URLs in the HTML - more comprehensive pattern
+        company_urls = re.findall(r'["\']([^"\']*\/companies\/[^"\'\?\s&<>]+)', html_text)
+        # Also try without quotes
+        company_urls2 = re.findall(r'href=["\']?([^"\'\s<>]*\/companies\/[^"\'\?\s&<>]+)', html_text, re.IGNORECASE)
+        company_urls.extend(company_urls2)
+        
+        for url in company_urls:
+            if 'companies?' not in url and '/companies/' in url:
+                parts = url.split('/companies/')
+                if len(parts) > 1:
+                    company_slug = parts[-1].split('?')[0].split('#')[0].strip()
+                    # Filter out invalid slugs
+                    if company_slug and company_slug not in seen_urls and company_slug != 'companies' and len(company_slug) > 1:
+                        seen_urls.add(company_slug)
+                        # Create a mock element dict for consistency
+                        full_url = response.urljoin(url if url.startswith('http') else f'/companies/{company_slug}')
+                        all_companies.append({'href': url, 'url': full_url})
+        
+        print(f'✅ Found {len(all_companies)} total company links - filtering to 2024+ only...')
         
         processed_urls = set()
         company_count = 0
         filtered_count = 0
         
         for element in all_companies:
-            # Get company detail page URL
-            company_link = element.css('::attr(href)').get() or element.xpath('./@href').get()
+            # Get company detail page URL - handle both Selector objects and dicts
+            if isinstance(element, dict):
+                company_link = element.get('url') or element.get('href')
+            else:
+                company_link = element.css('::attr(href)').get() or element.xpath('./@href').get()
+            
             if not company_link:
                 continue
             
@@ -172,8 +196,10 @@ class YcCompaniesSpider(scrapy.Spider):
                 company_link = response.urljoin(company_link)
                 
             if '/companies/' in company_link and company_link not in processed_urls:
-                # Extract batch from card - FAST filter
-                batch_from_card = self._extract_batch_from_listing_card(element)
+                # Extract batch from card - FAST filter (skip for dict elements)
+                batch_from_card = None
+                if not isinstance(element, dict):
+                    batch_from_card = self._extract_batch_from_listing_card(element)
                 
                 # STRICT 2024+ FILTERING: Skip immediately if pre-2024
                 if batch_from_card == 'PRE_2024':
@@ -236,9 +262,9 @@ class YcCompaniesSpider(scrapy.Spider):
         return ''
     
     def _is_2024_or_later(self, batch_text):
-        """Check if the batch is from 2024 or later - STRICT FILTERING"""
+        """Check if the batch is from 2024 or later - LENIENT for 2024+"""
         if not batch_text:
-            return False  # STRICT: If we can't determine, skip it (2024+ only)
+            return True  # LENIENT: If we can't determine, include it (better to over-include)
         
         batch_text = batch_text.upper()
         
@@ -282,10 +308,11 @@ class YcCompaniesSpider(scrapy.Spider):
                 print(f'Skipped {self.skipped_count} pre-2024 companies...')
             return  # Skip pre-2024 companies immediately
         
-        # If no batch found and we couldn't determine from card, skip for strict filtering
+        # If no batch found, include it (better to over-include than miss 2024+ companies)
+        # Only skip if we're CERTAIN it's pre-2024
         if not batch_text and not batch_from_card:
-            self.skipped_count += 1
-            return  # Strict: only include companies where we can confirm 2024+
+            # Include it - can't determine batch, so include to be safe
+            pass
         
         self.processed_count += 1
         

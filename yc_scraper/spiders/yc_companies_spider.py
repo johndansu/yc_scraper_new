@@ -36,8 +36,8 @@ class YcCompaniesSpider(scrapy.Spider):
     def closed(self, reason):
         """Called when spider closes"""
         print(f"\n=== Scraping Complete ===")
-        print(f"Processed: {getattr(self, 'processed_count', 0)} companies (2024+)")
-        print(f"Skipped: {getattr(self, 'skipped_count', 0)} companies (pre-2024)")
+        print(f"Processed: {getattr(self, 'processed_count', 0)} companies (2024, 2025, 2026 ONLY)")
+        print(f"Skipped: {getattr(self, 'skipped_count', 0)} companies (not 2024-2026)")
 
     def _is_valid_name(self, text, existing_names):
         """Validate if extracted text is a plausible founder name"""
@@ -97,29 +97,29 @@ class YcCompaniesSpider(scrapy.Spider):
         return True
 
     def _extract_batch_from_listing_card(self, element):
-        """Try to extract batch/year info from a company card on the listing page - FAST"""
+        """Try to extract batch/year info from a company card - STRICT: Only 2024, 2025, 2026"""
         # Get minimal text for speed
         card_text = ' '.join(element.css('::text').getall())
         card_text = ' '.join(card_text.split())  # Normalize whitespace
         
-        # Look for batch patterns - prioritize 2024+ patterns first
+        # STRICT: Only check for 2024, 2025, 2026 patterns
         batch_patterns = [
-            r'(W|S)(2[4-9]|[3-9][0-9])',  # W24, S24, W25, etc.
-            r'20(2[4-9]|[3-9][0-9])',  # 2024, 2025, etc. (check years first)
-            r'(Winter|Summer|Fall|Spring)\s+20(2[4-9]|[3-9][0-9])',  # Winter 2024, etc.
+            r'(W|S)(24|25|26)',  # W24, S24, W25, S25, W26, S26 ONLY
+            r'20(24|25|26)',  # 2024, 2025, 2026 ONLY
+            r'(Winter|Summer|Fall|Spring)\s+20(24|25|26)',  # Winter 2024, etc. ONLY
         ]
         
         for pattern in batch_patterns:
             match = re.search(pattern, card_text, re.IGNORECASE)
             if match:
                 batch = match.group(0).upper()
-                # Quick check - if it's clearly pre-2024, return early
-                if re.search(r'(W|S)(1[0-9]|2[0-3])', batch) or re.search(r'20(1[0-9]|2[0-3])', batch):
-                    return 'PRE_2024'  # Signal it's pre-2024
-                # Check if it's 2024+
-                if re.search(r'(W|S)(2[4-9]|[3-9][0-9])', batch) or re.search(r'20(2[4-9]|[3-9][0-9])', batch):
+                # Check if it's 2024, 2025, or 2026 using the strict function
+                if self._is_2024_2025_2026_only(batch):
                     return batch
-        return None
+                # If it matches pattern but isn't 2024-2026, skip it
+                return 'SKIP'  # Signal it's not in our target years
+        
+        return None  # Can't determine - will check on detail page
     
     def parse(self, response):
         """Parse the Y Combinator companies page - FAST with 2024+ filtering"""
@@ -176,7 +176,7 @@ class YcCompaniesSpider(scrapy.Spider):
                         full_url = response.urljoin(url if url.startswith('http') else f'/companies/{company_slug}')
                         all_companies.append({'href': url, 'url': full_url})
         
-        print(f'✅ Found {len(all_companies)} total company links - filtering to 2024+ only...')
+        print(f'✅ Found {len(all_companies)} total company links - filtering to 2024, 2025, 2026 ONLY...')
         
         processed_urls = set()
         company_count = 0
@@ -201,8 +201,13 @@ class YcCompaniesSpider(scrapy.Spider):
                 if not isinstance(element, dict):
                     batch_from_card = self._extract_batch_from_listing_card(element)
                 
-                # STRICT 2024+ FILTERING: Skip immediately if pre-2024
-                if batch_from_card == 'PRE_2024':
+                # STRICT 2024-2026 ONLY FILTERING: Skip if not 2024-2026
+                if batch_from_card == 'SKIP':
+                    filtered_count += 1
+                    continue
+                
+                # Skip if we determined it's not 2024-2026
+                if batch_from_card and batch_from_card != 'SKIP' and not self._is_2024_2025_2026_only(batch_from_card):
                     filtered_count += 1
                     continue
                 
@@ -213,7 +218,7 @@ class YcCompaniesSpider(scrapy.Spider):
                 
                 company_count += 1
                 if company_count % 50 == 0:
-                    print(f'Queued {company_count} companies for processing (filtered {filtered_count} pre-2024)...')
+                    print(f'Queued {company_count} companies for processing (filtered {filtered_count} not 2024-2026)...')
                 
                 item = YcCompanyItem()
                 yield scrapy.Request(
@@ -221,7 +226,7 @@ class YcCompaniesSpider(scrapy.Spider):
                     callback=self.parse_company_detail,
                     meta={'item': item, 'batch_from_card': batch_from_card},
                     dont_filter=False,
-                    priority=1 if batch_from_card and batch_from_card != 'PRE_2024' else 0
+                    priority=1 if batch_from_card and batch_from_card != 'SKIP' and self._is_2024_2025_2026_only(batch_from_card) else 0
                 )
         
         print(f'Total: {company_count} companies queued, {filtered_count} filtered out on listing page')
@@ -261,32 +266,34 @@ class YcCompaniesSpider(scrapy.Spider):
         
         return ''
     
-    def _is_2024_or_later(self, batch_text):
-        """Check if the batch is from 2024 or later - LENIENT for 2024+"""
+    def _is_2024_2025_2026_only(self, batch_text):
+        """STRICT: Check if the batch is ONLY from 2024, 2025, or 2026"""
         if not batch_text:
-            return True  # LENIENT: If we can't determine, include it (better to over-include)
+            return False  # STRICT: If we can't determine, skip it
         
         batch_text = batch_text.upper()
         
-        # Check for explicit pre-2024 years first (faster rejection)
-        if re.search(r'20(0[0-9]|1[0-9]|2[0-3])', batch_text):
-            return False
-        
-        # Check for pre-2024 batch codes
-        if re.search(r'(W|S)(0[0-9]|1[0-9]|2[0-3])', batch_text):
-            return False
-        
-        # Check for explicit 2024+ years
-        year_match = re.search(r'20(2[4-9]|[3-9][0-9])', batch_text)
+        # Check for explicit years - ONLY 2024, 2025, 2026
+        year_match = re.search(r'20(24|25|26)', batch_text)
         if year_match:
             year = int(year_match.group(0))
-            return year >= 2024
+            return year in [2024, 2025, 2026]
         
-        # Check for 2024+ batch codes (W24 = Winter 2024, S24 = Summer 2024, etc.)
-        if re.search(r'(W|S)(2[4-9]|[3-9][0-9])', batch_text):
+        # Check for batch codes - ONLY W24, S24, W25, S25, W26, S26, etc.
+        # W24 = Winter 2024, S24 = Summer 2024, W25 = Winter 2025, etc.
+        batch_code_match = re.search(r'(W|S)(24|25|26)', batch_text)
+        if batch_code_match:
             return True
         
-        # STRICT: If we can't determine, skip it
+        # Check for "Fall 2024", "Winter 2024", "Summer 2024", etc.
+        if re.search(r'(FALL|WINTER|SUMMER|SPRING)\s*20(24|25|26)', batch_text):
+            return True
+        
+        # Check for "2024", "2025", "2026" as standalone or in text
+        if re.search(r'\b20(24|25|26)\b', batch_text):
+            return True
+        
+        # Everything else is excluded (pre-2024, post-2026, unknown)
         return False
 
     def parse_company_detail(self, response):
@@ -302,17 +309,19 @@ class YcCompaniesSpider(scrapy.Spider):
         
         # Extract batch from page quickly and filter
         batch_text = self._extract_batch_year(response)
-        if batch_text and not self._is_2024_or_later(batch_text):
-            self.skipped_count += 1
-            if self.skipped_count % 100 == 0:
-                print(f'Skipped {self.skipped_count} pre-2024 companies...')
-            return  # Skip pre-2024 companies immediately
         
-        # If no batch found, include it (better to over-include than miss 2024+ companies)
-        # Only skip if we're CERTAIN it's pre-2024
-        if not batch_text and not batch_from_card:
-            # Include it - can't determine batch, so include to be safe
-            pass
+        # STRICT FILTERING: Only 2024, 2025, 2026 - skip everything else
+        if not batch_text:
+            # No batch found - skip it (STRICT)
+            self.skipped_count += 1
+            return
+        
+        # Check if batch is 2024, 2025, or 2026 ONLY
+        if not self._is_2024_2025_2026_only(batch_text):
+            self.skipped_count += 1
+            if self.skipped_count % 50 == 0:
+                print(f'Skipped {self.skipped_count} companies (not 2024-2026)...')
+            return  # Skip everything that's not 2024-2026
         
         self.processed_count += 1
         

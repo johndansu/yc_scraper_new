@@ -22,12 +22,12 @@ DOWNLOAD_DELAY = 0  # No delay for maximum speed
 RANDOMIZE_DOWNLOAD_DELAY = 0
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 200  # MAXIMUM concurrency - SUPER FAST
-CONCURRENT_REQUESTS_PER_IP = 200
-CONCURRENT_REQUESTS = 200  # Global concurrent requests limit - MAXIMUM SPEED
+CONCURRENT_REQUESTS_PER_DOMAIN = 500  # ULTRA HIGH concurrency - MAXIMUM SPEED
+CONCURRENT_REQUESTS_PER_IP = 500
+CONCURRENT_REQUESTS = 500  # Global concurrent requests limit - ULTRA FAST
 
 # Add timeout to prevent hanging
-DOWNLOAD_TIMEOUT = 10  # 10 second timeout - faster failure = faster scraping
+DOWNLOAD_TIMEOUT = 5  # 5 second timeout - ULTRA FAST failure = faster scraping
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True

@@ -22,7 +22,7 @@ class ExcelExportPipeline:
         self.items = []
         self.original_urls = []  # Store original URLs for hyperlinks
         self.output_file = 'yc_companies.xlsx'
-        self.write_every = 50  # Write every 50 items for better speed
+        self.write_every = 200  # Write every 200 items - less disk I/O = faster
         self.last_write_count = 0
         self.skip_formatting_during_scrape = True  # Skip formatting during scrape, format once at end
         

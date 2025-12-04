@@ -36,8 +36,8 @@ class YcCompaniesSpider(scrapy.Spider):
     def closed(self, reason):
         """Called when spider closes"""
         print(f"\n=== Scraping Complete ===")
-        print(f"Processed: {getattr(self, 'processed_count', 0)} companies (2024, 2025, 2026 ONLY)")
-        print(f"Skipped: {getattr(self, 'skipped_count', 0)} companies (not 2024-2026)")
+        print(f"Processed: {getattr(self, 'processed_count', 0)} companies (Target batches: Winter 2026, Fall 2025, Summer 2025, Spring 2025, Winter 2025, Fall 2024, Summer 2024)")
+        print(f"Skipped: {getattr(self, 'skipped_count', 0)} companies (not in target batches)")
 
     def _is_valid_name(self, text, existing_names):
         """Validate if extracted text is a plausible founder name"""
@@ -97,27 +97,27 @@ class YcCompaniesSpider(scrapy.Spider):
         return True
 
     def _extract_batch_from_listing_card(self, element):
-        """Try to extract batch/year info from a company card - STRICT: Only 2024, 2025, 2026"""
+        """Try to extract batch/year info from a company card - Target batches only"""
         # Get minimal text for speed
         card_text = ' '.join(element.css('::text').getall())
         card_text = ' '.join(card_text.split())  # Normalize whitespace
         
-        # STRICT: Only check for 2024, 2025, 2026 patterns
+        # Check for target batch patterns: Winter 2026, Fall 2025, Summer 2025, Spring 2025, Winter 2025, Fall 2024, Summer 2024
         batch_patterns = [
-            r'(W|S)(24|25|26)',  # W24, S24, W25, S25, W26, S26 ONLY
-            r'20(24|25|26)',  # 2024, 2025, 2026 ONLY
-            r'(Winter|Summer|Fall|Spring)\s+20(24|25|26)',  # Winter 2024, etc. ONLY
+            r'(Winter|Fall|Summer|Spring)\s+20(24|25|26)',  # Full season names
+            r'(W|F|S|SP)(24|25|26)',  # Batch codes W24, F24, S24, W25, F25, S25, W26
+            r'20(24|25|26)',  # Years 2024, 2025, 2026
         ]
         
         for pattern in batch_patterns:
             match = re.search(pattern, card_text, re.IGNORECASE)
             if match:
-                batch = match.group(0).upper()
-                # Check if it's 2024, 2025, or 2026 using the strict function
-                if self._is_2024_2025_2026_only(batch):
-                    return batch
-                # If it matches pattern but isn't 2024-2026, skip it
-                return 'SKIP'  # Signal it's not in our target years
+                batch = match.group(0)
+                # Check if it's one of our target batches
+                if self._is_target_batch(batch):
+                    return batch.upper()
+                # If it matches pattern but isn't a target batch, skip it
+                return 'SKIP'  # Signal it's not in our target batches
         
         return None  # Can't determine - will check on detail page
     
@@ -166,17 +166,25 @@ class YcCompaniesSpider(scrapy.Spider):
         
         for url in company_urls:
             if 'companies?' not in url and '/companies/' in url:
+                # Filter out image files and other non-company URLs
+                excluded_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.css', '.js', '.json']
+                if any(url.lower().endswith(ext) for ext in excluded_extensions):
+                    continue
+                
                 parts = url.split('/companies/')
                 if len(parts) > 1:
                     company_slug = parts[-1].split('?')[0].split('#')[0].strip()
-                    # Filter out invalid slugs
+                    # Filter out invalid slugs (images, files, etc.)
                     if company_slug and company_slug not in seen_urls and company_slug != 'companies' and len(company_slug) > 1:
+                        # Exclude if it looks like a file (has extension)
+                        if '.' in company_slug and any(company_slug.lower().endswith(ext) for ext in excluded_extensions):
+                            continue
                         seen_urls.add(company_slug)
                         # Create a mock element dict for consistency
                         full_url = response.urljoin(url if url.startswith('http') else f'/companies/{company_slug}')
                         all_companies.append({'href': url, 'url': full_url})
         
-        print(f'✅ Found {len(all_companies)} total company links - filtering to 2024, 2025, 2026 ONLY...')
+        print(f'✅ Found {len(all_companies)} total company links - filtering to target batches (Winter 2026, Fall 2025, Summer 2025, Spring 2025, Winter 2025, Fall 2024, Summer 2024)...')
         
         processed_urls = set()
         company_count = 0
@@ -207,7 +215,7 @@ class YcCompaniesSpider(scrapy.Spider):
                     continue
                 
                 # Skip if we determined it's not 2024-2026
-                if batch_from_card and batch_from_card != 'SKIP' and not self._is_2024_2025_2026_only(batch_from_card):
+                if batch_from_card and batch_from_card != 'SKIP' and not self._is_target_batch(batch_from_card):
                     filtered_count += 1
                     continue
                 
@@ -226,74 +234,102 @@ class YcCompaniesSpider(scrapy.Spider):
                     callback=self.parse_company_detail,
                     meta={'item': item, 'batch_from_card': batch_from_card},
                     dont_filter=False,
-                    priority=1 if batch_from_card and batch_from_card != 'SKIP' and self._is_2024_2025_2026_only(batch_from_card) else 0
+                    priority=1 if batch_from_card and batch_from_card != 'SKIP' and self._is_target_batch(batch_from_card) else 0
                 )
         
         print(f'Total: {company_count} companies queued, {filtered_count} filtered out on listing page')
 
     def _extract_batch_year(self, response):
-        """Extract the batch/year information from the company page - FAST"""
-        # FAST: Check page text first (regex is faster than CSS)
-        page_text = response.text[:50000]  # Only check first 50k chars for speed
+        """Extract the batch/year information from the company page - COMPREHENSIVE"""
+        # Check page text - look for target batch patterns
+        page_text = response.text[:100000]  # Check more text for better detection
         
-        # Look for batch patterns - prioritize 2024+ patterns first
-        batch_patterns = [
-            r'(W|S)(2[4-9]|[3-9][0-9])',  # W24, S24, W25, etc. (2024+ first)
-            r'20(2[4-9]|[3-9][0-9])',  # Years 2024-2099
-            r'(W|S)(1[0-9]|2[0-3])',  # Pre-2024 batches (for rejection)
-            r'20(0[0-9]|1[0-9]|2[0-3])',  # Pre-2024 years (for rejection)
+        # Target batch patterns - comprehensive matching
+        target_patterns = [
+            r'(Winter|Fall|Summer|Spring)\s+20(24|25|26)',  # Full names: Winter 2026, Fall 2025, etc.
+            r'(W|F|S|SP)(24|25|26)',  # Batch codes: W26, F25, S25, W25, F24, S24
+            r'20(24|25|26)',  # Years: 2024, 2025, 2026
         ]
         
-        for pattern in batch_patterns:
-            match = re.search(pattern, page_text, re.IGNORECASE)
-            if match:
-                return match.group(0).upper()
+        for pattern in target_patterns:
+            matches = re.findall(pattern, page_text, re.IGNORECASE)
+            if matches:
+                # Get the full match, not just groups
+                full_match = re.search(pattern, page_text, re.IGNORECASE)
+                if full_match:
+                    batch = full_match.group(0)
+                    if self._is_target_batch(batch):
+                        return batch.upper()
         
-        # Fallback: Try CSS selectors (slower, but more thorough)
+        # Try CSS selectors for batch information
         batch_selectors = [
             '[class*="batch"]::text',
             '[data-batch]::attr(data-batch)',
+            '[class*="Batch"]::text',
+            '[class*="BATCH"]::text',
+            'span::text',  # Sometimes batch is in a span
+            'div::text',   # Sometimes batch is in a div
         ]
         
-        for selector in batch_selectors[:2]:  # Only try first 2 for speed
+        for selector in batch_selectors:
             try:
                 batch_elements = response.css(selector).getall()
-                for elem in batch_elements[:1]:  # Only check first match
+                for elem in batch_elements:
                     if elem:
-                        return elem.strip().upper()
+                        elem_text = elem.strip().upper()
+                        # Check if this text contains a target batch
+                        if self._is_target_batch(elem_text):
+                            return elem_text
+                        # Also check if it contains batch patterns
+                        for pattern in target_patterns:
+                            match = re.search(pattern, elem_text, re.IGNORECASE)
+                            if match:
+                                batch = match.group(0)
+                                if self._is_target_batch(batch):
+                                    return batch.upper()
             except:
                 continue
         
         return ''
     
-    def _is_2024_2025_2026_only(self, batch_text):
-        """STRICT: Check if the batch is ONLY from 2024, 2025, or 2026"""
+    def _is_target_batch(self, batch_text):
+        """Check if the batch matches target batches: Winter 2026, Fall 2025, Summer 2025, Spring 2025, Winter 2025, Fall 2024, Summer 2024"""
         if not batch_text:
             return False  # STRICT: If we can't determine, skip it
         
-        batch_text = batch_text.upper()
+        batch_text = batch_text.upper().strip()
         
-        # Check for explicit years - ONLY 2024, 2025, 2026
-        year_match = re.search(r'20(24|25|26)', batch_text)
-        if year_match:
-            year = int(year_match.group(0))
-            return year in [2024, 2025, 2026]
-        
-        # Check for batch codes - ONLY W24, S24, W25, S25, W26, S26, etc.
-        # W24 = Winter 2024, S24 = Summer 2024, W25 = Winter 2025, etc.
-        batch_code_match = re.search(r'(W|S)(24|25|26)', batch_text)
-        if batch_code_match:
+        # Target batches to scrape - check for any match
+        # Winter 2026
+        if re.search(r'WINTER\s*2026|W26', batch_text):
             return True
         
-        # Check for "Fall 2024", "Winter 2024", "Summer 2024", etc.
-        if re.search(r'(FALL|WINTER|SUMMER|SPRING)\s*20(24|25|26)', batch_text):
+        # Fall 2025, Summer 2025, Spring 2025, Winter 2025
+        if re.search(r'(FALL|SUMMER|SPRING|WINTER)\s*2025', batch_text):
+            return True
+        if re.search(r'(F|S|SP|W)25', batch_text):  # F25, S25, SP25, W25
             return True
         
-        # Check for "2024", "2025", "2026" as standalone or in text
+        # Fall 2024, Summer 2024
+        if re.search(r'(FALL|SUMMER)\s*2024', batch_text):
+            return True
+        if re.search(r'(F|S)24', batch_text):  # F24, S24
+            return True
+        
+        # Also check for standalone years if they appear with season context elsewhere
+        # But be more lenient - if it's 2024, 2025, or 2026, check surrounding context
         if re.search(r'\b20(24|25|26)\b', batch_text):
-            return True
+            # If we see a year, check if there's any season indicator nearby
+            # This is a fallback for cases where batch format is different
+            if any(season in batch_text for season in ['FALL', 'SUMMER', 'SPRING', 'WINTER', 'F', 'S', 'W', 'SP']):
+                year_match = re.search(r'20(24|25|26)', batch_text)
+                if year_match:
+                    year = int(year_match.group(0))
+                    # Only accept if it's 2024, 2025, or 2026
+                    if year in [2024, 2025, 2026]:
+                        return True
         
-        # Everything else is excluded (pre-2024, post-2026, unknown)
+        # Everything else is excluded
         return False
 
     def parse_company_detail(self, response):
@@ -310,18 +346,24 @@ class YcCompaniesSpider(scrapy.Spider):
         # Extract batch from page quickly and filter
         batch_text = self._extract_batch_year(response)
         
-        # STRICT FILTERING: Only 2024, 2025, 2026 - skip everything else
+        # FILTERING: Only target batches - skip everything else
         if not batch_text:
             # No batch found - skip it (STRICT)
             self.skipped_count += 1
+            if self.skipped_count % 10 == 0:
+                print(f'Skipped {self.skipped_count} companies (no batch found)...')
             return
         
-        # Check if batch is 2024, 2025, or 2026 ONLY
-        if not self._is_2024_2025_2026_only(batch_text):
+        # Check if batch is one of our target batches
+        if not self._is_target_batch(batch_text):
             self.skipped_count += 1
-            if self.skipped_count % 50 == 0:
-                print(f'Skipped {self.skipped_count} companies (not 2024-2026)...')
-            return  # Skip everything that's not 2024-2026
+            if self.skipped_count % 10 == 0:
+                print(f'Skipped {self.skipped_count} companies (batch: {batch_text}, not in target batches)...')
+            return  # Skip everything that's not in target batches
+        
+        # Log successful match for debugging
+        if self.processed_count % 10 == 0:
+            print(f'✅ Processing company from batch: {batch_text}')
         
         self.processed_count += 1
         

@@ -144,10 +144,17 @@ class PlaywrightMiddleware:
 
     def process_request(self, request, spider):
         """Process request with Playwright for JavaScript pages"""
-        # Only use Playwright for the companies listing page (which has infinite scroll)
-        is_listing_page = '/companies?' in request.url or '/companies' in request.url.split('?')[0].split('#')[0] or request.url.endswith('/companies')
+        # ONLY use Playwright for the MAIN companies listing page (NOT individual company pages)
+        is_main_listing = (
+            request.url == 'https://www.ycombinator.com/companies' or 
+            request.url.endswith('/companies') or
+            '/companies?' in request.url or
+            (request.url.endswith('/companies') and 'ycombinator.com' in request.url)
+        )
+        # Make sure we're NOT using Playwright for individual company pages
+        is_company_page = '/companies/' in request.url and request.url != 'https://www.ycombinator.com/companies' and not request.url.endswith('/companies')
         
-        if is_listing_page and 'ycombinator.com' in request.url:
+        if is_main_listing and not is_company_page and 'ycombinator.com' in request.url:
             # Lazy initialize Playwright only when needed
             if not self._initialized:
                 if not self._initialize_playwright():
@@ -184,83 +191,178 @@ class PlaywrightMiddleware:
             # Create a new page for this request
             page = await self.context.new_page()
             
-            # Navigate - FAST
-            await page.goto(url, wait_until='domcontentloaded', timeout=20000)
-            await page.wait_for_timeout(200)  # 200ms for initial load
+            # Navigate - try multiple wait strategies with fallback
+            try:
+                await page.goto(url, wait_until='domcontentloaded', timeout=10000)  # 10s timeout - faster
+            except Exception as e:
+                spider.logger.warning(f'domcontentloaded timed out, trying without wait: {e}')
+                try:
+                    await page.goto(url, timeout=10000)
+                except:
+                    pass  # Continue anyway
             
-            # AGGRESSIVE scrolling to load ALL companies - ensure we get everything
-            print("Scrolling to load all companies...")
+            # Wait for React app to load and companies to start appearing
+            print("Waiting for companies to load...")
+            await page.wait_for_timeout(3000)  # 3 seconds for React to initialize
+            
+            # Wait for at least some company links to appear
+            try:
+                await page.wait_for_function(
+                    """
+                    () => {
+                        const links = Array.from(document.querySelectorAll('a[href*="/companies/"]'))
+                            .filter(a => {
+                                const href = a.getAttribute('href') || '';
+                                return href.includes('/companies/') && 
+                                       !href.includes('companies?') &&
+                                       !href.match(/\\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|json)$/i);
+                            });
+                        return links.length > 0;
+                    }
+                    """,
+                    timeout=10000
+                )
+                print("✅ Companies started loading!")
+            except:
+                print("⚠️ Companies may not have loaded yet, continuing anyway...")
+            
+            # Now scroll aggressively to load ALL companies
+            print("Scrolling to load ALL companies...")
             scroll_attempts = 0
             last_height = 0
             same_height_count = 0
             last_company_count = 0
             start_time = time.time()
-            max_time = 45  # 45 seconds to ensure all companies load
+            max_time = 60  # 60 seconds to load all companies (balance between speed and coverage)
             
             while (time.time() - start_time) < max_time:
                 # Scroll to bottom
                 await page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
-                await page.wait_for_timeout(50)  # 50ms - need time for content to load
+                await page.wait_for_timeout(20)  # 20ms - need time for content to load
                 
-                # Check company count and height every 5 scrolls
+                # Check company count every 5 scrolls
                 if scroll_attempts % 5 == 0:
                     try:
                         new_height = await page.evaluate("document.body.scrollHeight")
-                        current_company_count = await page.evaluate(
-                            "document.querySelectorAll('a[href*=\"/companies/\"]:not([href*=\"/companies?\"])').length"
-                        )
+                        current_company_count = await page.evaluate("""
+                            Array.from(document.querySelectorAll('a[href*="/companies/"]'))
+                                .filter(a => {
+                                    const href = a.getAttribute('href') || '';
+                                    return href.includes('/companies/') && 
+                                           !href.includes('companies?') &&
+                                           !href.match(/\\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|json)$/i);
+                                }).length
+                        """)
                         
+                        # Show progress
+                        if current_company_count and current_company_count > last_company_count:
+                            if current_company_count % 100 == 0:
+                                print(f'Loaded {current_company_count} companies so far...')
+                            last_company_count = current_company_count
+                        
+                        # Stop if no height change for 5 checks
                         if new_height == last_height:
                             same_height_count += 1
-                            if same_height_count >= 8:  # Need more consistency
-                                # Double-check company count hasn't changed
-                                if current_company_count == last_company_count:
+                            if same_height_count >= 5:
+                                # If we have 1000+ companies loaded, we might be done
+                                if current_company_count >= 1000:  # If we have 1000+, likely done
+                                    print(f'✅ Loaded {current_company_count} companies - likely all loaded')
                                     break
                         else:
                             same_height_count = 0
                             last_height = new_height
-                        
-                        if current_company_count and current_company_count > last_company_count:
-                            print(f'Loaded {current_company_count} companies so far...')
-                            last_company_count = current_company_count
                     except:
                         pass
                 
                 scroll_attempts += 1
-                
-                # Safety limit
-                if scroll_attempts > 300:
+                if scroll_attempts > 500:
                     break
             
-            # Extra scrolls to ensure everything loaded
-            print("Final scrolls to ensure all companies loaded...")
-            for _ in range(20):
-                await page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
-                await page.wait_for_timeout(30)
+            print(f'✅ Scrolling complete: {scroll_attempts} scrolls in {int(time.time() - start_time)}s')
             
-            # Get final company count
+            # Get final company count - exclude images and files
             try:
-                final_count = await page.evaluate(
-                    "document.querySelectorAll('a[href*=\"/companies/\"]:not([href*=\"/companies?\"])').length"
-                )
+                final_count = await page.evaluate("""
+                    Array.from(document.querySelectorAll('a[href*="/companies/"]'))
+                        .filter(a => {
+                            const href = a.getAttribute('href') || '';
+                            return href.includes('/companies/') && 
+                                   !href.includes('companies?') &&
+                                   !href.match(/\\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|json)$/i);
+                        }).length
+                """)
                 print(f'✅ Finished scrolling: Found {final_count} company links in page')
             except:
                 pass
             
             print('✅ Playwright: Finished scrolling - page loaded')
             
+            # Try to find companies via JavaScript BEFORE getting page content
+            company_links_js = []
+            try:
+                # Use JavaScript to find all company links in the DOM
+                company_links_js = await page.evaluate("""
+                    () => {
+                        const links = [];
+                        // Find all links with /companies/ in href
+                        document.querySelectorAll('a[href*="/companies/"]').forEach(a => {
+                            const href = a.getAttribute('href') || '';
+                            // Exclude query params, images, and other files
+                            if (href.includes('/companies/') && 
+                                !href.includes('companies?') && 
+                                !href.match(/\\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|json)$/i) &&
+                                !href.endsWith('.png') &&
+                                href.split('/companies/')[1] && 
+                                href.split('/companies/')[1].length > 0) {
+                                links.push(href);
+                            }
+                        });
+                        return [...new Set(links)]; // Remove duplicates
+                    }
+                """)
+                if company_links_js:
+                    spider.logger.info(f'✅ Found {len(company_links_js)} company links via JavaScript DOM query')
+                    print(f'✅ Found {len(company_links_js)} company links via JavaScript DOM query')
+                    for link in company_links_js[:5]:
+                        spider.logger.info(f'  - {link}')
+                        print(f'  - {link}')
+            except Exception as e:
+                spider.logger.warning(f'Could not query company links via JS: {e}')
+            
             # Get page content
             body = await page.content()
             await page.close()
+            
+            # Save HTML for debugging if no companies found
+            if not company_links_js and len(body) > 1000:
+                try:
+                    debug_file = 'debug_page_source.html'
+                    with open(debug_file, 'w', encoding='utf-8') as f:
+                        f.write(body)
+                    spider.logger.info(f'💾 Saved page HTML to {debug_file} for debugging')
+                    print(f'💾 Saved page HTML to {debug_file} for debugging')
+                except:
+                    pass
             
             # Check if page has content
             if len(body) < 1000:
                 spider.logger.warning(f'Page source is very short ({len(body)} chars) - may not have loaded')
             else:
                 import re
-                company_link_count = len(re.findall(r'/companies/[^"\'<>?\s]+', body))
-                spider.logger.info(f'Found {company_link_count} company links in page source')
-                print(f'Found {company_link_count} company links in page source')
+                # Find company links but exclude image files
+                all_links = re.findall(r'/companies/[^"\'<>?\s]+', body)
+                # Filter out image files and other non-company URLs
+                excluded_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.css', '.js', '.json']
+                company_links = [link for link in all_links if not any(link.lower().endswith(ext) for ext in excluded_extensions)]
+                company_link_count = len(company_links)
+                
+                spider.logger.info(f'Found {company_link_count} company links in page source (filtered from {len(all_links)} total)')
+                print(f'Found {company_link_count} company links in page source (filtered from {len(all_links)} total)')
+                
+                # If we found links via JS but not in HTML, log it
+                if company_links_js and not company_links:
+                    spider.logger.warning('⚠️ Found companies via JavaScript but not in HTML - page might use dynamic loading')
+                    print('⚠️ Found companies via JavaScript but not in HTML - page might use dynamic loading')
             
             return body
         except Exception as e:
